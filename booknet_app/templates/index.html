@@ -1,1 +1,153 @@
-<h1>Hello world</h1>
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="colored-section" id="title">
+
+    <div class="container-fluid">
+
+      <!-- Nav Bar -->
+
+      <nav class="navbar navbar-expand-lg navbar-dark">
+
+        <p class="navbar-brand">booknet</p>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                <a class="nav-link btn btn-primary signup-btn" href="#">Signup</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link btn btn-outline-secondary login-btn" href="#">Login</a>
+                </li>
+            </ul>
+            </div>
+      </nav>
+
+      <!-- Title -->
+
+      <div class="row">
+
+        <div class="col-lg-6">
+          <h1 class="big-heading">Discuss about your favorite books with everyone</h1>
+          <button type="button" class="btn btn-primary btn-lg signup-btn">Signup</button>
+        </div>
+
+        <div class="col-lg-6">
+          <img class="title-image" src="static/images/title_pic.jpg" alt="iphone-mockup">
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Features -->
+
+  <section class="white-section" id="features">
+
+    <div class="container-fluid">
+      <h2 class="section-heading">Why YOU should join</h2>
+      <div class="row">
+        <div class="feature-box col-lg-4">
+          <i class="icon fas fa-bullseye fa-4x"></i>
+          <h3 class="feature-title">Easy to use.</h3>
+          <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        </div>
+
+        <div class="feature-box col-lg-4">
+          <i class="icon fas fa-bullseye fa-4x"></i>
+          <h3 class="feature-title">Elite Clientele</h3>
+          <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+        </div>
+
+        <div class="feature-box col-lg-4">
+          <i class="icon fas fa-heart fa-4x"></i>
+          <h3 class="feature-title">Guaranteed to work.</h3>
+          <p>Find the love of your dog's life or your money back.</p>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+
+  <!-- Testimonials -->
+
+  <section class="colored-section" id="testimonials">
+
+    <div id="testimonial-carousel" class="carousel slide" data-ride="false">
+      <div class="carousel-inner">
+        <div class="carousel-item active container-fluid">
+          <h2 class="testimonial-text">I no longer have to sniff other dogs for love. I've found the hottest Corgi on TinDog. Woof.</h2>
+          <img class="testimonial-image" src="images/dog-img.jpg" alt="dog-profile">
+          <em>Pebbles, New York</em>
+        </div>
+        <div class="carousel-item container-fluid">
+          <h2 class="testimonial-text">My dog used to be so lonely, but with TinDog's help, they've found the love of their life. I think.</h2>
+          <img class="testimonial-image" src="static/images/lady-img.jpg" alt="lady-profile">
+          <em>Beverly, Illinois</em>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#testimonial-carousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" href="#testimonial-carousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+      </a>
+    </div>
+
+  </section>
+
+
+  <!-- Press -->
+
+  <section class="colored-section" id="press">
+    <img class="press-logo" src="static/images/techcrunch.png" alt="tc-logo">
+    <img class="press-logo" src="static/images/tnw.png" alt="tnw-logo">
+    <img class="press-logo" src="static/images/bizinsider.png" alt="biz-insider-logo">
+    <img class="press-logo" src="static/images/mashable.png" alt="mashable-logo">
+  </section>
+
+
+  <!-- Pricing -->
+
+  <section class="white-section" id="pricing">
+
+    <h2 class="section-heading">A Plan for Every Dog's Needs</h2>
+    <p>Simple and affordable price plans for your and your dog.</p>
+
+  </section>
+
+
+  <!-- Call to Action -->
+
+  <section class="colored-section" id="cta">
+
+    <div class="container-fluid">
+
+      <h3 class="big-heading">Finde dein nächsten Buchbuddy und Laden</h3>
+      <button class="signup-button btn btn-lg" type="button" href="">Signup</button>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+
+  <footer class="white-section" id="footer">
+    <div class="container-fluid">
+      <i class="social-icon fab fa-facebook-f fa-2x"></i>
+      <i class="social-icon fab fa-twitter fa-2x"></i>
+      <i class="social-icon fab fa-instagram fa-2x"></i>
+      <i class="social-icon fas fa-envelope fa-2x"></i>
+      <p>© Copyright 2022 Booknet</p>
+    </div>
+  </footer>
+
+{% endblock %}
