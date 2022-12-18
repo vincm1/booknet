@@ -1,23 +1,31 @@
-from booknet_app import db
+from booknet_app import db, login_manager
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 from datetime import datetime
 
-class User(db.Model):
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+class User(db.Model, UserMixin):
     
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String, nullable=False)
-    passwort = db.Column(db.String(15), nullable=False)
+    passwort_hash = db.Column(db.String, nullable=False)
     registration_date = db.Column(db.DateTime, default=datetime.now)
 
     def __init__(self, username, email, passwort):
         self.username = username
         self.email = email
-        self.passwort = passwort
+        self.passwort_hash = generate_password_hash(passwort)
+    
+    def check_passwort(self,passwort):
+        return check_password_hash(self.passwort_hash,passwort)
     
     def __repr__(self):
-        f"User with {self.id} and {self.username} {self.email} {self.passwort} created on {self.registration_date}."
+        f"User with {self.id} and {self.username} {self.email} {self.passwort_hash} created on {self.registration_date}."
 
 class Book(db.Model):
 

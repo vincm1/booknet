@@ -1,4 +1,6 @@
 {% block content %}
+<a href="{{url_for('books.add_book')}}">Buch hinzufügen</a>
+<a href="{{url_for('users.logout')}}">Logout</a>
     {% for book in books %} 
         <h3>{{book.titel}}</h3><br>
         <h6>{{book.author}}</h6><br>
