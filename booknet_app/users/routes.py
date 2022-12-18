@@ -11,11 +11,12 @@ def login_user():
 
 @users.route('/signup', methods=['GET', 'POST'])
 def signup_user():
+    
     form = RegistrationForm()
     
-    if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, passwort=form.passwort.data)
-        db.session.add(user)
-        db.session.commit(user)
-        flash('Erfolgreich angemeldet')
+    user = User(username=form.username.data, email=form.email.data, passwort=form.passwort.data)
+    db.session.add(user)
+    db.session.commit()
+    flash('Erfolgreich angemeldet')
+    
     return render_template('users/signup.html', form=form)

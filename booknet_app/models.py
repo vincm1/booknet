@@ -17,7 +17,5 @@ class User(db.Model):
         self.passwort = passwort
     
     def __repr__(self):
-        f"User with {self.id} and {self.name} created on {self.registration_date}."
-    
-    def create_user():
-        pass
+        f"User with {self.id} and {self.username} {self.email} {self.passwort} created on {self.registration_date}."
+
