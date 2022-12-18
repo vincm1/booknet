@@ -1,0 +1,9 @@
+{% block content %}
+    {% for book in books %} 
+        <h3>{{book.titel}}</h3><br>
+        <h6>{{book.author}}</h6><br>
+        <p>{{book.isbn}}</p>
+        <p>{{book.user_id}}</p>
+    {% endfor %}
+        
+{% endblock content %}

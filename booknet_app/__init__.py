@@ -19,10 +19,12 @@ migrate = Migrate(app,db)
 #### Import all Blueprints ####
 from booknet_app.core.routes import core
 from booknet_app.users.routes import users
+from booknet_app.books.routes import books
 from booknet_app.error_pages.handlers import error_pages
 
 
 ##### Register all blueprints #####
 app.register_blueprint(core)
 app.register_blueprint(users)
+app.register_blueprint(books)
 app.register_blueprint(error_pages)

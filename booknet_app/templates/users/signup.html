@@ -11,13 +11,14 @@
 {% endwith %}
 
     <form method="POST">
-        {{form.username.label}}{{form.username()}}
+        {{ form.hidden_tag() }}
+        {{ form.username.label }}{{ form.username ()}}
         <br>
-        {{form.email.label}}{{form.email()}}
+        {{ form.email.label }}{{ form.email() }}
         <br>
-        {{form.passwort.label}}{{form.passwort()}}
+        {{ form.passwort.label }}{{ form.passwort() }}
         <br>
-        {{form.submit()}}
+        {{ form.submit() }}
     </form>
     
 {% endblock %}
