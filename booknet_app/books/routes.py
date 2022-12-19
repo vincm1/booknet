@@ -24,7 +24,7 @@ def add_book():
 @books.route('/all_books', methods=['GET'])
 @login_required
 def all_books():
-
+    
     books = db.session.query(Book).all()
 
     return render_template("books/all_books.html", books=books)
