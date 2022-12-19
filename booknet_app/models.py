@@ -47,3 +47,24 @@ class Book(db.Model):
     
     def __repr__(self):
         f"Buch mit ID: {self.id} und Titel {self.titel} wurde von user:{self.user_id} angelegt."
+
+class Store(db.Model):
+
+    __tablename__ = 'stores'
+
+    users = db.relationship(User)
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    storename = db.Column(db.String(300), unique=True, nullable=False)
+    adresse = db.Column(db.String(), nullable=False)
+    beschreibung = db.Column(db.Text())
+
+    def __init__(self, storename, adresse, beschreibung, user_id):
+        self.storename = storename
+        self.adresse = adresse 
+        self.beschreibung = beschreibung
+        self.user_id = user_id
+    
+    def __repr__(self):
+        f"{self.storename} mit ID: {self.id} wurde von user:{self.user_id} angelegt."
