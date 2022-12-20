@@ -6,7 +6,7 @@ from wtforms import ValidationError
 from booknet_app.models import User
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
-    email = StringField('Email', validators=[Email(), DataRequired()])
+    email = EmailField('Email', validators=[Email(), DataRequired()])
     passwort = PasswordField('Passwort', validators=[DataRequired()])
     submit = SubmitField('Anmelden')
 
@@ -14,3 +14,8 @@ class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     passwort = PasswordField('Passwort', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+class EditUserForm(FlaskForm):
+    username = StringField('Nutzername')
+    email = EmailField('Email', validators=[Email()]) 
+    submit = SubmitField('Profil ändern!')

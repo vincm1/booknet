@@ -16,6 +16,8 @@ class User(db.Model, UserMixin):
     passwort_hash = db.Column(db.String, nullable=False)
     registration_date = db.Column(db.DateTime, default=datetime.now)
 
+    stores = db.relationship('Store', backref='creator', lazy=True)
+
     def __init__(self, username, email, passwort):
         self.username = username
         self.email = email

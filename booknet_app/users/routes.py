@@ -1,8 +1,9 @@
 from flask import Flask, Blueprint, render_template, flash, request, redirect, url_for
 from booknet_app import db
-from flask_login import login_user, login_required, logout_user
-from booknet_app.users.forms import RegistrationForm, LoginForm
-from booknet_app.models import User
+from flask_login import login_user, login_required, logout_user, current_user
+from booknet_app.users.forms import RegistrationForm, LoginForm, EditUserForm
+from booknet_app.stores.forms import AddStoreForm
+from booknet_app.models import User, Store
 
 users = Blueprint('users', __name__)
 
@@ -44,3 +45,26 @@ def signup_user():
 def logout():
     logout_user()
     return redirect(url_for('core.index'))
+
+@users.route('/account', methods=['GET', 'POST'])
+def edit_user():
+    
+    form = EditUserForm()
+    
+    if form.validate_on_submit() and request.method == "POST":
+    
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+
+        db.session.commit()
+        
+        flash('Profil erfolgreich geändert!')
+
+    return render_template('users/account.html', form=form)
+
+@users.route("/<username>")
+def user_stores(username):
+    form = AddStoreForm()
+    user = User.query.filter_by(username=username).first_or_404()
+    stores = Store.query.filter_by(creator=user).order_by(Store.storename.desc())
+    return render_template('users/user_stores.html', stores=stores, user=user, form=form)
