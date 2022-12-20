@@ -15,13 +15,12 @@
           <h5 class="modal-title" id="exampleModalLabel">Store hinzufügen</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form method="POST">
+        <form action="{{url_for('stores.add_store')}}" method="POST">
             <div class="modal-body">
                 {{form.hidden_tag()}}
                 <p>{{form.storename.label}}{{form.storename()}}</p><br>
                 <p>{{form.adresse.label}}{{form.adresse()}}</p><br>
                 <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p>
-                {{form.submit()}}
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -34,7 +33,8 @@
 
 <div class="container">
     {% for store in stores %} 
-        <h4>{{ store.name }}</h4>
+        <a href="{{ url_for('stores.store', store_id=store.id)}}" }}>{{ store.storename }}</a>
+        <p>{{ store.id }}</p>
         <p>{{ store.adresse }}</p>
         <p>{{ store.beschreibung }}</p>
     {% endfor %}

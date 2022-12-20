@@ -9,7 +9,9 @@ stores = Blueprint('stores', __name__)
 @login_required
 @stores.route('/stores', methods=['GET', 'POST'])
 def all_stores():
+
     form = AddStoreForm()
+    
     stores = db.session.query(Store).all()
     return render_template('stores/all_stores.html', stores=stores, form=form)
 
@@ -24,5 +26,12 @@ def add_store():
         beschreibung=form.beschreibung.data, user_id = current_user.id)
         db.session.add(store)
         db.session.commit()
-        flash('Store hinzugefügt!')
-        return render_template('stores/all_stores.html', form=form)
+        return redirect(url_for('stores.all_stores'))
+
+    return render_template('stores/all_stores.html', form=form)
+
+@login_required
+@stores.route('/store/<int:store_id>', methods=['GET','POST'])
+def store(store_id):
+    store = Store.query.get_or_404(store_id)
+    return(render_template('stores/store.html', store=store))
