@@ -1,12 +1,33 @@
+{% extends "base.html" %} 
+
 {% block content %}
-<a href="{{url_for('books.add_book')}}">Buch hinzufügen</a>
-<a href="{{url_for('stores.all_stores')}}">Stores</a>
-<a href="{{url_for('users.logout')}}">Logout</a>
-    {% for book in books %} 
-        <h3>{{book.titel}}</h3><br>
-        <h6>{{book.author}}</h6><br>
-        <p>{{book.isbn}}</p>
-        <p>{{book.user_id}}</p>
-    {% endfor %}
-        
+
+    <div class="container-fluid">
+        <a type="button" class="btn btn-success" id="add-btn" href="{{url_for('books.add_book')}}">+</a>    
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            {% for book in books %} 
+            <div class="column col-lg-3 col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="static/images/book.jpg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">{{book.titel}}</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">{{book.author}}</li>
+                      <li class="list-group-item">{{book.isbn}}</li>
+                    </ul>
+                    <div class="card-body">
+                      <a href="#" class="card-link">Card link</a>
+                      <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            </div> 
+            {% endfor %}   
+        </div>
+    </div>       
+  
 {% endblock content %}
