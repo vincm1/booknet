@@ -28,7 +28,6 @@ class User(db.Model, UserMixin):
     
     def __repr__(self):
         f"User with {self.id} and {self.username} {self.email} {self.passwort_hash} created on {self.registration_date}."
-
 class Book(db.Model):
 
     __tablename__ = 'books'

@@ -9,3 +9,7 @@ class AddBookForm(FlaskForm):
     author = StringField('Author', validators=[DataRequired()])
     isbn = IntegerField('ISBN')
     submit = SubmitField('Buch hinzufügen')
+
+class SearchBookForm(FlaskForm):
+    suchwort = StringField('Buch suchen', validators=[DataRequired()])
+    submit = SubmitField('Suche')
