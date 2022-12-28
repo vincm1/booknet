@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     registration_date = db.Column(db.DateTime, default=datetime.now)
 
     stores = db.relationship('Store', backref='creator', lazy=True)
+    bookshelves = db.relationship('Bücherregale', backref='user', lazy=True)
 
     def __init__(self, username, email, passwort):
         self.username = username
@@ -49,6 +50,22 @@ class Book(db.Model):
     def __repr__(self):
         f"Buch mit ID: {self.id} und Titel {self.titel} wurde von user:{self.user_id} angelegt."
 
+class Buchregal(db.Model):
+
+    __tablename__ = "buchregale"
+
+    users = db.relationship(User)
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    name = db.Column(db.String(300), nullable=False)
+
+    def __init__(self, user_id, name):
+        self.user_id = user_id
+        self.name = name
+    
+    def __repr__(self):
+        f"Buchregal von {self.user_id} name: {self.name}"
 class Store(db.Model):
 
     __tablename__ = 'stores'
