@@ -3,7 +3,8 @@ from booknet_app import db
 from flask_login import login_user, login_required, logout_user, current_user
 from booknet_app.users.forms import RegistrationForm, LoginForm, EditUserForm
 from booknet_app.stores.forms import AddStoreForm
-from booknet_app.models import User, Store
+from booknet_app.bookshelves.forms import AddShelveForm
+from booknet_app.models import User, Store, Bookshelf
 
 users = Blueprint('users', __name__)
 
@@ -18,7 +19,7 @@ def user_login():
 
         if user and user.check_passwort(form.passwort.data):
             login_user(user, remember=False)
-            return redirect(url_for('books.all_books'))
+            return redirect(url_for('books.book_search'))
         else:
             flash("Falsche Anmeldedaten!")    
     
@@ -62,9 +63,16 @@ def edit_user():
 
     return render_template('users/account.html', form=form)
 
-@users.route("/<username>")
+@users.route("/<username>/stores")
 def user_stores(username):
     form = AddStoreForm()
     user = User.query.filter_by(username=username).first_or_404()
     stores = Store.query.filter_by(creator=user).order_by(Store.storename.desc())
     return render_template('users/user_stores.html', stores=stores, user=user, form=form)
+
+@users.route("/<username>/bookshelves")
+def user_bookshelves(username):
+    form = AddShelveForm()
+    user = User.query.filter_by(username=username).first_or_404()
+    bookshelves = Bookshelf.query.filter_by(creator=user).order_by(Bookshelf.name.desc())
+    return render_template('users/user_bookshelves.html', bookshelves=bookshelves, user=user, form=form)

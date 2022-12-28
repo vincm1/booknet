@@ -41,6 +41,7 @@
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="{{url_for('users.edit_user')}}">Edit Account</a></li>
                     <li><a class="dropdown-item" href="{{ url_for('users.user_stores', username=current_user.username) }}">Your stores</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('users.user_bookshelves', username=current_user.username) }}">Your Bookshelves</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{{url_for('users.logout')}}">Logout</a></li>
                   </ul>
