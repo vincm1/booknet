@@ -1,6 +1,61 @@
 {% extends "base.html" %} 
 
 {% block content %} 
-    <h3>{{store.storename}}</h3>
-    <p>{{store.user_id}}</p>
+
+{% if current_user.id == store.user_id %}
+<section class="add-section">
+  <div class="container-fluid">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Store updaten</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="{{url_for('stores.edit_store',store_id=store_id)}}" method="POST">
+              <div class="modal-body">
+                  {{form.hidden_tag()}}
+                  <p>{{form.storename.label}}{{form.storename()}}</p><br>
+                  <p>{{form.adresse.label}}{{form.adresse()}}</p><br>
+                  <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p>
+              </div>
+              <div class="modal-footer">
+              <button type="submit" class="btn btn-success" action="{{url_for('stores.edit_store', store_id=store_id)}}">Store updaten</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+ 
+
+<section>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <img src="static/images/book_store.jpg"></img>
+          </div>
+          <div class="col-md-8">
+            <h1>{{store.storename}}</h1>
+            <p>{{store.beschreibung}}</p>
+            <p>{{store.user_id}}</p>
+            <p>{{store.username}}</p>
+            <p>{{store.user_id.username}}</p>
+            <p>{{cu_name}}</p>
+           
+          </div>
+          <div class="col-md-8">
+            <h1>Sitzplätze</h1>
+            <p>5</p>
+          </div>
+        </div>
+    </div>
+</section>
+    
+      
 {% endblock %}

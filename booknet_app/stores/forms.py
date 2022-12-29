@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired
 
 from booknet_app.models import User
 
-class AddStoreForm(FlaskForm):
+class StoreForm(FlaskForm):
     storename = StringField('Storename', validators=[DataRequired()])
     adresse = StringField('Adresse', validators=[DataRequired()])
     beschreibung = TextAreaField('Was macht den Store unique?')

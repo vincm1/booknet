@@ -2,7 +2,7 @@ from flask import Flask, Blueprint, render_template, flash, request, redirect, u
 from booknet_app import db
 from flask_login import login_user, login_required, logout_user, current_user
 from booknet_app.users.forms import RegistrationForm, LoginForm, EditUserForm
-from booknet_app.stores.forms import AddStoreForm
+from booknet_app.stores.forms import StoreForm
 from booknet_app.bookshelves.forms import AddShelveForm
 from booknet_app.models import User, Store, Bookshelf
 
