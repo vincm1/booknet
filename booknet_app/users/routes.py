@@ -65,7 +65,7 @@ def edit_user():
 
 @users.route("/<username>/stores")
 def user_stores(username):
-    form = AddStoreForm()
+    form = StoreForm()
     user = User.query.filter_by(username=username).first_or_404()
     stores = Store.query.filter_by(creator=user).order_by(Store.storename.desc())
     return render_template('users/user_stores.html', stores=stores, user=user, form=form)

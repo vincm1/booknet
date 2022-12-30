@@ -62,3 +62,17 @@ def edit_store(store_id):
 
     return render_template('stores/all_stores.html', form=form)
 
+@login_required
+@stores.route('/store/<int:store_id>/delete', methods=['POST'])
+def delete_store(store_id):
+    store = Store.query.get_or_404(store_id)
+
+    if store.user_id != current_user.id:
+        abort(403)
+    
+    db.session.delete(store)
+    db.session.commit()
+
+    flash("Store deleted!")
+    
+    return redirect(url_for('stores.all_stores'))

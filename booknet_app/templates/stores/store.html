@@ -3,7 +3,7 @@
 {% block content %} 
 
 {% if current_user.id == store.user_id %}
-<section class="add-section">
+<section class="edit-section">
   <div class="container-fluid">
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
@@ -31,6 +31,12 @@
     </div>
   </div>
 </section>
+{% endif %}
+
+{% if current_user.id == store.user_id %}
+  <form action="{{url_for('stores.delete_store', store_id=store_id)}}" method="POST">
+    <button class="btn btn-danger" type="submit" value="Delete">Löschen</button>
+  </form>  
 {% endif %}
  
 
