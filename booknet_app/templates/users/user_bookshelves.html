@@ -2,16 +2,16 @@
 
 {% block content %}
 
-<section class="add-section">
+<section class="button-section">
   <div class="container-fluid">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">+</button>
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal" hover="Bookshelf hinzufügen">+</button>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Store hinzufügen</h5>
+            <h5 class="modal-title" id="addModalLabel">Bookshelf hinzufügen</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <form action="{{url_for('bookshelves.add_bookshelf')}}" method="POST">
@@ -37,13 +37,10 @@
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src="static/images/book_store.jpg" alt="Card image cap">
                 <div class="card-body">
-                  <h5 class="card-title"><a href="">{{ bookshelf.name }}</a></h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <h5 class="card-title"><a href="{{url_for('bookshelves.bookshelf', bookshelf_id=bookshelf.id, username=user.username)}}">{{ bookshelf.name }}</a></h5>
+                  <p class="card-text">{{bookshelf.id}}</p>
+                  <p class="card-text">Lorem Ipsum Dolor Lorem Ipsum Dolor Lorem Ipsum Dolor Lorem Ipsum Dolor Lorem Ipsum Dolor Lorem Ipsum Dolor </p>
                 </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item"></li>
-                  <li class="list-group-item"></li>
-                </ul>
             </div>
         </div> 
         {% endfor %}   

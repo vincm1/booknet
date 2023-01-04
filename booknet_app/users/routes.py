@@ -3,7 +3,7 @@ from booknet_app import db
 from flask_login import login_user, login_required, logout_user, current_user
 from booknet_app.users.forms import RegistrationForm, LoginForm, EditUserForm
 from booknet_app.stores.forms import StoreForm
-from booknet_app.bookshelves.forms import AddShelveForm
+from booknet_app.bookshelves.forms import BookshelfForm
 from booknet_app.models import User, Store, Bookshelf
 
 users = Blueprint('users', __name__)
@@ -72,7 +72,7 @@ def user_stores(username):
 
 @users.route("/<username>/bookshelves")
 def user_bookshelves(username):
-    form = AddShelveForm()
+    form = BookshelfForm()
     user = User.query.filter_by(username=username).first_or_404()
     bookshelves = Bookshelf.query.filter_by(creator=user).order_by(Bookshelf.name.desc())
     return render_template('users/user_bookshelves.html', bookshelves=bookshelves, user=user, form=form)

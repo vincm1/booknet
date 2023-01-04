@@ -4,6 +4,6 @@ from wtforms.validators import DataRequired
 
 from booknet_app.models import User
 
-class AddShelveForm(FlaskForm):
+class BookshelfForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     submit = SubmitField('Buchrregal hinzufügen')

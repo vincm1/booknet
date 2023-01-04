@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %} 
+
+<section class="button-section">
+  <div class="container-fluid">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" hover="Bookshelf hinzufügen">Bearbeiten</button>
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">Bookshelf hinzufügen</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="{{url_for('bookshelves.edit_bookshelf', bookshelf_id=bookshelf.id)}}" method="POST">
+              <div class="modal-body">
+                  {{form.hidden_tag()}}
+                  <p>{{form.name.label}}{{form.name()}}</p><br>
+              </div>
+              <div class="modal-footer">
+              <button type="submit" class="btn btn-success" action="{{url_for('bookshelves.edit_bookshelf',bookshelf_id=bookshelf.id)}}">Shelf bearbeiten</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <form action="{{url_for('bookshelves.delete_bookshelf', bookshelf_id=bookshelf.id, username=current_user.username)}}" method="POST">
+      <button type="submit" class="btn btn-danger" action="{{url_for('bookshelves.delete_bookshelf',bookshelf_id=bookshelf.id, username=current_user.username)}}">Shelf löschen</button>
+    </form>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="row">
+        <div class="column col-lg-3 col-md-4">
+          <a href="">{{ bookshelf.name }}</a></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <div class="column col-lg-3 col-md-4">
+          <a href="">{{ bookshelf.name }}</a></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <div class="column col-lg-3 col-md-4">
+          <a href="">{{ bookshelf.name }}</a></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <div class="column col-lg-3 col-md-4">
+          <a href="">{{ bookshelf.name }}</a></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <div class="column col-lg-3 col-md-4">
+          <a href="">{{ bookshelf.name }}</a></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+    </div>
+  </div> 
+</section>
+  
+{% endblock %}
