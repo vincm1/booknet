@@ -56,6 +56,7 @@ def edit_user():
     
         current_user.username = form.username.data
         current_user.email = form.email.data
+        current_user.passwort = form.passwort.data
 
         db.session.commit()
         
