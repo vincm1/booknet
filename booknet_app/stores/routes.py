@@ -2,7 +2,8 @@ from flask import Flask, Blueprint, render_template, flash, request, redirect, u
 from flask_login import current_user, login_required
 from booknet_app import db
 from booknet_app.models import Store
-from booknet_app.stores.forms import StoreForm
+from booknet_app.stores.forms import StoreForm, EditStoreForm
+from booknet_app.picture_handler import save_store_picture
 
 stores = Blueprint('stores', __name__)
 
@@ -29,11 +30,19 @@ def add_store():
     form = StoreForm()
 
     if form.validate_on_submit() and request.method == "POST":
-        store = Store(storename=form.storename.data, adresse=form.adresse.data, 
-        beschreibung=form.beschreibung.data, user_id = current_user.id)
-        db.session.add(store)
-        db.session.commit()
-        return redirect(url_for('stores.all_stores'))
+        if form.storebild.data:
+            picture_file = save_store_picture(form.storebild.data)
+            store = Store(storename=form.storename.data, store_bild=picture_file, adresse=form.adresse.data, 
+                        beschreibung=form.beschreibung.data, user_id=current_user.id)
+            db.session.add(store)
+            db.session.commit()
+            return redirect(url_for('stores.all_stores'))
+        else:
+            store = Store(storename=form.storename.data, store_bild="book_store.jpg", adresse=form.adresse.data, 
+                        beschreibung=form.beschreibung.data, user_id=current_user.id)
+            db.session.add(store)
+            db.session.commit()
+            return redirect(url_for('stores.all_stores'))
 
     return render_template('stores/all_stores.html', form=form)
 
@@ -45,9 +54,12 @@ def edit_store(store_id):
     if store.user_id != current_user.id:
         abort(403)
 
-    form = StoreForm()
+    form = EditStoreForm()
 
     if form.validate_on_submit() and request.method == "POST":
+        if form.storebild.data:
+            picture_file = save_store_picture(form.storebild.data)
+            store.store_bild = picture_file
         store.storename = form.storename.data
         store.adresse = form.adresse.data
         store.beschreibung = form.beschreibung.data
@@ -59,8 +71,10 @@ def edit_store(store_id):
         form.storename.data = store.storename
         form.adresse.data = store.adresse
         form.beschreibung.data = store.beschreibung
+        form.storebild.data = store.store_bild
 
-    return render_template('stores/all_stores.html', form=form)
+    store_bild = url_for('static', filename='store_pics/' + store.store_bild)
+    return render_template('stores/all_stores.html', form=form, store_bild=store_bild)
 
 @login_required
 @stores.route('/store/<int:store_id>/delete', methods=['POST'])

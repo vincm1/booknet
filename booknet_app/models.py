@@ -75,11 +75,13 @@ class Store(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     storename = db.Column(db.String(300), unique=True, nullable=False)
+    store_bild = db.Column(db.String, nullable=True, default="book_store.jpg")
     adresse = db.Column(db.String(), nullable=False)
     beschreibung = db.Column(db.Text())
 
-    def __init__(self, storename, adresse, beschreibung, user_id):
+    def __init__(self, storename, store_bild, adresse, beschreibung, user_id):
         self.storename = storename
+        self.store_bild = store_bild
         self.adresse = adresse
         self.beschreibung = beschreibung
         self.user_id = user_id
