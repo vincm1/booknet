@@ -75,12 +75,12 @@ def edit_user():
 def user_stores(username):
     form = StoreForm()
     user = User.query.filter_by(username=username).first_or_404()
-    stores = Store.query.filter_by(creator=user).order_by(Store.storename.desc())
+    stores = Store.query.filter_by(user=user).order_by(Store.storename.desc())
     return render_template('users/user_stores.html', stores=stores, user=user, form=form)
 
 @users.route("/<username>/bookshelves")
 def user_bookshelves(username):
     form = BookshelfForm()
     user = User.query.filter_by(username=username).first_or_404()
-    bookshelves = Bookshelf.query.filter_by(creator=user).order_by(Bookshelf.name.desc())
+    bookshelves = Bookshelf.query.filter_by(user=user).order_by(Bookshelf.name.desc())
     return render_template('users/user_bookshelves.html', bookshelves=bookshelves, user=user, form=form)

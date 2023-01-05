@@ -1,36 +1,118 @@
+{% extends "layout.html" %}
+
 {% block content %}
-<div class="container">
+         
+<!-- Section:Signup Block -->
+<section class="signup">
+  <!-- Error messages -->
   {% with messages = get_flashed_messages(with_categories=true) %}
-  <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
-  {% if messages %} {% for category, message in messages %}
-  <div class="alert alert-{{ category }} alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <!-- <strong>Title</strong> -->
-    {{ message }}
+        <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+        {% if messages %} {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <!-- <strong>Title</strong> -->
+          {{ message }}
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
+      
+      {% if form.errors %}
+          <div class="container errors">
+              {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+                  {% for error in field_errors %}
+                      <p class="alert alert-danger" role="alert">{{ error }} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></p>
+                      
+                  {% endfor %}
+              {% endfor %}
+          </div>
+      {% endif %}
+  <!-- Jumbotron -->
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+    <div class="container">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <h1 class="my-5 display-3 fw-bold ls-tight">
+            booknet <br />
+            <span class="text-primary">finde dein nächstes Buchabenteuer!</span>
+          </h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Eveniet, itaque accusantium odio, soluta, corrupti aliquam
+            quibusdam tempora at cupiditate quis eum maiores libero
+            veritatis? Dicta facilis sint aliquid ipsum atque?
+          </p>
+        </div>
+
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card">
+            <div class="card-body py-5 px-md-5">
+              <form method="POST">
+                {{ form.hidden_tag() }}
+                <!-- Username input -->
+                <div class="form-outline mb-4">
+                  {{ form.username(class="form-control")}}
+                  {{ form.username.label }}
+                </div>
+
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  {{ form.email(class="form-control")}}
+                  {{ form.email.label }}
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                  {{ form.passwort(class="form-control")}}
+                  {{ form.passwort.label }}
+                </div>
+
+                <!-- Password bestätigen -->
+                <div class="form-outline mb-4">
+                  {{ form.passwort_bestätigen(class="form-control")}}
+                  {{ form.passwort_bestätigen.label }}
+                </div>
+
+                <!-- Checkbox -->
+                <div class="form-check d-flex justify-content-center mb-4">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                  <label class="form-check-label" for="form2Example33">
+                    Subscribe to our newsletter
+                  </label>
+                </div>
+
+                <!-- Submit button -->
+                {{ form.submit(class="btn btn-primary btn-block mb-4") }}
+         
+                <!-- Register buttons -->
+                <div class="text-center">
+                  <p>oder anmelden mit:</p>
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-facebook-f"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-google"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-twitter"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-github"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  {% endfor %} {% endif %} {% endwith %}
-</div>
-{% if form.errors %}
-    <ul class="errors">
-        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
-            {% for error in field_errors %}
-                <li>{{ form[field_name].label }}: {{ error }}</li>
-            {% endfor %}
-        {% endfor %}
-    </ul>
-{% endif %}
-<form method="POST">
-  {{ form.hidden_tag() }} {{ form.username.label }}{{ form.username ()}}
-  <br />
-  {{ form.email.label }}{{ form.email() }}
-  <br />
-  {{ form.passwort.label }}{{ form.passwort() }}
-  <br />
-  {{ form.passwort_bestätigen.label }}{{ form.passwort_bestätigen() }}
-  <br />
-  {{ form.submit() }}
-</form>
+  <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->
+
 
 {% endblock %}

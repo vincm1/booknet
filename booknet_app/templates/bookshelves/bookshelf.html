@@ -11,7 +11,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="editModalLabel">Bookshelf hinzufügen</h5>
+            <h5 class="modal-title" id="editModalLabel">Bookshelf bearbeiten</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <form action="{{url_for('bookshelves.edit_bookshelf', bookshelf_id=bookshelf.id)}}" method="POST">
@@ -34,22 +34,6 @@
 <section class="content-section">
   <div class="container">
     <div class="row">
-        <div class="column col-lg-3 col-md-4">
-          <a href="">{{ bookshelf.name }}</a></h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <div class="column col-lg-3 col-md-4">
-          <a href="">{{ bookshelf.name }}</a></h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <div class="column col-lg-3 col-md-4">
-          <a href="">{{ bookshelf.name }}</a></h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <div class="column col-lg-3 col-md-4">
-          <a href="">{{ bookshelf.name }}</a></h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
         <div class="column col-lg-3 col-md-4">
           <a href="">{{ bookshelf.name }}</a></h5>
                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>

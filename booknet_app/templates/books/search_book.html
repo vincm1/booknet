@@ -22,6 +22,7 @@
         <div class="container">
             <div class="row">
                 {% for book in books %} 
+                <p>{{book}}</p>
                 <div class="column col-lg-3 col-md-4">
                     <div class="card" style="width: 18rem;">
                         <img class="card-img-top" src="{{book['volumeInfo']['imageLinks']['smallThumbnail']}}" alt="Card image cap">
@@ -30,7 +31,7 @@
                             <p class="card-text">{{ book["volumeInfo"]["subtitle"] }}</p>
                           </div>
                           <ul class="list-group list-group-flush">
-                            <li class="list-group-item">{{ book["volumeInfo"]["authors"] }}</li>
+                            <li class="list-group-item">{{ book["volumeInfo"]["authors"][0] }}</li>
                             <li class="list-group-item">{{ book["volumeInfo"]["categories"] }}</li>
                           </ul>
                           <div class="card-body">
