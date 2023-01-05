@@ -17,9 +17,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 
-### Twitter OAuth ###
-
-
 login_manager = LoginManager()
 login_manager.init_app(app)
 

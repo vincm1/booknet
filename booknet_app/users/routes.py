@@ -1,10 +1,11 @@
-from flask import Flask, Blueprint, render_template, flash, request, redirect, url_for, session
+from flask import Blueprint, current_app, render_template, flash, request, redirect, url_for, session
 from booknet_app import db
 from flask_login import login_user, login_required, logout_user, current_user
 from booknet_app.users.forms import RegistrationForm, LoginForm, EditUserForm
 from booknet_app.stores.forms import StoreForm
 from booknet_app.bookshelves.forms import BookshelfForm
 from booknet_app.models import User, Store, Bookshelf
+from booknet_app.picture_handler import save_profile_picture
 
 users = Blueprint('users', __name__)
 
@@ -52,17 +53,23 @@ def edit_user():
     
     form = EditUserForm()
     
-    if form.validate_on_submit() and request.method == "POST":
-    
+    if form.validate_on_submit() and request.method == 'POST':
+        if form.profile_pic.data:
+            picture_file = save_profile_picture(form.profile_pic.data)
+            current_user.profile_picture = picture_file
+        
         current_user.username = form.username.data
         current_user.email = form.email.data
-        current_user.passwort = form.passwort.data
-
-        db.session.commit()
         
+        db.session.commit()
         flash('Profil erfolgreich geändert!')
+        
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
 
-    return render_template('users/account.html', form=form)
+    profile_picture = url_for('static', filename='profile_pics/' + current_user.profile_picture)
+    return render_template('users/account.html', form=form, profile_picture=profile_picture)
 
 @users.route("/<username>/stores")
 def user_stores(username):
