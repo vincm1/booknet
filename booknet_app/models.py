@@ -24,12 +24,13 @@ class User(db.Model, UserMixin):
         self.username = username
         self.email = email
         self.passwort_hash = generate_password_hash(passwort)
-
+        
     def check_passwort(self, passwort):
         return check_password_hash(self.passwort_hash, passwort)
 
     def __repr__(self):
         f"User with {self.id} and {self.username} {self.email}."
+
 class Book(db.Model):
 
     __tablename__ = "books"

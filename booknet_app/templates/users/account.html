@@ -16,6 +16,16 @@
           {% endwith %}
         </div>
 
+        {% if form.errors %}
+          <ul class="errors">
+            {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+              {% for error in field_errors %}
+                <li>{{ form[field_name].label }}: {{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+
         <div class="jumbotron">
             <h1>{{current_user.username}}</h1>
             <img class="rounded-circle account-img "src="{{ profile_picture }}">
