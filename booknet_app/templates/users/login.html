@@ -12,20 +12,19 @@
 {% endwith %}
 
 <div class="container">
-    {{ form.hidden_tag() }}
-    <form action="POST">
+    
+    <form method="POST">
+        {{ form.hidden_tag() }}
     <!-- Email input -->
         <div class="form-outline mb-4">
             {{ form.username(class="form-control") }}
             {{ form.username.label(class="form-label") }}
         </div>
-    
       <!-- Password input -->
       <div class="form-outline mb-4">
         {{ form.passwort(class="form-control") }}
         {{ form.passwort.label(class="form-label") }}
       </div>
-    
       <!-- 2 column grid layout for inline styling -->
       <div class="row mb-4">
         <div class="col d-flex justify-content-center">
@@ -35,16 +34,14 @@
             <label class="form-check-label" for="form2Example34"> Erinnern </label>
           </div>
         </div>
-    
         <div class="col">
           <!-- Simple link -->
           <a href="#!">Passwort vergessen?</a>
         </div>
       </div>
-    
       <!-- Submit button -->
       {{ form.submit(class="btn btn-primary btn-block mb-2") }}
-    </form>
+    </form> 
       <!-- Register buttons -->
     
       <div class="text-center">
@@ -66,7 +63,6 @@
           <i class="fab fa-github"></i>
         </button>
       </div>
-    </form>
 </div>
 
     
