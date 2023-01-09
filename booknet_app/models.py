@@ -75,16 +75,18 @@ class Store(db.Model):
     store_bild = db.Column(db.String, nullable=True, default="book_store.jpg")
     seats = db.Column(db.Integer, nullable=False)
     adresse = db.Column(db.String(), nullable=False)
+    city = db.Column(db.String(), nullable=False)
     beschreibung = db.Column(db.Text())
     creation_date = db.Column(db.DateTime, default=datetime.now)
 
-    def __init__(self, storename, category, store_bild, seats, adresse, beschreibung, user_id):
+    def __init__(self, storename, category, store_bild, seats, adresse, city, beschreibung, user_id):
         self.storename = storename
         self.store_bild = store_bild
         self.adresse = adresse
         self.beschreibung = beschreibung
         self.category = category
         self.seats = seats
+        self.city = city
         self.user_id = user_id
 
     def __repr__(self):

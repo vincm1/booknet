@@ -4,26 +4,13 @@
 
 <!-- ======= Button section ======= -->
 <section class="city-section">
-  <nav class="navbar navbar-expand-lg navbar-light" id="navbar_two">
+  <nav class="navbar sticky navbar-expand-lg navbar-light" id="navbar_two">
     <ul class="navbar-nav cities">
+      {% for city in cities %}
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa-solid fa-city"></i>Berlin</a>
+          <a class="nav-link" href="{{url_for('stores.store_city', city='Berlin')}}"><i class="fa-solid fa-city"></i>{{city[0]}}</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa-solid fa-tree-city"></i>Hamburg</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa-solid fa-mountain-city"></i>München</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa-solid fa-city"></i>Köln</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa-solid fa-tree-city"></i>Düsseldorf</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa-solid fa-mountain-city"></i>Stuttgart</a>
-        </li>
+      {% endfor %}
         <li class="nav-link" >
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-success" id="add-button" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Store hinzufügen.">+</button>
@@ -41,6 +28,7 @@
                         <p>{{form.storename.label}}{{form.storename()}}</p><br>
                         <p>{{form.category.label}}{{form.category()}}</p><br>
                         <p>{{form.adresse.label}}{{form.adresse()}}</p><br>
+                        <p>{{form.city.label}}{{form.city()}}</p><br>
                         <p>{{form.storebild.label}}{{form.storebild()}}</p><br>
                         <p>{{form.seats.label}}{{form.seats()}}</p><br>
                         <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p>
@@ -71,6 +59,7 @@
                   <h4 class="card-title"><a href="{{ url_for('stores.store', store_id=store.id)}}">{{ store.storename }}</a></h4>
                   <p class="card-text"><i>{{ store.beschreibung }}</i></p>
                   <p class="card-text">{{ store.adresse }}</p>
+                  <p class="card-text">{{ store.city }}</p>
                 </div>
                 <div class="user">
                   <img src="{{url_for('static', filename='profile_pics/' + store.user.profile_picture)}}" alt="user" />

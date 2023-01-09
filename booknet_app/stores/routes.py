@@ -15,7 +15,8 @@ def all_stores():
     form = StoreForm()   
     stores = db.session.query(Store).all()
     time_now = datetime.now()
-    return render_template('stores/all_stores.html', stores=stores, form=form, time_now=time_now)
+    cities = db.session.query(Store.city).distinct()
+    return render_template('stores/all_stores.html', stores=stores, form=form, time_now=time_now, cities=cities) 
 
 @login_required
 @stores.route('/store/<int:store_id>', methods=['GET','POST'])
@@ -34,14 +35,15 @@ def add_store():
     if form.validate_on_submit() and request.method == "POST":
         if form.storebild.data:
             picture_file = save_store_picture(form.storebild.data)
-            store = Store(storename=form.storename.data, store_bild=picture_file, seats=form.seats.data, category=form.category.data, adresse=form.adresse.data, 
-                        beschreibung=form.beschreibung.data, user_id=current_user.id)
+            store = Store(storename=form.storename.data, store_bild=picture_file, city=form.city.data, 
+                          seats=form.seats.data, category=form.category.data, adresse=form.adresse.data,
+                          beschreibung=form.beschreibung.data, user_id=current_user.id)
             db.session.add(store)
             db.session.commit()
             return redirect(url_for('stores.all_stores'))
         else:
             store = Store(storename=form.storename.data, store_bild="book_store.jpg", adresse=form.adresse.data, 
-                        beschreibung=form.beschreibung.data, user_id=current_user.id)
+                        beschreibung=form.beschreibung.data, city=form.city.data, user_id=current_user.id)
             db.session.add(store)
             db.session.commit()
             return redirect(url_for('stores.all_stores'))
@@ -94,3 +96,17 @@ def delete_store(store_id):
     flash("Store deleted!")
     
     return redirect(url_for('stores.all_stores'))
+
+@login_required
+@stores.route('/stores/<city>', methods=['GET','POST'])
+def store_city(city):
+    '''df'''
+    form = StoreForm()
+    
+    stores = Store.query.filter_by(city=city).all()
+    
+    if stores:
+        return render_template('stores/city_store.html', stores=stores, form=form)
+    
+    else:
+        return redirect(url_for('stores.all_stores'))

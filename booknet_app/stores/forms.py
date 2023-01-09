@@ -15,6 +15,8 @@ class StoreForm(FlaskForm):
     storebild = FileField('Storefoto', validators=[FileAllowed(['png', 'jpg'])])
     category = SelectField('Kategorie', choices=[('coz', 'Cozy'), ('lib','Library'), ('cor', 'Corner Shop')])
     adresse = StringField('Adresse', validators=[DataRequired()])
+    city = SelectField('Stadt', choices=[('Berlin', 'Berlin'), ('Hamburg','Hamburg'), ('München', 'München'), 
+                                         ('Köln', 'Köln'), ('Düsseldorf', 'Düsseldorf'), ('Stuttgart', 'Stuttgart')])
     seats = IntegerField('Leseplätze', validators=[DataRequired()])
     beschreibung = TextAreaField('Was macht den Store unique?')
     submit = SubmitField('Store hinzufügen')
