@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask, Blueprint, render_template, flash, request, redirect, url_for
 from flask_login import current_user, login_required
 from booknet_app import db
@@ -13,7 +14,8 @@ def all_stores():
     '''df'''
     form = StoreForm()   
     stores = db.session.query(Store).all()
-    return render_template('stores/all_stores.html', stores=stores, form=form)
+    time_now = datetime.now()
+    return render_template('stores/all_stores.html', stores=stores, form=form, time_now=time_now)
 
 @login_required
 @stores.route('/store/<int:store_id>', methods=['GET','POST'])
@@ -32,7 +34,7 @@ def add_store():
     if form.validate_on_submit() and request.method == "POST":
         if form.storebild.data:
             picture_file = save_store_picture(form.storebild.data)
-            store = Store(storename=form.storename.data, store_bild=picture_file, adresse=form.adresse.data, 
+            store = Store(storename=form.storename.data, store_bild=picture_file, seats=form.seats.data, category=form.category.data, adresse=form.adresse.data, 
                         beschreibung=form.beschreibung.data, user_id=current_user.id)
             db.session.add(store)
             db.session.commit()

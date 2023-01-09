@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField
+from wtforms import StringField, SubmitField, TextAreaField, SelectField, IntegerField
 from wtforms import ValidationError
 from flask_wtf.file import FileField, FileAllowed
 from wtforms.validators import DataRequired
@@ -13,7 +13,9 @@ def check_storename(self, field):
 class StoreForm(FlaskForm):
     storename = StringField('Storename', validators=[DataRequired(), check_storename])
     storebild = FileField('Storefoto', validators=[FileAllowed(['png', 'jpg'])])
+    category = SelectField('Kategorie', choices=[('coz', 'Cozy'), ('lib','Library'), ('cor', 'Corner Shop')])
     adresse = StringField('Adresse', validators=[DataRequired()])
+    seats = IntegerField('Leseplätze', validators=[DataRequired()])
     beschreibung = TextAreaField('Was macht den Store unique?')
     submit = SubmitField('Store hinzufügen')
     

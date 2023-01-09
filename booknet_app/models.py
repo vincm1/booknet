@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     profile_picture = db.Column(db.String, nullable=True, default="default_profile_picture.png")
     registration_date = db.Column(db.DateTime, default=datetime.now)
 
+    books = db.relationship("Book", backref="user", lazy=True)
     stores = db.relationship("Store", backref="user", lazy=True)
     bookshelves = db.relationship("Bookshelf", backref="user", lazy=True)
 
@@ -34,8 +35,6 @@ class User(db.Model, UserMixin):
 class Book(db.Model):
 
     __tablename__ = "books"
-
-    users = db.relationship(User)
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
@@ -55,8 +54,6 @@ class Bookshelf(db.Model):
 
     __tablename__ = "bookshelves"
 
-    users = db.relationship(User)
-
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     name = db.Column(db.String(300), nullable=False)
@@ -71,20 +68,23 @@ class Store(db.Model):
 
     __tablename__ = "stores"
 
-    users = db.relationship(User)
-
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     storename = db.Column(db.String(300), unique=True, nullable=False)
+    category = db.Column(db.String(50), nullable=True)
     store_bild = db.Column(db.String, nullable=True, default="book_store.jpg")
+    seats = db.Column(db.Integer, nullable=False)
     adresse = db.Column(db.String(), nullable=False)
     beschreibung = db.Column(db.Text())
+    creation_date = db.Column(db.DateTime, default=datetime.now)
 
-    def __init__(self, storename, store_bild, adresse, beschreibung, user_id):
+    def __init__(self, storename, category, store_bild, seats, adresse, beschreibung, user_id):
         self.storename = storename
         self.store_bild = store_bild
         self.adresse = adresse
         self.beschreibung = beschreibung
+        self.category = category
+        self.seats = seats
         self.user_id = user_id
 
     def __repr__(self):

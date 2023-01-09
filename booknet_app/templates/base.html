@@ -9,10 +9,6 @@
       href="https://fonts.googleapis.com/css?family=Crimson+Text|Work+Sans:400,700"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css?family=Crimson+Text|Work+Sans:400,700"
-      rel="stylesheet"
-    />
 
     <!-- Bootstrap -->
     <link
@@ -27,19 +23,14 @@
       href="{{ url_for('static', filename='css/app.css') }}"
     />
     <!-- Fontawesome -->
-    <script
-      defer
-      src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
-      integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/e1f37d5ff7.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
       <!-- Container wrapper -->
-      <div class="container-fluid">
+      <div class="container-fluid navbar">
         <!-- Toggle button -->
         <button
           class="navbar-toggler"
@@ -67,20 +58,15 @@
         <div class="d-flex align-items-center">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('books.book_search')}}"
-                >Books</a
-              >
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="{{url_for('stores.all_stores')}}"
                 >Stores</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('stores.all_stores')}}"
-                >Stores</a>
+              <a class="nav-link" href="{{url_for('books.book_search')}}"
+                >Books</a
+              >
             </li>
-
           <!-- Notifications -->
           <div class="dropdown">
             <li class="nav-item dropdown">
@@ -93,7 +79,7 @@
               >
               <i class="fas fa-bell"></i>
               <span class="badge rounded-pill badge-notification bg-danger"
-                >1</span
+                >3</span
               >
               </a>
             <ul
@@ -109,7 +95,7 @@
               <li>
                 <a class="dropdown-item" href="#">Something else here</a>
               </li>
-            </li>
+            </ul>
           </div>
           <!-- Avatar -->
           <div class="dropdown">
@@ -122,10 +108,11 @@
               aria-expanded="false"
             >
               <img
-                src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                src="{{url_for('static', filename='profile_pics/' + current_user.profile_picture)}}"
                 class="rounded-circle"
+                id="navbar-profilpic"
                 height="25"
-                alt="Black and White Portrait of a Man"
+                alt="Profilbild"
                 loading="lazy"
               />
             </a>
@@ -142,10 +129,10 @@
                   username=current_user.username) }}">Meine Stores</a>
               </li>
               <li>
-                <a class="dropdown-item" href="{{url_for('users.edit_user')}}">Settings</a>
+                <a class="dropdown-item" href="{{url_for('users.edit_user')}}">Einstellungen</a>
               </li>
               <li>
-                <a class="dropdown-item" href="{{url_for('users.logout')}}">Logout</a>
+                <a class="dropdown-item" href="{{url_for('users.logout')}}">Logout<i class="fa-solid fa-right-from-bracket"></i></a>
               </li>
             </ul>
           </div>
@@ -157,6 +144,102 @@
     <!-- Navbar -->
 
     {% block content %} {% endblock %}
+
+    <!-- ======= Footer ======= -->
+<footer id="footer">
+  <div class="footer-newsletter">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <h4>Unser Newsletter</h4>
+          <p>
+            Lorem Ipsum Dolor Lorem Ipsum Dolor.
+          </p>
+          <form action="" method="post">
+            <input type="email" name="email" /><input
+              type="submit"
+              value="Anmelden"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 footer-contact">
+          <h3>Booknet GmbH</h3>
+          <p>
+            Maximilianstraße 1 <br />
+            München, BY 81726<br />
+            Deutschland <br /><br />
+            <strong>Telefon:</strong>+49 123/456789<br />
+            <strong>Email:</strong> info@example.com<br />
+          </p>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+            <li>
+              <i class="bx bx-chevron-right"></i> <a href="#">Über uns</a>
+            </li>
+            <li>
+              <i class="bx bx-chevron-right"></i> <a href="#">Leistungen</a>
+            </li>
+            <li>
+              <i class="bx bx-chevron-right"></i>
+              <a href="#">AGB</a>
+            </li>
+            <li>
+              <i class="bx bx-chevron-right"></i> <a href="#">Impressum</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Unsere Städte</h4>
+          <ul>
+            <li>
+              <i class="bx bx-chevron-right"></i> <a href="#">Berlin</a>
+            </li>
+            <li>
+              <i class="bx bx-chevron-right"></i>
+              <a href="#">München</a>
+            </li>
+            <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="#">Hamburg</a>
+              </li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Unsere Social Networks</h4>
+          <p>Auf diesen Kanälen findest du uns:</p>
+          <div class="social-links mt-3">
+            <a href="#" class="twitter"><i class="fab fa-twitter"></i></i></a>
+            <a href="#" class="facebook"><i class="fab fa-facebook"></i></i></a>
+            <a href="#" class="instagram"><i class="fab fa-instagram"></i></i></a>
+            <a href="#" class="google-plus"><i class="fab fa-github"></i></i></a>
+            <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-4">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Booknet</span></strong
+      >. All Rights Reserved
+    </div>
+  </div>
+</footer>
+<!-- End Footer -->
 
     <!-- Bootstrap   -->
     <script

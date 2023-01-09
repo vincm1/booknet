@@ -2,55 +2,82 @@
 
 {% block content %}
 
-<section class="add-section">
-  <div class="container-fluid">
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">+</button>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Store hinzufügen</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- ======= Button section ======= -->
+<section class="city-section">
+  <nav class="navbar navbar-expand-lg navbar-light" id="navbar_two">
+    <ul class="navbar-nav cities">
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa-solid fa-city"></i>Berlin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa-solid fa-tree-city"></i>Hamburg</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa-solid fa-mountain-city"></i>München</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa-solid fa-city"></i>Köln</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa-solid fa-tree-city"></i>Düsseldorf</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa-solid fa-mountain-city"></i>Stuttgart</a>
+        </li>
+        <li class="nav-link" >
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-success" id="add-button" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Store hinzufügen.">+</button>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Store hinzufügen</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{url_for('stores.add_store')}}" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        {{form.hidden_tag()}}
+                        <p>{{form.storename.label}}{{form.storename()}}</p><br>
+                        <p>{{form.category.label}}{{form.category()}}</p><br>
+                        <p>{{form.adresse.label}}{{form.adresse()}}</p><br>
+                        <p>{{form.storebild.label}}{{form.storebild()}}</p><br>
+                        <p>{{form.seats.label}}{{form.seats()}}</p><br>
+                        <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" action="{{url_for('stores.add_store')}}">Store hinzufügen</button>
+                    </div>
+                </form>
+              </div>
+            </div>
           </div>
-          <form action="{{url_for('stores.add_store')}}" method="POST" enctype="multipart/form-data">
-              <div class="modal-body">
-                  {{form.hidden_tag()}}
-                  <p>{{form.storename.label}}{{form.storename()}}</p><br>
-                  <p>{{form.adresse.label}}{{form.adresse()}}</p><br>
-                  <p>{{form.storebild.label}}{{form.storebild()}}</p><br>
-                  <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p>
-              </div>
-              <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-success" action="{{url_for('stores.add_store')}}">Store hinzufügen</button>
-              </div>
-          </form>
-        </div>
-      </div>
-    </div>
+        </li>
+      </ul>
+    
   </div>
 </section>
- 
-<section class="content-section">
-  <div class="container">
+
+<!-- ======= Cards Section ======= -->
+<section class="cards-section">
+  <div class="container-cards">
     <div class="row">
         {% for store in stores %} 
         <div class="column col-lg-3 col-md-4">
-            <div class="card" style="width: 18rem;">
+            <div class="storecard">
                 <img class="card-img-top" src="{{ url_for('static', filename='store_pics/' + store.store_bild )}}" alt="Card image cap">
                 <div class="card-body">
-                  <h5 class="card-title"><a href="{{ url_for('stores.store', store_id=store.id)}}">{{ store.storename }}</a></h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <span class="tag tag-teal">Cozy</span>
+                  <h4 class="card-title"><a href="{{ url_for('stores.store', store_id=store.id)}}">{{ store.storename }}</a></h4>
+                  <p class="card-text"><i>{{ store.beschreibung }}</i></p>
+                  <p class="card-text">{{ store.adresse }}</p>
                 </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">{{ store.adresse }}</li>
-                  <li class="list-group-item">{{ store.beschreibung }}</li>
-                </ul>
-                <div class="card-body">
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
+                <div class="user">
+                  <img src="{{url_for('static', filename='profile_pics/' + store.user.profile_picture)}}" alt="user" />
+                  <div class="user-info">
+                    <h5>{{store.user.username}}</h5>
+                    <small>{{(time_now - store.creation_date)}}</small><br>
+                  </div>
                 </div>
             </div>
         </div> 
@@ -58,5 +85,4 @@
     </div>
   </div>  
 </section>
-  
 {% endblock %}

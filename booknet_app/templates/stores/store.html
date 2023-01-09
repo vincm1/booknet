@@ -1,69 +1,143 @@
 {% extends "base.html" %} 
-
 {% block content %} 
-
 {% if current_user.id == store.user_id %}
+
+<!-- ======= Button Section ======= -->
 <section class="edit-section">
   <div class="container-fluid">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      Edit
+    </button>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Store updaten</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
-          <form action="{{url_for('stores.edit_store',store_id=store_id)}}" method="POST" enctype="multipart/form-data">
-              <div class="modal-body">
-                  {{form.hidden_tag()}}
-                  <p>{{form.storename.label}}{{form.storename()}}</p><br>
-                  <p>{{form.storebild.label}}{{form.storebild()}}</p><br>
-                  <p>{{form.adresse.label}}{{form.adresse()}}</p><br>
-                  <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p>
-              </div>
-              <div class="modal-footer">
-              <button type="submit" class="btn btn-success" action="{{url_for('stores.edit_store', store_id=store_id)}}">Store updaten</button>
-              </div>
+          <form
+            action="{{url_for('stores.edit_store',store_id=store_id)}}"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+            <div class="modal-body">
+              {{form.hidden_tag()}}
+              <p>{{form.storename.label}}{{form.storename()}}</p>
+              <br />
+              <p>{{form.storebild.label}}{{form.storebild()}}</p>
+              <br />
+              <p>{{form.adresse.label}}{{form.adresse()}}</p>
+              <br />
+              <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn btn-success"
+                action="{{url_for('stores.edit_store', store_id=store_id)}}"
+              >
+                Store updaten
+              </button>
+            </div>
           </form>
         </div>
       </div>
     </div>
   </div>
 </section>
+{% endif %} {% if current_user.id == store.user_id %}
+<form
+  action="{{url_for('stores.delete_store', store_id=store_id)}}"
+  method="POST"
+>
+  <button class="btn btn-danger" type="submit" value="Delete">Löschen</button>
+</form>
 {% endif %}
+</section>
 
-{% if current_user.id == store.user_id %}
-  <form action="{{url_for('stores.delete_store', store_id=store_id)}}" method="POST">
-    <button class="btn btn-danger" type="submit" value="Delete">Löschen</button>
-  </form>  
-{% endif %}
- 
-
-<section>
+<!-- ======= Portfolio Details Section ======= -->
+<main>
+  <section id="portfolio-details" class="portfolio-details">
     <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            
-          </div>
-          <div class="col-md-8">
-            <h1>{{store.storename}}</h1>
-            <img src="{{ url_for('static', filename='store_pics/' + store.store_bild )}}">
-            <p>{{store.beschreibung}}</p>
-            <p>{{store.user_id}}</p>
-            <p>{{store.username}}</p>
-            <p>{{store.user_id.username}}</p>
-            <p>{{cu_name}}</p>
-           
-          </div>
-          <div class="col-md-8">
-            <h1>Sitzplätze</h1>
-            <p>5</p>
+      <div class="row gy-4">
+        <div class="col-lg-8">
+          <div class="portfolio-details-slider swiper">
+            <div class="swiper-wrapper align-items-center">
+              <div class="swiper-slide">
+                <img src="{{ url_for('static', filename='store_pics/' + store.store_bild )}}" alt="" />
+              </div>
+
+              <div class="swiper-slide">
+                <img src="assets/img/portfolio/portfolio-2.jpg" alt="" />
+              </div>
+
+              <div class="swiper-slide">
+                <img src="assets/img/portfolio/portfolio-3.jpg" alt="" />
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
           </div>
         </div>
+
+        <div class="col-lg-4">
+          <div class="portfolio-info">
+            <h3>{{store.storename}}</h3>
+            <ul>
+              <li><strong>Adresse</strong>: {{store.adresse}}n</li>
+              <li><strong>Sitzplätze</strong>: 10 </li>
+              <li><strong>Öffnungszeiten</strong>
+                <table class="öffnung">
+                  <tr>
+                    <td>Mo - Fr: </td>
+                    <td><i> 10:00 - 20:00</i></td>
+                  </tr>
+                  <tr>
+                    <td>Sa: </td>
+                    <td><i>12:00 - 20:00</i></td>
+                  </tr>
+                </table>
+              </li>
+              <li>
+                <strong>Literaturfokus</strong>: Romane, Belletristik</a>
+              </li>
+              <li>
+                <strong>Versorgung</strong>: Kaffee, Säfte & Bier </a>
+              </li>
+              <li>
+                <strong>URL</strong>: <a href="#">www.example.com</a>
+              </li>
+            </ul>
+          </div>
+          <div class="portfolio-description">
+            <h2>Beschreibung</h2>
+            <p>
+             {{store.beschreibung}}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
-    
-      
+  </section>
+  <!-- End Portfolio Details Section -->
+</main>
+<!-- End #main -->
+
 {% endblock %}
