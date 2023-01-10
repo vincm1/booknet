@@ -31,4 +31,4 @@ class EditUserForm(FlaskForm):
     username = StringField('Nutzername', validators=[check_username])
     email = EmailField('Email', validators=[Email(), check_email])
     profile_pic = FileField('Profilbild', validators=[FileAllowed(['jpg', 'png'])])
-    submit = SubmitField('Profil ändern!')
+    submit = SubmitField('Profil speichern')

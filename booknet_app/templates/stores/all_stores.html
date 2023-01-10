@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<!-- ======= Button section ======= -->
+<!-- ======= Navbar 2 section ======= -->
 <section class="city-section">
   <nav class="navbar sticky navbar-expand-lg navbar-light" id="navbar_two">
     <ul class="navbar-nav cities">
@@ -13,7 +13,7 @@
       {% endfor %}
         <li class="nav-link" >
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-success" id="add-button" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Store hinzufügen.">+</button>
+          <button type="button" class="btn btn-primary" id="add-button" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Store hinzufügen.">+</button>
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -51,13 +51,12 @@
   <div class="container-cards">
     <div class="row">
         {% for store in stores %} 
-        <div class="column col-lg-3 col-md-4">
+        <div class="column col-lg-4 col-md-3 col-sm-1">
             <div class="storecard">
                 <img class="card-img-top" src="{{ url_for('static', filename='store_pics/' + store.store_bild )}}" alt="Card image cap">
                 <div class="card-body">
-                  <span class="tag tag-teal">Cozy</span>
+                  <span class="tag tag-teal">{{store.category}}</span>
                   <h4 class="card-title"><a href="{{ url_for('stores.store', store_id=store.id)}}">{{ store.storename }}</a></h4>
-                  <p class="card-text"><i>{{ store.beschreibung }}</i></p>
                   <p class="card-text">{{ store.adresse }}</p>
                   <p class="card-text">{{ store.city }}</p>
                 </div>
@@ -74,4 +73,6 @@
     </div>
   </div>  
 </section>
+
+
 {% endblock %}

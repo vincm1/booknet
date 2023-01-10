@@ -6,11 +6,6 @@ body {
   color: #212529;
 }
 
-body {
-  font-family: 'Work Sans', sans-serif;
-  color: #212529;
- }
-
 a {
   color: #eb5d1e;
   text-decoration: none;
@@ -29,6 +24,20 @@ h5,
 h6 {
   font-family: 'Crimson Text', serif;
 }
+
+/*--------------------------------------------------------------
+# Buttons
+--------------------------------------------------------------*/
+.btn-primary {
+  background-color: #eb5d1e;
+  border: none;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: #ef7f4d;
+  border: none;
+}
+
 
 /*--------------------------------------------------------------
 # Navigation Menu
@@ -276,11 +285,11 @@ h6 {
 }
 
 /*--------------------------------------------------------------
-# Add Section
+# City Section
 --------------------------------------------------------------*/
 .city-section .navbar{
-  background-color: white;
   padding: 1% 1%;
+  background-color: #fff;
 }
 
 #navbar_two {
@@ -298,12 +307,14 @@ h6 {
 /*--------------------------------------------------------------
 # Store Cards
 --------------------------------------------------------------*/
-.container-cards {
+.container-cards .row{
+  background-color: white;
+  margin: 2% 2%;
 }
 
 .storecard {
   width: 18rem;
-  margin: 10px;
+  margin: 5px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
@@ -313,7 +324,7 @@ h6 {
 
 .card-image-top {
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -323,19 +334,20 @@ h6 {
   justify-content: center;
   align-items: flex-start;
   padding: 20px;
-  min-height: 250px;
+  min-height: auto;
 }
 
 .tag {
   background: #cccccc;
   border-radius: 50px;
   font-size: 12px;
-  margin: 0;
+  margin: 5px 0px 1px 0px ;
   color: #fff;
-  padding: 2px 10px;
+  padding: 3px 10px;
   text-transform: uppercase;
   cursor: pointer;
 }
+
 .tag-teal {
   background-color: #47bcd4;
 }
@@ -362,89 +374,52 @@ h6 {
   color: #545d7a;
 }
 
-
 /*--------------------------------------------------------------
-# About
+# Account page
 --------------------------------------------------------------*/
-.about h3 {
-  font-weight: 700;
-  font-size: 34px;
-  color: #4e4039;
+.shadow {
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
 }
 
-.about h4 {
-  font-size: 20px;
-  font-weight: 700;
-  margin-top: 5px;
-  color: #7a6960;
+.profile-tab-nav {
+	min-width: 250px;
 }
 
-.about i {
-  font-size: 48px;
-  margin-top: 15px;
-  color: #f39e7a;
+.tab-content {
+	flex: 1;
 }
 
-.about p {
-  font-size: 15px;
-  color: #5a6570;
+.form-group {
+	margin-bottom: 1.5rem;
 }
 
-@media (max-width: 991px) {
-  .about .about-img img {
-    max-width: 70%;
-  }
+.nav-link:active, .nav-link:hover{
+  background-color: #eb5d1e;
 }
 
-@media (max-width: 767px) {
-  .about .about-img img {
-    max-width: 90%;
-  }
+.nav-pills a.nav-link {
+	padding: 15px 20px;
+	border-bottom: 1px solid #ddd;
+	border-radius: 0;
+	color: #333;
 }
 
-/*--------------------------------------------------------------
-# Services
---------------------------------------------------------------*/
-.services .icon-box {
-  padding: 30px;
-  position: relative;
-  overflow: hidden;
-  margin: 0 0 40px 0;
-  background: #fff;
-  box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);
-  transition: all 0.3s ease-in-out;
-  border-radius: 15px;
-  text-align: center;
-  border-bottom: 3px solid #fff;
+.nav-pills a.nav-link:hover {
+  color: #fff;
 }
 
-.services .icon-box:hover {
-  transform: translateY(-5px);
-  border-color: #ef7f4d;
+
+.nav-pills a.nav-link i {
+	width: 20px;
 }
 
-.services .icon i {
-  font-size: 48px;
-  line-height: 1;
-  margin-bottom: 15px;
-  color: #ef7f4d;
+.img-circle img {
+	height: 100px;
+	width: 100px;
+	border-radius: 100%;
+	border: 5px solid #fff;
 }
 
-.services .title {
-  font-weight: 700;
-  margin-bottom: 15px;
-  font-size: 18px;
-}
-
-.services .title a {
-  color: #111;
-}
-
-.services .description {
-  font-size: 15px;
-  line-height: 28px;
-  margin-bottom: 0;
-}
 
 /*--------------------------------------------------------------
 # Footer
