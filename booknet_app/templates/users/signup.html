@@ -3,9 +3,10 @@
 {% block content %}
          
 <!-- Section:Signup Block -->
-<section class="signup">
+<section class="signup p-0">
   <!-- Error messages -->
-  {% with messages = get_flashed_messages(with_categories=true) %}
+    <div class="sipgnup px-4 py-5 px-md-5 text-center text-lg-start">
+    {% with messages = get_flashed_messages(with_categories=true) %}
         <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
         {% if messages %} {% for category, message in messages %}
         <div class="alert alert-{{ category }} alert-dismissible" role="alert">
@@ -26,21 +27,18 @@
                   {% endfor %}
               {% endfor %}
           </div>
-      {% endif %}
-  <!-- Jumbotron -->
-  <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+      {% endif %}   
+    <!-- Signup messages -->
     <div class="container">
       <div class="row gx-lg-5 align-items-center">
         <div class="col-lg-6 mb-5 mb-lg-0">
           <h1 class="my-5 display-3 fw-bold ls-tight">
             booknet <br />
-            <span class="text-primary">finde dein nächstes Buchabenteuer!</span>
+            <span class="subheading">finde dein nächstes Buchabenteuer!</span>
           </h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Eveniet, itaque accusantium odio, soluta, corrupti aliquam
-            quibusdam tempora at cupiditate quis eum maiores libero
-            veritatis? Dicta facilis sint aliquid ipsum atque?
+            Jetzt Mitglied werden und Zugang zu über 200 Buchladen und Buchinspirationen zu 
+            erhalten.
           </p>
         </div>
 
@@ -77,13 +75,16 @@
                 <div class="form-check d-flex justify-content-center mb-4">
                   <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
                   <label class="form-check-label" for="form2Example33">
-                    Subscribe to our newsletter
+                    Newsletter Anmeldung
                   </label>
                 </div>
 
                 <!-- Submit button -->
-                {{ form.submit(class="btn btn-primary btn-block mb-4") }}
-         
+                <div class="text-center">
+                  {{ form.submit(class="btn btn-primary btn-block mb-4") }}
+                  <button class="btn btn-light btn-block mb-4"><a href="{{url_for('users.user_login')}}">Login</a></button>
+                </div>
+                
                 <!-- Register buttons -->
                 <div class="text-center">
                   <p>oder anmelden mit:</p>
@@ -103,7 +104,6 @@
                     <i class="fab fa-github"></i>
                   </button>
                 </div>
-              </form>
             </div>
           </div>
         </div>

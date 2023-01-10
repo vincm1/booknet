@@ -1306,3 +1306,74 @@ body {
       padding: 3px 0;
     }
   }
+
+ /*--------------------------------------------------------------
+  # SignUp page
+  --------------------------------------------------------------*/
+.signup {
+  background-color: #fef8f5;
+}
+
+.subheading {
+  color: #ef7f4d;
+}
+
+.signup .btn-primary {
+  background-color: #eb5d1e;
+  border: none;
+}
+
+.signup .btn-primary:hover {
+  background-color: #ef7f4d;
+  border: none;
+}
+
+.signup .btn-link {
+  background-color: #eb5d1e;
+  color: #fff;
+}
+
+.signup .btn-link:hover {
+  background-color: #ef7f4d;
+  color: #fff;
+}
+
+.signup .btn-light:hover {
+  color: #eb5d1e;
+}
+
+.signup .form-check-input {
+  background-color: #eb5d1e;
+  border: none;
+  box-shadow: none;
+  color: #fff;
+}
+
+
+/*--------------------------------------------------------------
+  # Login page
+  --------------------------------------------------------------*/
+  .login {
+    background-color: #fef8f5;
+  }
+
+  .login .btn-primary {
+    background-color: #eb5d1e;
+    border: none;
+    padding: 1% 20%;
+  }
+
+  .login .btn-primary:hover {
+    background-color: #ef7f4d;
+    border: none;
+  }
+
+  .login .btn-floating {
+    background-color: #eb5d1e;
+    border: none;
+  }
+
+  .login .btn-floating:hover {
+    background-color: #ef7f4d;
+    border: none;
+  }

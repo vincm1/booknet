@@ -1,69 +1,83 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<section class="login">
+  <div class="container text-lg-start">
 
-
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    <div class="notification is-danger">
-        <p class="alert alert-success" role="alert">{{ messages[0] }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></p>
-    </div>
-{% endif %}
-{% endwith %}
-
-<div class="container">
-    
-    <form method="POST">
-        {{ form.hidden_tag() }}
-    <!-- Email input -->
-        <div class="form-outline mb-4">
-            {{ form.username(class="form-control") }}
-            {{ form.username.label(class="form-label") }}
-        </div>
-      <!-- Password input -->
-      <div class="form-outline mb-4">
-        {{ form.passwort(class="form-control") }}
-        {{ form.passwort.label(class="form-label") }}
+    <div class="row justify-content-start">
+      <div class="col-5">
+        <!-- Error messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+        {% if messages %} {% for category, message in messages %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %} {% endif %} {% endwith %}
       </div>
-      <!-- 2 column grid layout for inline styling -->
-      <div class="row mb-4">
-        <div class="col d-flex justify-content-center">
-          <!-- Checkbox -->
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="form2Example34" checked />
-            <label class="form-check-label" for="form2Example34"> Erinnern </label>
+    </div>
+
+    <div class="row justify-content-start">
+      <div class="col-5">
+        <div class="card">
+          <div class="card-body py-5 px-md-5">
+            <form method="POST">
+              {{ form.hidden_tag() }}
+           <!-- Email input -->
+               <div class="form-outline mb-4">
+                   {{ form.username(class="form-control") }}
+                   {{ form.username.label(class="form-label") }}
+               </div>
+             <!-- Password input -->
+             <div class="form-outline mb-4">
+               {{ form.passwort(class="form-control") }}
+               {{ form.passwort.label(class="form-label") }}
+             </div>
+             <!-- 2 column grid layout for inline styling -->
+             <div class="row mb-4">
+               <div class="col d-flex justify-content-center">
+                 <!-- Checkbox -->
+                 <div class="form-check">
+                   <input class="form-check-input" type="checkbox" value="" id="form2Example34" checked />
+                   <label class="form-check-label" for="form2Example34"> Erinnern </label>
+                 </div>
+               </div>
+               <div class="col">
+                 <!-- Simple link -->
+                 <a href="#!">Passwort vergessen?</a>
+               </div>
+             </div>
+             <!-- Submit button -->
+             <div class="text-center">
+              {{ form.submit(class="btn btn-primary btn-block mb-4") }} 
+             </div>
+             <!-- Register buttons -->
+             <div class="text-center">
+               <p>Noch kein Mitglied? <a href="{{url_for('users.signup_user')}}">Registrieren</a></p>
+               <p>oder anmelden mit:</p>
+               <button type="button" class="btn btn-secondary btn-floating mx-1">
+                 <i class="fab fa-facebook-f"></i>
+               </button>
+           
+               <button type="button" class="btn btn-secondary btn-floating mx-1">
+                 <i class="fab fa-google"></i>
+               </button>
+           
+               <button type="button" class="btn btn-secondary btn-floating mx-1">
+                 <i class="fab fa-twitter"></i>
+               </button>
+           
+               <button type="button" class="btn btn-secondary btn-floating mx-1">
+                 <i class="fab fa-github"></i>
+               </button>
+             </div>
+            </form>
           </div>
         </div>
-        <div class="col">
-          <!-- Simple link -->
-          <a href="#!">Passwort vergessen?</a>
-        </div>
       </div>
-      <!-- Submit button -->
-      {{ form.submit(class="btn btn-primary btn-block mb-2") }}
-    </form> 
-      <!-- Register buttons -->
-    
-      <div class="text-center">
-        <p>Noch kein Mitglied? <a href="{{url_for('users.signup_user')}}">Registrieren</a></p>
-        <p>oder anmelden mit:</p>
-        <button type="button" class="btn btn-secondary btn-floating mx-1">
-          <i class="fab fa-facebook-f"></i>
-        </button>
-    
-        <button type="button" class="btn btn-secondary btn-floating mx-1">
-          <i class="fab fa-google"></i>
-        </button>
-    
-        <button type="button" class="btn btn-secondary btn-floating mx-1">
-          <i class="fab fa-twitter"></i>
-        </button>
-    
-        <button type="button" class="btn btn-secondary btn-floating mx-1">
-          <i class="fab fa-github"></i>
-        </button>
-      </div>
-</div>
-
+  
+    </div>    
+</section>
     
 {% endblock %}
