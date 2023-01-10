@@ -21,42 +21,8 @@ body {
   h3,
   h4,
   h5,
-  h6,
-  .font-primary {
+  h6 {
     font-family: "Raleway", sans-serif;
-  }
-  
-  /*--------------------------------------------------------------
-  # Back to top button
-  --------------------------------------------------------------*/
-  .back-to-top {
-    position: fixed;
-    visibility: hidden;
-    opacity: 0;
-    right: 15px;
-    bottom: 15px;
-    z-index: 99999;
-    background: #eb5d1e;
-    width: 40px;
-    height: 40px;
-    border-radius: 4px;
-    transition: all 0.4s;
-  }
-  
-  .back-to-top i {
-    font-size: 24px;
-    color: #fff;
-    line-height: 0;
-  }
-  
-  .back-to-top:hover {
-    background: #ee7843;
-    color: #fff;
-  }
-  
-  .back-to-top.active {
-    visibility: visible;
-    opacity: 1;
   }
   
   /*--------------------------------------------------------------
@@ -97,13 +63,16 @@ body {
   #header .logo img {
     padding: 0;
     margin: 0;
-    max-height: 40px;
+    height: 70px;
+    width: 90px;
+    max-height: 100px;
   }
   
   #main {
     margin-top: 72px;
   }
   
+
   /*--------------------------------------------------------------
   # Navigation Menu
   --------------------------------------------------------------*/
@@ -397,10 +366,15 @@ body {
   #hero .btn-get-started:hover {
     background: #ef7f4d;
   }
-  
-  #hero .animated {
-    animation: up-down 2s ease-in-out infinite alternate-reverse both;
+
+  .hero-img {
+    background: #fef8f5;
   }
+
+  .hero-img .img-fluid{
+    background: #fef8f5;
+  }
+  
   
   @media (max-width: 991px) {
     #hero {
@@ -414,10 +388,12 @@ body {
   
     #hero .hero-img {
       text-align: center;
+      background-color: none;
     }
-  
+    
     #hero .hero-img img {
       width: 50%;
+      background-color: none;
     }
   }
   
@@ -919,88 +895,25 @@ body {
     background: #fff;
     padding: 60px 0;
   }
-  
-  .team .member {
-    text-align: center;
-    margin-bottom: 20px;
-    background: #343a40;
-    position: relative;
-    overflow: hidden;
+    
+  .social-link {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    border-radius: 50%;
+    transition: all 0.3s;
+    font-size: 0.9rem;
   }
-  
-  .team .member .member-info {
-    opacity: 0;
-    position: absolute;
-    bottom: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    transition: 0.2s;
-  }
-  
-  .team .member .member-info-content {
-    position: absolute;
-    left: 50px;
-    right: 0;
-    bottom: 0;
-    transition: bottom 0.4s;
-  }
-  
-  .team .member .member-info-content h4 {
-    font-weight: 700;
-    margin-bottom: 2px;
-    font-size: 18px;
+
+  .social-link:hover,
+  .social-link:focus {
+    background: #eb5d1e;
+    text-decoration: none;
     color: #fff;
-  }
-  
-  .team .member .member-info-content span {
-    font-style: italic;
-    display: block;
-    font-size: 13px;
-    color: #fff;
-  }
-  
-  .team .member .social {
-    position: absolute;
-    left: -50px;
-    top: 0;
-    bottom: 0;
-    width: 50px;
-    transition: left ease-in-out 0.3s;
-    background: rgba(78, 64, 57, 0.6);
-    text-align: center;
-  }
-  
-  .team .member .social a {
-    transition: color 0.3s;
-    display: block;
-    color: #fff;
-    margin-top: 15px;
-  }
-  
-  .team .member .social a:hover {
-    color: #eb5d1e;
-  }
-  
-  .team .member .social i {
-    font-size: 18px;
-    margin: 0 2px;
-  }
-  
-  .team .member:hover .member-info {
-    background: linear-gradient(0deg, rgba(78, 64, 57, 0.95) 0%, rgba(78, 64, 57, 0.95) 15%, rgba(255, 255, 255, 0) 100%);
-    opacity: 1;
-    transition: 0.4s;
-  }
-  
-  .team .member:hover .member-info-content {
-    bottom: 30px;
-    transition: bottom 0.4s;
-  }
-  
-  .team .member:hover .social {
-    left: 0;
-    transition: left ease-in-out 0.3s;
   }
   
   /*--------------------------------------------------------------
