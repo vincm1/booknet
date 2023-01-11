@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, EmailField, SubmitField, ValidationError
 from flask_wtf.file import FileField, FileAllowed
-from wtforms.validators import DataRequired, EqualTo, Length, Email
+from wtforms.validators import DataRequired, EqualTo, Length, Email, Regexp
 from booknet_app.models import User
 
 #### Checks: Nutzername & Email bereits vorhanden. ####
@@ -17,7 +17,9 @@ class RegistrationForm(FlaskForm):
     
     username = StringField('Username', validators=[DataRequired(), check_username])
     email = EmailField('Email', validators=[Email(), DataRequired(), check_email])
-    passwort = PasswordField('Passwort', validators=[DataRequired(), Length(min=8, message="Mindestens 8 Zeichen!"), EqualTo('passwort_bestätigen', message="Passwörter stimmen nicht überein!")])
+    passwort = PasswordField('Passwort', validators=[DataRequired(), Length(min=8, message="Mindestens 8 Zeichen!"), 
+                            EqualTo('passwort_bestätigen', message="Passwörter stimmen nicht überein!"),
+                            Regexp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])", message="Passwort muss Sonderzeichen, Groß-Kleinschreibung.")])
     passwort_bestätigen = PasswordField('Passwort bestätigen', validators=[DataRequired()])
     submit = SubmitField('Anmelden')
     
