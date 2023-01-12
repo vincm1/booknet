@@ -28,119 +28,53 @@
 
   <body>
     <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
-      <!-- Container wrapper -->
-      <div class="container-fluid navbar">
-        <!-- Toggle button -->
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-mdb-toggle="collapse"
-          data-mdb-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <i class="fas fa-bars"></i>
-        </button>
 
-        <!-- Collapsible wrapper -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <!-- Navbar brand -->
-          <a
-            class="navbar-brand mt-2 mt-lg-0"
-            href=" {{url_for('stores.all_stores')}}"
-            >Booknet</a
-          >
-        </div>
-        <!-- Collapsible wrapper -->
-        <!-- Right elements -->
-        <div class="d-flex align-items-center">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <nav class="navbar navbar-expand-lg stick-top">
+      <div class="container">
+        <img class="navbar-brand" src="static/images/Book Net.png "href="{{url_for('stores.all_stores')}}">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('stores.all_stores')}}"
-                >Stores</a
-              >
+              <a class="nav-link" href="{{url_for('stores.all_stores')}}">Stores</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('books.book_search')}}"
-                >Books</a
-              >
+              <a class="nav-link" href="{{url_for('books.book_search')}}">Books</a>
             </li>
-          <!-- Notifications -->
-          <div class="dropdown">
             <li class="nav-item dropdown">
-              <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              >
-              <i class="fas fa-bell"></i>
-              <span class="badge rounded-pill badge-notification bg-danger"
-                >3</span
-              >
-              </a>
-            <ul
-              class="dropdown-menu dropdown-menu-end"
-              aria-labelledby="navbarDropdownMenuLink"
-            >
-              <li>
-                <a class="dropdown-item" href="#">Some news</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">Another news</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </li>
-            </ul>
-          </div>
-          <!-- Avatar -->
-          <div class="dropdown">
-            <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <img
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img
                 src="{{url_for('static', filename='profile_pics/' + current_user.profile_picture)}}"
                 class="rounded-circle"
                 id="navbar-profilpic"
                 height="25"
                 alt="Profilbild"
                 loading="lazy"
-              />
-            </a>
-            <ul
-              class="dropdown-menu dropdown-menu-end"
-              aria-labelledby="navbarDropdownMenuAvatar"
-            >
-              <li>
-                <a class="dropdown-item" href="{{ url_for('users.user_bookshelves', 
-                  username=current_user.username) }}">Meine Bookshelves</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{{ url_for('users.user_stores', 
-                  username=current_user.username) }}">Meine Stores</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{{url_for('users.edit_user')}}">Einstellungen</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{{url_for('users.logout')}}">Logout<i class="fa-solid fa-right-from-bracket"></i></a>
-              </li>
-            </ul>
-          </div>
+                />
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ url_for('users.user_bookshelves', 
+                  username=current_user.username) }}"><i class="fa-solid fa-book"></i>Meine Bookshelves</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('users.user_stores', 
+                  username=current_user.username) }}"><i class="fa-solid fa-store"></i>Meine Stores</a></li>
+                <li><a class="dropdown-item" href="{{url_for('users.edit_user')}}"><i class="fa-solid fa-gear"></i>Einstellungen</a></li>
+                <li><a class="dropdown-item" href="{{url_for('users.logout')}}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
-        <!-- Right elements -->
       </div>
-      <!-- Container wrapper -->
     </nav>
+
+
+    
+
+
+
+
+    
     <!-- Navbar -->
 
     {% block content %} 
