@@ -73,71 +73,49 @@
 {% endif %}
 </section>
 
-<!-- ======= Portfolio Details Section ======= -->
-<main>
-  <section id="portfolio-details" class="portfolio-details">
-    <div class="container">
-      <div class="row gy-4">
-        <div class="col-lg-8">
-          <div class="portfolio-details-slider swiper">
-            <div class="swiper-wrapper align-items-center">
-              <div class="swiper-slide">
-                <img src="{{ url_for('static', filename='store_pics/' + store.store_bild )}}" alt="" />
-              </div>
 
-              <div class="swiper-slide">
-                <img src="assets/img/portfolio/portfolio-2.jpg" alt="" />
-              </div>
-
-              <div class="swiper-slide">
-                <img src="assets/img/portfolio/portfolio-3.jpg" alt="" />
-              </div>
+<section class="store">
+  <div class="container">
+    <div class="row">
+      <!-- Carousel -->
+      <div class="col-lg-6">
+        <div id="carouselExample" class="carousel slide">
+          <div class="carousel-inner shadow">
+            <div class="carousel-item active">
+              <img src="{{ url_for('static', filename='store_pics/' + store.store_bild )}}" class="d-block w-100" alt="...">
             </div>
-            <div class="swiper-pagination"></div>
           </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">{{store.storename}}</h4>
+            <table>
 
-        <div class="col-lg-4">
-          <div class="portfolio-info">
-            <h3>{{store.storename}}</h3>
-            <ul>
-              <li><strong>Adresse</strong>: {{store.adresse}}n</li>
-              <li><strong>Sitzplätze</strong>: 10 </li>
-              <li><strong>Öffnungszeiten</strong>
-                <table class="öffnung">
-                  <tr>
-                    <td>Mo - Fr: </td>
-                    <td><i> 10:00 - 20:00</i></td>
-                  </tr>
-                  <tr>
-                    <td>Sa: </td>
-                    <td><i>12:00 - 20:00</i></td>
-                  </tr>
-                </table>
-              </li>
-              <li>
-                <strong>Literaturfokus</strong>: Romane, Belletristik</a>
-              </li>
-              <li>
-                <strong>Versorgung</strong>: Kaffee, Säfte & Bier </a>
-              </li>
-              <li>
-                <strong>URL</strong>: <a href="#">www.example.com</a>
-              </li>
-            </ul>
-          </div>
-          <div class="portfolio-description">
-            <h2>Beschreibung</h2>
-            <p>
-             {{store.beschreibung}}
-            </p>
+                <p class="card-text">Adresse:</p>
+                <p class="card-text">{{store.adresse}}</p>
+                <p class="card-text">{{store.city}}</p>
+              </tr>
+              <tr>
+                
+              </tr>
+            </table>
+            <button class="btn btn-primary">Leseplatz buchen</button>
+            <button class="btn btn-light">Kontakt</button>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  <!-- End Portfolio Details Section -->
-</main>
-<!-- End #main -->
+  </div>
+</section>
 
 {% endblock %}
