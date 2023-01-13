@@ -38,7 +38,6 @@ h6 {
   border: none;
 }
 
-
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
@@ -53,27 +52,12 @@ h6 {
   width: 60px;
 }
 
-
-
-
-/*--------------------------------------------------------------
-# Disable aos animation delay on mobile devices
---------------------------------------------------------------*/
-@media screen and (max-width: 768px) {
-  [data-aos-delay] {
-    transition-delay: 0 !important;
-  }
-}
-
 /*--------------------------------------------------------------
 # City Section
 --------------------------------------------------------------*/
 .city-section .navbar{
   padding: 1% 1%;
   background-color: #fff;
-}
-
-#navbar_two {
   position: sticky;
 }
 
@@ -84,18 +68,28 @@ h6 {
   margin-right: 0;
 }
 
+.fa-solid {
+  margin: 0 3px;
+}
+
+.nav-item-city{
+  margin: 0 1rem;
+}
+
+.nav-item-city:hover{
+  text-decoration: underline;
+}
+
 
 /*--------------------------------------------------------------
 # Store Cards
 --------------------------------------------------------------*/
-.container-cards .row{
-  background-color: white;
-  margin: 2% 2%;
+.cards-section { 
+  padding: 0 0 2rem 0;
 }
-
 .storecard {
   width: 18rem;
-  margin: 5px;
+  margin: 1rem 3rem ;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
@@ -109,20 +103,11 @@ h6 {
   object-fit: cover;
 }
 
-.card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 20px;
-  min-height: auto;
-}
-
 .tag {
   background: #cccccc;
   border-radius: 50px;
   font-size: 12px;
-  margin: 5px 0px 1px 0px ;
+  margin: 0px 0 5px 0;
   color: #fff;
   padding: 3px 10px;
   text-transform: uppercase;
@@ -133,13 +118,30 @@ h6 {
   background-color: #47bcd4;
 }
 
-.card-body p {
-  font-size: 13px;
-  margin: 0 0 40px;
+.tag-purple {
+  background-color: #47bcd4;
 }
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 10px 5px 5px 15px;
+  min-height: auto;
+}
+
+.card-text{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
+
 .user {
   display: flex;
-  margin-top: auto;
+  padding: 5px 15px;
 }
 
 .user img {
@@ -172,10 +174,6 @@ h6 {
 
 .form-group {
 	margin-bottom: 1.5rem;
-}
-
-.nav-link:active, .nav-link:hover{
-  background-color: #eb5d1e;
 }
 
 .nav-pills a.nav-link {
@@ -382,5 +380,14 @@ h6 {
     -moz-text-align-last: center;
     text-align-last: center;
     padding: 3px 0;
+  }
+}
+
+/*--------------------------------------------------------------
+# Disable aos animation delay on mobile devices
+--------------------------------------------------------------*/
+@media screen and (max-width: 768px) {
+  [data-aos-delay] {
+    transition-delay: 0 !important;
   }
 }

@@ -1,65 +1,74 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!-- ======= Navbar 2 section ======= -->
+<section class="city-section">
 
-<section class="add-section">
-  <div class="container-fluid">
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">+</button>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Store hinzufügen</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          
-          <form action="{{url_for('stores.add_store')}}" method="POST" enctype="multipart/form-data">
-              <div class="modal-body">
-                  {{form.hidden_tag()}}
-                    <p>{{form.storename.label}}{{form.storename()}}</p><br>
-                    <p>{{form.category.label}}{{form.category()}}</p><br>
-                    <p>{{form.adresse.label}}{{form.adresse()}}</p><br>
-                    <p>{{form.city.label}}{{form.city()}}</p><br>
-                    <p>{{form.storebild.label}}{{form.storebild()}}</p><br>
-                    <p>{{form.seats.label}}{{form.seats()}}</p><br>
-                    <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p>
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <ul class="navbar-nav ms-auto">
+        {% for city in cities %}
+          <li class="nav-item-city">
+            <a class="nav-link" href="{{url_for('stores.store_city', city='Berlin')}}"><i class="fa-solid fa-city"></i>{{city[0]}}</a>
+          </li>
+        {% endfor %}
+      </ul>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" id="add-button" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Store hinzufügen.">+</button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Store hinzufügen</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-footer">
-              <button type="submit" class="btn btn-success" action="{{url_for('stores.add_store')}}">Store hinzufügen</button>
-              </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
- 
-<section class="content-section">
-  <div class="container">
-    <div class="row">
-        {% for store in stores %} 
-        <div class="column col-lg-3 col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{{ url_for('static', filename='store_pics/' + store.store_bild )}}" alt="Buchstore">
-                <div class="card-body">
-                  <h5 class="card-title"><a href="{{ url_for('stores.store', store_id=store.id)}}">{{ store.storename }}</a></h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">{{ store.adresse }}</li>
-                  <li class="list-group-item">{{ store.beschreibung }}</li>
-                </ul>
-                <div class="card-body">
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
-                </div>
+              <form action="{{url_for('stores.add_store')}}" method="POST" enctype="multipart/form-data">
+                  <div class="modal-body">
+                      {{form.hidden_tag()}}
+                      <p>{{form.storename.label}}{{form.storename()}}</p><br>
+                      <p>{{form.category.label}}{{form.category()}}</p><br>
+                      <p>{{form.adresse.label}}{{form.adresse()}}</p><br>
+                      <p>{{form.city.label}}{{form.city()}}</p><br>
+                      <p>{{form.storebild.label}}{{form.storebild()}}</p><br>
+                      <p>{{form.seats.label}}{{form.seats()}}</p><br>
+                      <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p>
+                  </div>
+                  <div class="modal-footer">
+                  <button type="submit" class="btn btn-success" action="{{url_for('stores.add_store')}}">Store hinzufügen</button>
+                  </div>
+              </form>
             </div>
-        </div> 
-        {% endfor %}   
+          </div>
+        </div>
     </div>
-  </div>  
-</section>
+  </nav>
+
+  <section class="cards-section">
+    <div class="container">
+      <div class="row">
+          {% for store in stores %} 
+          <div class="col-xl-3 col-md-4 col-sm-2">
+              <div class="storecard">
+                  <img class="card-img-top" src="{{ url_for('static', filename='store_pics/' + store.store_bild )}}" alt="Card image cap">
+                  <div class="card-body">
+                    <span class="tag tag-teal">{{store.category}}</span>
+                    <h4 class="card-title"><a href="{{ url_for('stores.store', store_id=store.id)}}">{{ store.storename }}</a></h4>
+                    <p class="card-text">{{ store.adresse }}</p>
+                    <p class="card-text">{{ store.city }}</p>
+                  </div>
+                  <div class="user">
+                    <img src="{{url_for('static', filename='profile_pics/' + store.user.profile_picture)}}" alt="user" />
+                    <div class="user-info">
+                      <h5>{{store.user.username}}</h5>
+                      <small>3 days ago</small>
+                    </div>
+                  </div>
+              </div>
+          </div> 
+          {% endfor %}   
+      </div>
+    </div>  
+  </section>
   
 {% endblock %}
