@@ -1,117 +1,213 @@
-{% extends "base.html" %} 
-{% block content %} 
-{% if current_user.id == store.user_id %}
+{% extends "base.html" %} {% block content %}
 
 <!-- ======= Button Section ======= -->
-<section class="edit-section">
-  <div class="container-fluid">
-    <!-- Button trigger modal -->
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
-    >
-      Edit
-    </button>
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Store updaten</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <form
-            action="{{url_for('stores.edit_store',store_id=store_id)}}"
-            method="POST"
-            enctype="multipart/form-data"
+<section class="city-section">
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <ul class="navbar-nav ms-auto">
+        {% for city in cities %}
+        <li class="nav-item-city">
+          <a
+            class="nav-link"
+            href="{{url_for('stores.store_city', city='Berlin')}}"
+            ><i class="fa-solid fa-city"></i>{{city[0]}}</a
           >
-            <div class="modal-body">
-              {{form.hidden_tag()}}
-              <p>{{form.storename.label}}{{form.storename()}}</p>
-              <br />
-              <p>{{form.storebild.label}}{{form.storebild()}}</p>
-              <br />
-              <p>{{form.adresse.label}}{{form.adresse()}}</p>
-              <br />
-              <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p>
-            </div>
-            <div class="modal-footer">
+        </li>
+        {% endfor %}
+      </ul>
+      <!-- Button trigger modal -->
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="add-button"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+        title="Store hinzufügen."
+      >
+        +
+      </button>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Store hinzufügen
+              </h5>
               <button
-                type="submit"
-                class="btn btn-success"
-                action="{{url_for('stores.edit_store', store_id=store_id)}}"
-              >
-                Store updaten
-              </button>
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
-          </form>
+            <form
+              action="{{url_for('stores.add_store')}}"
+              method="POST"
+              enctype="multipart/form-data"
+            >
+              <div class="modal-body">
+                {{form.hidden_tag()}}
+                <p>{{form.storename.label}}{{form.storename()}}</p>
+                <br />
+                <p>{{form.category.label}}{{form.category()}}</p>
+                <br />
+                <p>{{form.adresse.label}}{{form.adresse()}}</p>
+                <br />
+                <p>{{form.city.label}}{{form.city()}}</p>
+                <br />
+                <p>{{form.storebild.label}}{{form.storebild()}}</p>
+                <br />
+                <p>{{form.seats.label}}{{form.seats()}}</p>
+                <br />
+                <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="submit"
+                  class="btn btn-success"
+                  action="{{url_for('stores.add_store')}}"
+                >
+                  Store hinzufügen
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </nav>
 </section>
-{% endif %} {% if current_user.id == store.user_id %}
-<form
-  action="{{url_for('stores.delete_store', store_id=store_id)}}"
-  method="POST"
->
-  <button class="btn btn-danger" type="submit" value="Delete">Löschen</button>
-</form>
-{% endif %}
-</section>
-
 
 <section class="store">
   <div class="container">
     <div class="row">
-      <!-- Carousel -->
-      <div class="col-lg-6">
-        <div id="carouselExample" class="carousel slide">
-          <div class="carousel-inner shadow">
-            <div class="carousel-item active">
-              <img src="{{ url_for('static', filename='store_pics/' + store.store_bild )}}" class="d-block w-100" alt="...">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+      <div class="col-lg-8">
+        <div class="card">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="card-body">
+                <h2 class="card-title-store">{{store.storename}}</h2>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="ratings">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i>
+                <p>4.1</p>
+                <span class="tag tag-teal">{{store.category}}</span>
+              </div>
+              <p>{{store.beschreibung}}</p>
+            </li>
+            <li class="list-group-item">
+              <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner shadow">
+                  <div class="carousel-item active">
+                    <img
+                      src="{{ url_for('static', filename='store_pics/' + store.store_bild )}}"
+                      class="d-block w-100"
+                      alt="..."
+                    />
+                  </div>
+                </div>
+                <button
+                  class="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselExample"
+                  data-bs-slide="prev"
+                >
+                  <span
+                    class="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button
+                  class="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExample"
+                  data-bs-slide="next"
+                >
+                  <span
+                    class="carousel-control-next-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="col-lg-6">
+
+      <div class="col-lg-4">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">{{store.storename}}</h4>
-            <table>
-
-                <p class="card-text">Adresse:</p>
-                <p class="card-text">{{store.adresse}}</p>
-                <p class="card-text">{{store.city}}</p>
-              </tr>
-              <tr>
-                
-              </tr>
-            </table>
-            <button class="btn btn-primary">Leseplatz buchen</button>
-            <button class="btn btn-light">Kontakt</button>
+            <h5 class="card-title">Leseplatz buchen</h5>
+            <p class="card-text"></p>
           </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              Personen:
+              <select class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+            </li>
+            <li class="list-group-item">
+              <label for="startDate">Datum:</label>
+              <input id="startDate" class="form-control" type="date" />
+            </li>
+            <li class="list-group-item">
+              <label for="startTime">Uhrzeit:</label>
+              <input id="startTime" class="form-control" type="time" />
+            </li>
+          </ul>
+          <div class="card-body text-center">
+            <button href="#" class="btn btn-primary btn-block">
+              Platz buchen
+            </button>
+          </div>
+        </div>
+        <br />
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Kontakt</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="contact">
+                <i class="fa-solid fa-phone"></i>
+                <p>089/05959</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <br />
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Adresse</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v153994375562"
+                frameborder=""
+              ></iframe>
+            </li>
+            <li class="list-group-item">
+              <div class="contact"><i class="fa-solid fa-location-dot"></i>{{store.adresse}}, {{store.city}}</div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
