@@ -55,29 +55,21 @@ h6 {
 /*--------------------------------------------------------------
 # City Section
 --------------------------------------------------------------*/
-.city-section .navbar{
-  padding: 1% 1%;
-  background-color: #fff;
-  position: sticky;
+.cities {
+  padding: 1rem 0;
 }
 
-#add-button {
+#add-city-button {
   border-radius: 50%;
-  display: block;
-  margin-left: auto;
-  margin-right: 0;
 }
 
-.fa-solid {
+.city-names {
+  margin: 0 2rem;
+}
+
+.city-names i, a {
+  color: #212529;
   margin: 0 3px;
-}
-
-.nav-item-city{
-  margin: 0 1rem;
-}
-
-.nav-item-city:hover{
-  text-decoration: underline;
 }
 
 /*--------------------------------------------------------------

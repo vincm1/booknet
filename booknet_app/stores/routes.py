@@ -13,9 +13,13 @@ stores = Blueprint('stores', __name__)
 def all_stores():
     '''df'''
     form = StoreForm()   
-    stores = db.session.query(Store).all()
+    
+    page = request.args.get('page', 1, type=int)
+    stores = Store.query.order_by(Store.creation_date.desc()).paginate(page=page, per_page=10)
+
     time_now = datetime.now()
     cities = db.session.query(Store.city).distinct()
+    
     return render_template('stores/all_stores.html', stores=stores, form=form, time_now=time_now, cities=cities) 
 
 @login_required
@@ -43,12 +47,17 @@ def add_store():
             return redirect(url_for('stores.all_stores'))
         else:
             store = Store(storename=form.storename.data, store_bild="book_store.jpg", adresse=form.adresse.data, 
-                        beschreibung=form.beschreibung.data, city=form.city.data, user_id=current_user.id)
+                        seats=form.seats.data, category=form.category.data, beschreibung=form.beschreibung.data, 
+                        city=form.city.data, user_id=current_user.id)
             db.session.add(store)
             db.session.commit()
             return redirect(url_for('stores.all_stores'))
-
-    return render_template('stores/all_stores.html', form=form)
+    
+    page = request.args.get('page', 1, type=int)
+    stores = Store.query.order_by(Store.creation_date.desc()).paginate(page=page, per_page=10)
+    time_now = datetime.now() 
+    
+    return render_template('stores/all_stores.html', form=form, stores=stores, time_now=time_now)
 
 @login_required
 @stores.route('/store/<int:store_id>/edit', methods=['GET', 'POST'])

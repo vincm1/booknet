@@ -27,24 +27,24 @@
   </head>
 
   <body>
-    <!-- Navbar -->
-
-    <nav class="navbar navbar-expand-lg sticky-top">
+    <!-- Navbar normal-->
+    <nav class="navbar navbar-expand-lg">
       <div class="container">
         <a href="{{url_for('stores.all_stores')}}"><img class="navbar-brand" src="{{url_for('static', filename='images/booknet_logo.png')}}"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('stores.all_stores')}}">Stores</a>
+            <li class="nav-item active">
+              <a class="nav-link" href="{{url_for('stores.all_stores')}}">Stores <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('books.book_search')}}">Books</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img
                 src="{{url_for('static', filename='profile_pics/' + current_user.profile_picture)}}"
                 class="rounded-circle"
@@ -54,135 +54,135 @@
                 loading="lazy"
                 />
               </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{{ url_for('users.user_bookshelves', 
-                  username=current_user.username) }}"><i class="fa-solid fa-book"></i>Meine Bookshelves</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('users.user_stores', 
-                  username=current_user.username) }}"><i class="fa-solid fa-store"></i>Meine Stores</a></li>
-                <li><a class="dropdown-item" href="{{url_for('users.edit_user')}}"><i class="fa-solid fa-gear"></i>Einstellungen</a></li>
-                <li><a class="dropdown-item" href="{{url_for('users.logout')}}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
-              </ul>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ url_for('users.user_stores', 
+                  username=current_user.username) }}"><i class="fa-solid fa-store"></i>Meine Stores</a>
+                <a class="dropdown-item" href="{{ url_for('users.user_bookshelves', 
+                  username=current_user.username) }}"><i class="fa-solid fa-book"></i>Meine Bookshelves</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{url_for('users.edit_user')}}"><i class="fa-solid fa-gear"></i>Einstellungen</a>
+                <a class="dropdown-item" href="{{url_for('users.logout')}}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+              </div>
             </li>
           </ul>
         </div>
       </div>
     </nav>
 
-
-    
-
-
-
-
-    
-    <!-- Navbar -->
-
     {% block content %} 
     
     {% endblock %}
 
     <!-- ======= Footer ======= -->
-<footer id="footer">
-  <div class="footer-newsletter">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-6">
-          <h4>Unser Newsletter</h4>
-          <p>
-            Lorem Ipsum Dolor Lorem Ipsum Dolor.
-          </p>
-          <form action="" method="post">
-            <input type="email" name="email" /><input
-              type="submit"
-              value="Anmelden"
-            />
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer-top">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-6 footer-contact">
-          <h3>Booknet GmbH</h3>
-          <p>
-            Maximilianstraße 1 <br />
-            München, BY 81726<br />
-            Deutschland <br /><br />
-            <strong>Telefon:</strong>+49 123/456789<br />
-            <strong>Email:</strong> info@example.com<br />
-          </p>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Useful Links</h4>
-          <ul>
-            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-            <li>
-              <i class="bx bx-chevron-right"></i> <a href="#">Über uns</a>
-            </li>
-            <li>
-              <i class="bx bx-chevron-right"></i> <a href="#">Leistungen</a>
-            </li>
-            <li>
-              <i class="bx bx-chevron-right"></i>
-              <a href="#">AGB</a>
-            </li>
-            <li>
-              <i class="bx bx-chevron-right"></i> <a href="#">Impressum</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Unsere Städte</h4>
-          <ul>
-            <li>
-              <i class="bx bx-chevron-right"></i> <a href="#">Berlin</a>
-            </li>
-            <li>
-              <i class="bx bx-chevron-right"></i>
-              <a href="#">München</a>
-            </li>
-            <li>
-                <i class="bx bx-chevron-right"></i>
-                <a href="#">Hamburg</a>
-              </li>
-          </ul>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Unsere Social Networks</h4>
-          <p>Auf diesen Kanälen findest du uns:</p>
-          <div class="social-links mt-3">
-            <a href="#" class="twitter"><i class="fab fa-twitter"></i></i></a>
-            <a href="#" class="facebook"><i class="fab fa-facebook"></i></i></a>
-            <a href="#" class="instagram"><i class="fab fa-instagram"></i></i></a>
-            <a href="#" class="google-plus"><i class="fab fa-github"></i></i></a>
-            <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></i></a>
+    <footer id="footer">
+    <div class="footer-newsletter">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <h4>Unser Newsletter</h4>
+            <p>
+              Lorem Ipsum Dolor Lorem Ipsum Dolor.
+            </p>
+            <form action="" method="post">
+              <input type="email" name="email" /><input
+                type="submit"
+                value="Anmelden"
+              />
+            </form>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="container py-4">
-    <div class="copyright">
-      &copy; Copyright <strong><span>Booknet</span></strong
-      >. All Rights Reserved
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>Booknet GmbH</h3>
+            <p>
+              Maximilianstraße 1 <br />
+              München, BY 81726<br />
+              Deutschland <br /><br />
+              <strong>Telefon:</strong>+49 123/456789<br />
+              <strong>Email:</strong> info@example.com<br />
+            </p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li>
+                <i class="bx bx-chevron-right"></i> <a href="#">Über uns</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i> <a href="#">Leistungen</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="#">AGB</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i> <a href="#">Impressum</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Unsere Städte</h4>
+            <ul>
+              <li>
+                <i class="bx bx-chevron-right"></i> <a href="#">Berlin</a>
+              </li>
+              <li>
+                <i class="bx bx-chevron-right"></i>
+                <a href="#">München</a>
+              </li>
+              <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="#">Hamburg</a>
+                </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Unsere Social Networks</h4>
+            <p>Auf diesen Kanälen findest du uns:</p>
+            <div class="social-links mt-3">
+              <a href="#" class="twitter"><i class="fab fa-twitter"></i></i></a>
+              <a href="#" class="facebook"><i class="fab fa-facebook"></i></i></a>
+              <a href="#" class="instagram"><i class="fab fa-instagram"></i></i></a>
+              <a href="#" class="google-plus"><i class="fab fa-github"></i></i></a>
+              <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</footer>
+
+    <div class="container py-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Booknet</span></strong
+        >. All Rights Reserved
+      </div>
+    </div>
+  </footer>
 <!-- End Footer -->
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <!-- Bootstrap   -->
     <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
 </body>
