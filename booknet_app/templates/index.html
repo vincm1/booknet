@@ -3,7 +3,7 @@
   <div class="container d-flex align-items-center justify-content-between">
     <div class="logo">
       <!-- Uncomment below if you prefer to use an image logo -->
-      <a href="{{url_for('core.index')}}"><img src="static/images/Book Net.png" alt="" class="logo"></a>
+      <a href="{{url_for('core.index')}}"><img src="{{url_for('static', filename='images/booknet_logo.png')}}" alt="" class="logo"></a>
     </div>
 
     <nav class="navbar" id="navbar">
@@ -35,7 +35,7 @@
       >
         <h1>Dein nächstes Buchabenteuer.</h1>
         <h2>
-          Du bist auf der Suche nach einem entspannten Buchladen, in dem du tief in dein Lieblingsbuch eintauchen?
+          Du bist auf der Suche nach einem entspannten Buchladen, in dem du tief in dein Lieblingsbuch eintauchen kannst?
         </h2>
         <h2>
           Oder du suchst schlichtweg nur Inspiration für dein nächstes Buch? Dann bist bei uns genau richtig!
@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="col-lg-6 order-1 order-lg-2 hero-img">
-        <img src="static/images/title_pic.jpg" class="img-fluid" alt="" />
+        <img src="{{url_for('static', filename='images/booktitle.jpg')}}" class="img-fluid" alt="" />
       </div>
     </div>
   </div>
@@ -179,28 +179,11 @@
             <p>Dein Buchexperten Team</p>
           </div>
             <div class="row pb-5 mb-4">
-              <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                <!-- Card-->
-                <div class="card shadow-sm border-0 rounded">
-                  <div class="card-body p-0"><img src="static/images/team/team1.jpg" alt="teammember1" class="w-100 card-img-top">
-                    <div class="p-4">
-                      <h5 class="mb-0">Anna Rockwell</h5>
-                      <p class="small text-muted">CEO - Consultant</p>
-                      <ul class="social mb-0 list-inline mt-3">
-                        <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
-                        <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
-                        <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
-                        <li class="list-inline-item m-0"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
-              <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+              <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                 <!-- Card-->
-                <div class="card shadow-sm border-0 rounded">
-                  <div class="card-body p-0"><img src="static/images/team/team2.jpg" alt="" class="w-100 card-img-top">
+                <div class="card shadow-sm border rounded">
+                  <div class="card-body p-0"><img src="{{url_for('static', filename='images/team/team2.jpg')}}" alt="" height="425px" class="w-100 card-img-top">
                     <div class="p-4">
                       <h5 class="mb-0">Michelle Meyer</h5>
                       <p class="small text-muted">COO</p>
@@ -215,10 +198,10 @@
                 </div>
               </div>
 
-              <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+              <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                 <!-- Card-->
-                <div class="card shadow-sm border-0 rounded">
-                  <div class="card-body p-0"><img src="static/images/team/team3.jpg" alt="" class="w-100 card-img-top">
+                <div class="card shadow-sm border rounded">
+                  <div class="card-body p-0"><img src="{{url_for('static', filename='images/team/team3.jpg')}}" alt="" height="425px" class="w-100 card-img-top">
                     <div class="p-4">
                       <h5 class="mb-0">Celine Beckham</h5>
                       <p class="small text-muted">Head of Marketing</p>
@@ -233,10 +216,10 @@
                 </div>
               </div>
 
-              <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+              <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                 <!-- Card-->
-                <div class="card shadow-sm border-0 rounded">
-                  <div class="card-body p-0"><img src="static/images/team/team4.jpg" alt="" class="w-100 card-img-top">
+                <div class="card shadow-sm border rounded">
+                  <div class="card-body p-0"><img src="{{url_for('static', filename='images/team/team4.jpg')}}" alt="" height="425px" class="w-100 card-img-top">
                     <div class="p-4">
                       <h5 class="mb-0">Austin Mac</h5>
                       <p class="small text-muted">Head of Books</p>
@@ -338,22 +321,11 @@
   <section  class="about" id="about">
     <div class="container">
       <div class="row justify-content-between">
-        <div
-          class="col-lg-5 d-flex align-items-center justify-content-center about-img"
-        >
-          <img
-            src="static/images/book_store.jpg"
-            class="img-fluid"
-            alt=""
-            data-aos="zoom-in"
-          />
-        </div>
+        
         <div class="col-lg-6 pt-5 pt-lg-0">
-          <h3 data-aos="fade-up">Voluptatem dignissimos provident quasi</h3>
+          <h3 data-aos="fade-up">Finde dein nächstes Buch.</h3>
           <p data-aos="fade-up" data-aos-delay="100">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis
-            aute irure dolor in reprehenderit
+            Deine neue Lektüre findest du bei uns mit SICHERHEIT.
           </p>
           <div class="row">
             <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
@@ -373,6 +345,17 @@
               </p>
             </div>
           </div>
+        </div>
+
+        <div
+          class="col-lg-5 d-flex align-items-center justify-content-center about-img"
+        >
+          <img
+            src="static/images/book_store.jpg"
+            class="img-fluid"
+            alt=""
+            data-aos="zoom-in"
+          />
         </div>
       </div>
     </div>
@@ -627,10 +610,12 @@
     </div>
   </div>
 
-  <div class="container py-4">
-    <div class="copyright">
-      &copy; Copyright <strong><span>Booknet</span></strong
-      >. All Rights Reserved
+  <div class="copyright">
+    <div class="container">
+      <div class="row justify-content-center">
+        &copy; Copyright <strong><span>Booknet</span></strong
+        >. All Rights Reserved
+      </div>
     </div>
   </div>
 </footer>
