@@ -1,3 +1,4 @@
+import json
 from flask import Flask, Blueprint, render_template, flash, request, redirect, url_for
 from flask_login import current_user, login_required
 from booknet_app import db
@@ -22,7 +23,8 @@ def search_books(query, max_results=40, start_index=0):
                 startIndex=start_index
             ).execute()
             # Print the results
-            return results
+            
+            return results["items"]
            
         except HttpError as error:
             print(f'An error occurred: {error}')
@@ -38,9 +40,14 @@ def book_search():
     if form.validate_on_submit() and request.method == "POST":
     
         suchwort = form.suchwort.data
-        results = search_books(suchwort)
-        books = results['items']
-         
-        return render_template('books/search_book.html', form=form, results=results, books=books)
+        books = search_books(suchwort)
+        
+        book_list = {}
+        
+        for book in books:
+            book_id = book['id']
+            book_list[book_id] = book
+            
+        return render_template('books/search_book.html', form=form, books=books, book_list=book_list)
 
     return render_template('books/search_book.html', form=form)

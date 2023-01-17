@@ -3,7 +3,7 @@
 {% block content %}
          
 <!-- Section:Signup Block -->
-<section class="signup">
+<section class="signup pt-5 pb-5">
   <!-- Error messages -->
   <div class="flashmessages">
     <div class="container">
@@ -38,9 +38,9 @@
   </div>
         
     <!-- Signup up Form -->
-  <div class="signupform pt-2">
-    <div class="container pb-5">
-      <div class="row align-items-center">
+  <div class="signupform pt-2 pb-5">
+    <div class="container">
+      <div class="row align-items-center pb-5">
         <div class="col-lg-6 mb-lg-0">
           <h1 class="my-1 display-3 fw-bold ls-tight">
             booknet <br />
@@ -52,8 +52,8 @@
           </p>
         </div>
 
-        <div class="col-lg-6 mb-1 mb-lg-0">
-          <div class="card">
+        <div class="col-lg-6 mb-1 mb-lg-0 pb-5">
+          <div class="card pb-5">
             <div class="card-body py-3 px-md-5">
               <form method="POST">
                 {{ form.hidden_tag() }}
@@ -96,7 +96,8 @@
                 <!-- Submit button -->
                 <div class="text-center">
                   {{ form.submit(class="btn btn-primary btn-block mb-4") }}
-                  <button class="btn btn-light btn-block mb-4"><a href="{{url_for('users.user_login')}}">Login</a></button>
+                </form>
+                  <a href="{{url_for('users.user_login')}}"><button class="btn btn-light btn-block mb-4">Login</button></a>
                 </div>
                 
                 <!-- Register buttons -->
@@ -123,10 +124,6 @@
         </div>
       </div>
     </div>
-  </div>
-    
-  </div>
-  <!-- Jumbotron -->
 </section>
 <!-- Section: Design Block -->
 
