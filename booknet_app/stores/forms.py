@@ -13,17 +13,11 @@ def check_storename(self, field):
 class StoreForm(FlaskForm):
     storename = StringField('Storename', validators=[DataRequired(), check_storename])
     storebild = FileField('Storefoto', validators=[FileAllowed(['png', 'jpg'])])
-    category = SelectField('Kategorie', choices=[('coz', 'Cozy'), ('lib','Library'), ('cor', 'Corner Shop')])
+    category = SelectField('Kategorie', choices=[('Cozy', 'Cozy'), ('Library','Library'), ('Corner Shop', 'Corner Shop'), ('Coffe Place', 'Coffe Place')])
     adresse = StringField('Adresse', validators=[DataRequired()])
     city = SelectField('Stadt', choices=[('Berlin', 'Berlin'), ('Hamburg','Hamburg'), ('München', 'München'), 
                                          ('Köln', 'Köln'), ('Düsseldorf', 'Düsseldorf'), ('Stuttgart', 'Stuttgart')])
     seats = IntegerField('Leseplätze', validators=[DataRequired()])
     beschreibung = TextAreaField('Was macht den Store unique?')
-    submit = SubmitField('Store hinzufügen')
-    
-class EditStoreForm(FlaskForm):
-    storename = StringField('Storename', validators=[check_storename])
-    storebild = FileField('Storefoto', validators=[FileAllowed(['png', 'jpg'])])
-    adresse = StringField('Adresse')
-    beschreibung = TextAreaField('Was macht den Store unique?')
-    submit = SubmitField('Store hinzufügen')
+    submit = SubmitField()
+

@@ -3,7 +3,7 @@ from flask import Flask, Blueprint, render_template, flash, request, redirect, u
 from flask_login import current_user, login_required
 from booknet_app import db
 from booknet_app.models import Store
-from booknet_app.stores.forms import StoreForm, EditStoreForm
+from booknet_app.stores.forms import StoreForm
 from booknet_app.picture_handler import save_store_picture
 
 stores = Blueprint('stores', __name__)
@@ -15,7 +15,7 @@ def all_stores():
     form = StoreForm()   
     
     page = request.args.get('page', 1, type=int)
-    stores = Store.query.order_by(Store.creation_date.desc()).paginate(page=page, per_page=10)
+    stores = Store.query.order_by(Store.creation_date.desc()).paginate(page=page, per_page=20)
 
     time_now = datetime.now()
     cities = db.session.query(Store.city).distinct()
@@ -53,8 +53,6 @@ def add_store():
             db.session.commit()
             return redirect(url_for('stores.all_stores'))
     
-    page = request.args.get('page', 1, type=int)
-    stores = Store.query.order_by(Store.creation_date.desc()).paginate(page=page, per_page=10)
     time_now = datetime.now() 
     
     return render_template('stores/all_stores.html', form=form, stores=stores, time_now=time_now)
@@ -68,7 +66,7 @@ def edit_store(store_id):
     if store.user_id != current_user.id:
         abort(403)
 
-    form = EditStoreForm()
+    form = StoreForm()
 
     if form.validate_on_submit() and request.method == "POST":
         if form.storebild.data:

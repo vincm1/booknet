@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Blueprint, current_app, render_template, flash, request, redirect, url_for, session
 from booknet_app import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -71,14 +72,16 @@ def edit_user():
     profile_picture = url_for('static', filename='profile_pics/' + current_user.profile_picture)
     return render_template('users/account.html', form=form, profile_picture=profile_picture)
 
-@users.route("/<username>/stores")
+@users.route("/<username>/stores", methods=['GET', 'POST'])
 def user_stores(username):
     form = StoreForm()
     user = User.query.filter_by(username=username).first_or_404()
-    stores = Store.query.filter_by(user=user).order_by(Store.storename.desc())
-    return render_template('users/user_stores.html', stores=stores, user=user, form=form)
+    page = request.args.get('page', 1, type=int)
+    stores = Store.query.filter_by(user=user).order_by(Store.creation_date.desc()).paginate(page=page, per_page=20)
+    time_now = datetime.now() 
+    return render_template('users/user_stores.html', stores=stores, user=user, form=form, time_now=time_now)
 
-@users.route("/<username>/bookshelves")
+@users.route("/<username>/bookshelves", methods=['GET', 'POST'])
 def user_bookshelves(username):
     form = BookshelfForm()
     user = User.query.filter_by(username=username).first_or_404()

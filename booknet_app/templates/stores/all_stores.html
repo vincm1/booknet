@@ -20,7 +20,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-body">
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST" action="{{url_for('stores.add_store')}}" enctype="multipart/form-data">
               {{form.hidden_tag()}}
               <h3 class="form-header">Store hinzufuegen</h3>
               <div class="form-group">
@@ -99,7 +99,6 @@
     </div>
   </div>  
 </section>
-
 
 <!-- Pagination Links-->
 <nav aria-label="Page navigation example">

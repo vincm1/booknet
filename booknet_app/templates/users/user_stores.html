@@ -2,73 +2,169 @@
 
 {% block content %}
 
-<section class="city-section">
-
-  <nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container">
-      <ul class="navbar-nav ms-auto">
-        {% for city in cities %}
-          <li class="nav-item-city">
-            <a class="nav-link" href="{{url_for('stores.store_city', city='Berlin')}}"><i class="fa-solid fa-city"></i>{{city[0]}}</a>
-          </li>
-        {% endfor %}
-      </ul>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" id="add-button" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Store hinzufügen.">+</button>
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Store hinzufügen</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- ======= Cities Section ======= -->
+<section class="cities">
+  <div class="container text-center">
+    <div class="d-flex flex-row align-items-center ">
+      {% for city in cities %}
+      <div class="city-names">
+        <p><a href="{{url_for('stores.store_city', city=city[0])}}"><i class="fa-solid fa-city"></i>{{city[0]}}</a></p>
+      </div>
+      
+    {% endfor %}
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary ms-auto" id="add-city-button" data-toggle="modal" data-target="#exampleModal">
+      +
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <form method="POST" action="{{url_for('stores.add_store')}}" enctype="multipart/form-data">
+              {{form.hidden_tag()}}
+              <h3 class="form-header">Store hinzufuegen</h3>
+              <div class="form-group">
+                {{form.storename.label()}}
+                {{form.storename(class='form-control', placeholder="Musterladen")}}
               </div>
-              <form action="{{url_for('stores.add_store')}}" method="POST" enctype="multipart/form-data">
-                  <div class="modal-body">
-                      {{form.hidden_tag()}}
-                      <p>{{form.storename.label}}{{form.storename()}}</p><br>
-                      <p>{{form.category.label}}{{form.category()}}</p><br>
-                      <p>{{form.adresse.label}}{{form.adresse()}}</p><br>
-                      <p>{{form.city.label}}{{form.city()}}</p><br>
-                      <p>{{form.storebild.label}}{{form.storebild()}}</p><br>
-                      <p>{{form.seats.label}}{{form.seats()}}</p><br>
-                      <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-8">
+                    {{form.category.label()}}
+                    {{form.category(class='form-control', placeholder="Kategorie")}}
                   </div>
-                  <div class="modal-footer">
-                  <button type="submit" class="btn btn-success" action="{{url_for('stores.add_store')}}">Store hinzufügen</button>
+                  <div class="col-4">
+                    {{form.seats.label()}}
+                    {{form.seats(class='form-control', placeholder="10")}}
                   </div>
-              </form>
-            </div>
+                </div>
+              </div>
+              <div class="form-group">
+                {{form.storebild.label()}}
+                {{form.storebild(class='form-control-data')}}
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-6">
+                    {{form.adresse.label()}}
+                    {{form.adresse(class='form-control', placeholder="Musterstrasse 1")}}
+                  </div>
+                  <div class="col-6">
+                    {{form.city.label()}}
+                    {{form.city(class='form-control', placeholder="Musterstadt")}}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                {{form.beschreibung.label()}}
+                {{form.beschreibung(class='form-control', placeholder="Super Store mit leckerem Kaffee!")}}
+              </div>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
+            {{form.submit(class="btn btn-primary", placeholder="Store hinzufügen!")}}
+          </div>
+        </form>
         </div>
+      </div>
     </div>
-  </nav>
+    </div>
+  </div>
+</section>
 
-  <section class="cards-section">
-    <div class="container">
-      <div class="row">
-          {% for store in stores %} 
-          <div class="col-xl-3 col-md-4 col-sm-2">
-              <div class="storecard">
-                  <img class="card-img-top" src="{{ url_for('static', filename='store_pics/' + store.store_bild )}}" alt="Card image cap">
-                  <div class="card-body">
-                    <span class="tag tag-teal">{{store.category}}</span>
-                    <h4 class="card-title"><a href="{{ url_for('stores.store', store_id=store.id)}}">{{ store.storename }}</a></h4>
-                    <p class="card-text">{{ store.adresse }}</p>
-                    <p class="card-text">{{ store.city }}</p>
-                  </div>
-                  <div class="user">
-                    <img src="{{url_for('static', filename='profile_pics/' + store.user.profile_picture)}}" alt="user" />
-                    <div class="user-info">
-                      <h5>{{store.user.username}}</h5>
-                      <small>3 days ago</small>
+
+<!-- ======= Cards Section ======= -->
+<section class="cards-section">
+  <div class="container-fluid">
+    <div class="row">
+      
+      {% for store in stores %}
+      <div class="col col-xl-2 col-md-4 col-sm-12">
+            <div class="card">
+                <img class="card-img-top" src="{{ url_for('static', filename='store_pics/' + store.store_bild )}}" alt="Card image cap">
+                <div class="card-body">
+                  <span class="tag tag-teal">{{store.category}}</span>
+                  <h4 class="card-title"><a href="{{ url_for('stores.store', store_id=store.id)}}">{{ store.storename }}</a></h4>
+                  <p class="card-text">{{ store.adresse }}</p>
+                  <p class="card-text">{{ store.city }}</p>
+                </div>
+                <div class="user-buttons">
+                  <button type="button" class="btn btn-secondary" id="edit_store_button" data-toggle="modal" data-target="#editStoreModal">
+                    Bearbeiten
+                  </button>
+                  <!-- Modal -->
+                  <div class="modal fade" id="editStoreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-body">
+                          <form method="POST" action="{{url_for('stores.edit_store', store_id=store.id)}}" enctype="multipart/form-data">
+                            {{form.hidden_tag()}}
+                            <h3 class="form-header">Store bearbeiten</h3>
+                            <div class="form-group">
+                              {{form.storename.label()}}
+                              {{form.storename(class='form-control', placeholder=store.storename)}}
+                            </div>
+                            <div class="form-group">
+                              <div class="row">
+                                <div class="col-8">
+                                  {{form.category.label()}}
+                                  {{form.category(class='form-control', placeholder="Kategorie")}}
+                                </div>
+                                <div class="col-4">
+                                  {{form.seats.label()}}
+                                  {{form.seats(class='form-control', placeholder=store.seats)}}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              {{form.storebild.label()}}
+                              {{form.storebild(class='form-control-data')}}
+                            </div>
+                            <div class="form-group">
+                              <div class="row">
+                                <div class="col-6">
+                                  {{form.adresse.label()}}
+                                  {{form.adresse(class='form-control', placeholder=store.adresse)}}
+                                </div>
+                                <div class="col-6">
+                                  {{form.city.label()}}
+                                  {{form.city(class='form-control', placeholder=store.city)}}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              {{form.beschreibung.label()}}
+                              {{form.beschreibung(class='form-control', placeholder=store.beschreibung)}}
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
+                          {{form.submit(class="btn btn-primary", value="Store updaten!")}}
+                        </div>
+                      </form>
+                      </div>
                     </div>
                   </div>
-              </div>
-          </div> 
-          {% endfor %}   
+                  <a href="{{url_for('stores.delete_store', store_id=store.id)}}"><button class="btn btn-outline-danger">Löschen</button></a>
+            </div>
+        </div>
       </div>
-    </div>  
-  </section>
-  
+        {% endfor %}
+  </div>  
+</section>
+
+<!-- Pagination Links-->
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% for page_num in stores.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+       {% if stores.page == page_num %}
+       <li class="page-item disabled">
+         <a class="page-link" href="{{ url_for('stores.all_stores', page=page_num) }}">{{ page_num }}</a></li>
+       </li>
+       {% else %}
+         <li class="page-item"><a class="page-link" href="{{ url_for('stores.all_stores', page=page_num) }}">{{ page_num }}</a></li>
+       {% endif %}
+   {% endfor %}
+ </nav>
 {% endblock %}
