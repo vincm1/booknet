@@ -21,7 +21,7 @@ def user_login():
 
         if user and user.check_passwort(form.passwort.data):
             login_user(user, remember=False)
-            return redirect(url_for('books.book_search'))
+            return redirect(url_for('stores.all_stores'))
         else:
             flash("Falsche Anmeldedaten!")    
     
