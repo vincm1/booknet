@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block content %}
-<section class="book-search">
+<section class="book-search pt-3">
   <div class="container">
     <form method="POST">
         {{ form.hidden_tag() }}
@@ -9,7 +9,7 @@
             placeholder="Programmieren Python") }}
           </div>
           <div class="form-group col-lg-2">
-            {{ form.submit(class="btn btn-primary btn-lg") }}
+            {{ form.submit(class="search btn btn-primary btn-lg w-100 ") }}
           </div>
         </div>
       </form>
@@ -18,31 +18,40 @@
 
 {% if books %}
 
-<section class="book-section">
+<section class="book-section pt-3 pb-5">
   <div class="container">
-    <div class="row">
+    <div class="row pt-2">
+      <div class="col-12">
+        <h5 class="text-uppercase text-end mb-4">({{search_findings}} Bücher)</h5>
+      </div>
+    </div>
+    <div class="row pb-5">
         {% for book in book_list.values() %}
           {% if "title" in book["volumeInfo"] %}
-            <div class="col-lg-3 col-md-3 col-sm-2">
-              <div class="card">
+            <div class="col-lg-3 mb-3 d-flex align-items-stretch">
+              <div class="card h-100 w-100">
                 {% if 'smallThumbnail'in book['volumeInfo']['imageLinks'] %}
-                  <img src="{{book['volumeInfo']['imageLinks']['smallThumbnail']}}" class="card-img-top" alt="Book image">
+                  <a href="{{book['accessInfo']['webReaderLink']}}" target="_blank"><img src="{{book['volumeInfo']['imageLinks']['smallThumbnail']}}" class="card-img-top" alt="Book image"></a>
                 {% else %}
                   <img src="{{url_for('static', filename='images/booknet_logo.png')}}" class="card-img-top" alt="Book image">
                 {% endif %}
-                <div class="card-body">
+
+                <div class="card-body d-flex flex-column pb-3">
                   <h5 class="card-title">{{book["volumeInfo"]["title"]}}</h5>
-                  {% for author in book["volumeInfo"]["authors"] %}
-                    <h6 class="card-subtitle mb-2 text-muted">{{author}}</h6>
-                  {% endfor %}
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    {% for author in book["volumeInfo"]["authors"] %} {{author}} {% endfor %}
+                  </h6>
                   {% if "publisher" in book["volumeInfo"] %}
-                    <p class="card-text"><span>Verlag:</span>{{book["volumeInfo"]["publisher"]}}</p>
-                    <p class="card-text"><span>Veröffentlichung:</span>{{book["volumeInfo"]["publishedDate"]}}</p>
+                    <p class="card-text">{{book["volumeInfo"]["publisher"]}}</p>
+                    <p class="card-text">{{book["volumeInfo"]["publishedDate"]}}</p>
                   {% else %}
-                    <p class="card-text"><span>Veröffentlichung:</span>{{book["volumeInfo"]["publishedDate"]}}</p>
+                    <p class="card-text"></span>{{book["volumeInfo"]["publishedDate"]}}</p>
                   {% endif %}
                   </div>
-                <a href="{{book['accessInfo']['webReaderLink']}}"><button class="btn btn-primary">Probe</button></a>
+                <div class="button pb-2 ps-2">
+                  <a href="{{book['accessInfo']['webReaderLink']}}" target="_blank"><button class="btn btn-outline-success readingbutton px-5">Leseprobe</button></a>
+                </div>
+                  
               </div>
             </div>  
           {% endif %}
@@ -53,7 +62,7 @@
 {% else %}
   <div class="container">
     <div class="row">
-      <p>No Books</p>
+      <p>Keine Suchergebnisse</p>
     </div>
   </div>
 </section>

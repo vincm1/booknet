@@ -90,7 +90,21 @@
                   <img src="{{url_for('static', filename='profile_pics/' + store.user.profile_picture)}}" alt="user" />
                   <div class="user-info">
                     <h5>{{store.user.username}}</h5>
-                    <small>{{(time_now - store.creation_date).days}} days ago</small>
+                    {% if (time_now - store.creation_date).days > 1 %}
+                      <small>vor {{(time_now - store.creation_date).days}} Tagen</small>
+                    {% elif (time_now - store.creation_date).days == 1 %}
+                      <small>vor {{(time_now - store.creation_date).days}} Tag</small>
+                    {% elif ((time_now - store.creation_date).seconds ) // 3600 > 1 %}
+                      <small>vor {{((time_now - store.creation_date).seconds ) // 3600 }} Stunden</small>
+                    {% elif ((time_now - store.creation_date).seconds ) // 3600 == 1 %}
+                      <small>vor {{((time_now - store.creation_date).seconds ) // 3600 }} Stunde</small>
+                    {% elif ((time_now - store.creation_date).seconds ) // 60 % 60 > 1 %}
+                      <small>vor {{((time_now - store.creation_date).seconds ) // 60 % 60 }} Minuten</small>
+                    {% elif ((time_now - store.creation_date).seconds ) // 60 % 60 == 1 %}
+                      <small>vor {{((time_now - store.creation_date).seconds ) // 60 % 60 }} Minute</small>
+                    {% else %}
+                    <small>gerade</small>
+                    {% endif %} 
                   </div>
                 </div>
             </div>

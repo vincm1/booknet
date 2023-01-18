@@ -17,6 +17,7 @@ def all_stores():
     page = request.args.get('page', 1, type=int)
     stores = Store.query.order_by(Store.creation_date.desc()).paginate(page=page, per_page=20)
 
+    
     time_now = datetime.now()
     cities = db.session.query(Store.city).distinct()
     

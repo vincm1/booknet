@@ -33,7 +33,8 @@ h6 {
   border: none;
 }
 
-.btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+.btn-primary:hover, .btn-primary:active, .btn-primary:visited,
+.btn-primary:focus, .btn-primary:active:focus {
   background-color: #ef7f4d;
   border: none;
 }
@@ -202,13 +203,46 @@ h6 {
 /*--------------------------------------------------------------
 # Books page
 --------------------------------------------------------------*/
-.book-search {
-  padding: 1rem 0 0 2rem;
+.book-search .search {
+
 }
 
-.book-section {
-  padding: 1rem 0 0 0 ;
+.book-section .card {
+  box-shadow: 0 0 5px 0 rgba(22, 22, 26, .25);
 }
+
+.card-img-top {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
+}
+
+.book-section .card-title {
+  font-size: 25px;
+}
+
+.book-section .card-subtitle {
+  font-size: 18px;
+}
+
+.book-section .card-text {
+  font-size: 14px;
+  margin: 1px 0;
+}
+
+.readingbutton {
+  color: #ef7f4d;
+  border-color: #ef7f4d;
+}
+
+.readingbutton:hover,
+.readingbutton:focus{
+  background-color: #ef7f4d;
+  color: #fff;
+  border-color: #ef7f4d;
+}
+
+
 
 /*--------------------------------------------------------------
 # Account page
