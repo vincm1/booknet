@@ -5,32 +5,49 @@ from flask_login import current_user, login_required
 from booknet_app import db
 from booknet_app.books.forms import SearchBookForm
 from booknet_app.models import Book
-from config import google_api_key
+from config import google_api_key, openai_key
 ### Google Books Api ### 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
+### Openai ###
+import openai
 
 books = Blueprint('books', __name__)
 
 service = build('books', 'v1', developerKey=google_api_key)
 
+openai.api_key = openai_key
+model_engine = "text-davinci-003" 
+
+### API Call functions ###
 def search_books(query, max_results=randint(1,40), start_index=0):
-        try:
+    try:
             # Call the Books API to search for books
-            results = service.volumes().list(
-                q=query,
-                maxResults=max_results,
-                startIndex=start_index
-            ).execute()
+        results = service.volumes().list(
+            q=query,
+            maxResults=max_results,
+            startIndex=start_index
+        ).execute()
             # Print the results
             
-            return results["items"]
+        return results["items"]
            
-        except HttpError as error:
+    except HttpError as error:
             print(f'An error occurred: {error}')
 # Search for books about Python programming
 # search_books('python programming')
+
+def openai_chat(prompt):
+    completion = openai.Completion.create( 
+    engine=model_engine,
+    prompt=prompt,
+    max_tokens=1024,
+    n=1,
+    stop=None,
+    temperature=0.9,
+    )
+    return completion
+
 
 @books.route('/search', methods=['GET','POST'])
 @login_required
@@ -49,6 +66,19 @@ def book_search():
             book_id = book['id']
             book_list[book_id] = book
             
-        return render_template('books/search_book.html', form=form, books=books, book_list=book_list, search_findings=len(book_list))
+        return render_tempalte('books/search_book.html', form=form, books=books, book_list=book_list, search_findings=len(book_list))
 
     return render_template('books/search_book.html', form=form)
+
+@books.route('/chat', methods=['GET','POST'])
+@login_required
+def chat():
+    
+    if request.method == "POST":
+        prompt = request.form["prompt"]
+        response = openai_chat(prompt)
+
+        return render_template("books/chat.html", result=response.choices[0].text)
+    
+    result = request.args.get("result")
+    return render_template("books/chat.html", result=result)
