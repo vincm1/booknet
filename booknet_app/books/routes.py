@@ -3,7 +3,7 @@ from random import randint
 from flask import Flask, Blueprint, render_template, flash, request, redirect, url_for
 from flask_login import current_user, login_required
 from booknet_app import db
-from booknet_app.books.forms import SearchBookForm
+from booknet_app.books.forms import SearchBookForm, ChatForm
 from booknet_app.models import Book
 from config import google_api_key, openai_key
 ### Google Books Api ### 
@@ -54,7 +54,8 @@ def openai_chat(prompt):
 def book_search():
     
     form = SearchBookForm()
-
+    form_2 = ChatForm()
+    
     if form.validate_on_submit() and request.method == "POST":
     
         suchwort = form.suchwort.data
@@ -66,19 +67,22 @@ def book_search():
             book_id = book['id']
             book_list[book_id] = book
             
-        return render_tempalte('books/search_book.html', form=form, books=books, book_list=book_list, search_findings=len(book_list))
+        return render_template('books/search_book.html', form=form, form_2=form, books=books, book_list=book_list, search_findings=len(book_list))
 
-    return render_template('books/search_book.html', form=form)
+    return render_template('books/search_book.html', form=form, form_2=form_2)
 
 @books.route('/chat', methods=['GET','POST'])
 @login_required
 def chat():
     
-    if request.method == "POST":
-        prompt = request.form["prompt"]
+    form = SearchBookForm()
+    form_2 = ChatForm()
+    
+    if form_2.validate_on_submit() and request.method == "POST":
+        prompt = form_2.prompt.data
         response = openai_chat(prompt)
 
-        return render_template("books/chat.html", result=response.choices[0].text)
+        return render_template("books/search_book.html", form=form, form_2=form_2, result=response.choices[0].text)
     
-    result = request.args.get("result")
-    return render_template("books/chat.html", result=result)
+    result = result.args.get("response")
+    return render_template("books/search_book.html", result=result)

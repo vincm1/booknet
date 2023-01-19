@@ -20,9 +20,11 @@
             </p>
             <div class="collapse" id="chat">
               <div class="card">
-                <form action="/" method="POST">
-                  <input type="text" name="prompt" placeholder="Was willst du wissen?"/>
-                  <input type="submit" value="Test" />
+                <form  action="{{url_for('books.chat')}}"}} method="POST">
+                  {{form_2.hidden_tag()}}
+                  {{form_2.prompt.label()}}
+                  {{form_2.prompt()}}
+                  {{form_2.submit(class="btn btn-primary")}}
                 </form>
                   {% if result %}
                       <div class="result">
