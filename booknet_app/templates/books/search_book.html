@@ -24,7 +24,7 @@
           </p>
         </div>
       </div>
-          <div class="collapse" id="collapseExample" data-toggle="collapse">
+          <div class="collapse{% if collapsable_open %}show{% endif %}" id="collapseExample" data-toggle="collapse" >
             <section class="chat">
               <div class="container">
                 <div class="row d-flex justify-content-center">
@@ -43,7 +43,7 @@
                               {{ form_2.prompt(class="form-control form-control-lg", placeholder="z.B.: Empfehle mir 3 Romane aus 2022.") }}
                             </div>
                             <div class="col col-lg-2">
-                              <button type="submit" class="btn btn-primary btn-lg"><i class="fa-solid fa-circle-arrow-right"></i></button>
+                              <button type="submit" class="btn btn-primary btn-lg" id="chatsubmit"><i class="fa-solid fa-circle-arrow-right"></i></button>
                             </div>
                           </div> 
                       </div>     

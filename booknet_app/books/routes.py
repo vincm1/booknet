@@ -74,7 +74,7 @@ def book_search():
         prompt = form_2.prompt.data
         result = openai_chat(prompt)
         
-        return render_template('books/search_book.html', form_2=form_2, form=form, result=result.choices[0].text)
+        return render_template('books/search_book.html', form_2=form_2, form=form, result=result.choices[0].text, collapsable_open=True)
     
     return render_template('books/search_book.html', form=form, form_2=form_2)
 
