@@ -242,7 +242,34 @@ h6 {
   border-color: #ef7f4d;
 }
 
+.chat .card-header {
+  border-bottom: none;
+  background-color: #ef7f4d;
+  font-weight: 18px;
+  text-align: center;
+  color: #fff;
+}
 
+.chat .prompt {
+  padding: 1rem 1rem;
+}
+
+.prompt-message {
+  background-color: #ffd65e;
+  border-radius: 30px;
+  padding: 8px 50px 8px 20px;
+}
+
+.result .promptresult {
+  background-color:#fea655;
+  border-radius: 30px;
+  padding: 1rem 1rem;
+  margin-left: 1rem;
+}
+
+.result .fa-robot {
+  color:#ef7f4d;
+}
 
 /*--------------------------------------------------------------
 # Account page

@@ -1,40 +1,92 @@
 {% extends "base.html" %} {% block content %}
 <section class="book-search pt-3">
   <div class="container">
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        <div class="row">
-          <div class="form-group col-lg-8">
-            {{ form.suchwort(class="form-control form-control-lg",
-            placeholder="Programmieren Python") }}
-          </div>
-          <div class="form-group col-lg-2">
-            {{ form.submit(class="search btn btn-primary btn-lg w-100 ") }}
-          </div>
-    </form>
-          <div class="form-group col-lg-2">
-            <p>
-              <button class="btn btn-primary btn-lg" type="button" data-bs-toggle="collapse" data-bs-target="#chat" aria-expanded="false" aria-controls="collapseExample">
-                Chat
-              </button>
-            </p>
-            <div class="collapse" id="chat">
-              <div class="card">
-                <form  action="{{url_for('books.chat')}}"}} method="POST">
-                  {{form_2.hidden_tag()}}
-                  {{form_2.prompt.label()}}
-                  {{form_2.prompt()}}
-                  {{form_2.submit(class="btn btn-primary")}}
-                </form>
-                  {% if result %}
-                      <div class="result">
-                          <p>{{ result }}</p>
-                      </div>
-                  {% endif %}
-              </div>
-            </div>
-          </div>
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="form-group">
+          <form action="{{url_for('books.book_search')}}" method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.suchwort(class="form-control form-control-lg w-100", placeholder="Programmieren Python") }}
         </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="form-group">
+          {{ form.submit(class="search btn btn-primary btn-lg w-100") }}
+        </form>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="form-group">  
+          <p>
+            <button class="btn btn-primary btn-lg w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <i class="fa-solid fa-robot"></i>
+            </button>
+          </p>
+        </div>
+      </div>
+          <div class="collapse" id="collapseExample" data-toggle="collapse">
+            <section class="chat">
+              <div class="container">
+                <div class="row d-flex justify-content-center">
+                  <div class="col col-lg-6"></div>
+                  <div class="col col-lg-6">
+                    
+                    <div class="card">
+                      <div class="card-header d-flex justify-content-between align-items-center p-3">
+                        Buchempfehler
+                      </div>
+                      <div class="card-footer">
+                        <form method="POST" action="">
+                          {{ form_2.hidden_tag() }}
+                          <div class="row text-muted d-flex justify-content-start align-items-center">
+                            <div class="col col-lg-10">
+                              {{ form_2.prompt(class="form-control form-control-lg", placeholder="z.B.: Empfehle mir 3 Romane aus 2022.") }}
+                            </div>
+                            <div class="col col-lg-2">
+                              <button type="submit" class="btn btn-primary btn-lg"><i class="fa-solid fa-circle-arrow-right"></i></button>
+                            </div>
+                          </div> 
+                      </div>     
+                        </form>
+                          <div class="container">
+                            {% if result %}
+                              <div class="prompt">
+                                <div class="row mb-1">
+                                  <div class="col-lg-2">
+                                    <img
+                                    src="{{url_for('static', filename='profile_pics/' + current_user.profile_picture)}}"
+                                    class="rounded-circle"
+                                    id="navbar-profilpic"
+                                    height="35"
+                                    alt="Profilbild"
+                                    loading="lazy"
+                                    />
+                                  </div>
+                                  <div class="col-lg-10">
+                                    <p class="prompt-message">{{ form_2.prompt.data }}</p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="result">
+                                <div class="row">
+                                  <div class="col-lg-10">
+                                    <p class="promptresult">{{ result }}</p>
+                                  </div>
+                                  <div class="col-lg-2">
+                                    <i class="fa-solid fa-robot fa-2x"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endif %}
+                          </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </section>   
+      </div>
+    </div>  
   </div>
 </section>
 

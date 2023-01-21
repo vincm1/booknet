@@ -56,19 +56,26 @@ def book_search():
     form = SearchBookForm()
     form_2 = ChatForm()
     
-    if form.validate_on_submit() and request.method == "POST":
-    
+    if form.validate_on_submit():
+            
+        print(form.submit.data)
         suchwort = form.suchwort.data
         books = search_books(suchwort)
-        
+            
         book_list = {}
-        
+            
         for book in books:
             book_id = book['id']
             book_list[book_id] = book
-            
-        return render_template('books/search_book.html', form=form, form_2=form, books=books, book_list=book_list, search_findings=len(book_list))
-
+        
+        return render_template('books/search_book.html', form=form, form_2=form_2, books=books, book_list=book_list, search_findings=len(book_list))
+    
+    if form_2.validate_on_submit():
+        prompt = form_2.prompt.data
+        result = openai_chat(prompt)
+        
+        return render_template('books/search_book.html', form_2=form_2, form=form, result=result.choices[0].text)
+    
     return render_template('books/search_book.html', form=form, form_2=form_2)
 
 @books.route('/chat', methods=['GET','POST'])
@@ -82,7 +89,7 @@ def chat():
         prompt = form_2.prompt.data
         response = openai_chat(prompt)
 
-        return render_template("books/search_book.html", form=form, form_2=form_2, result=response.choices[0].text)
+        return reditec("books/search_book.html", form=form, form_2=form_2, result=response.choices[0].text)
     
     result = result.args.get("response")
     return render_template("books/search_book.html", result=result)
