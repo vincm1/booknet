@@ -77,19 +77,3 @@ def book_search():
         return render_template('books/search_book.html', form_2=form_2, form=form, result=result.choices[0].text, collapsable_open=True)
     
     return render_template('books/search_book.html', form=form, form_2=form_2)
-
-@books.route('/chat', methods=['GET','POST'])
-@login_required
-def chat():
-    
-    form = SearchBookForm()
-    form_2 = ChatForm()
-    
-    if form_2.validate_on_submit() and request.method == "POST":
-        prompt = form_2.prompt.data
-        response = openai_chat(prompt)
-
-        return reditec("books/search_book.html", form=form, form_2=form_2, result=response.choices[0].text)
-    
-    result = result.args.get("response")
-    return render_template("books/search_book.html", result=result)

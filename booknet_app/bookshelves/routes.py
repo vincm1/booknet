@@ -4,8 +4,28 @@ from booknet_app import db
 from booknet_app.bookshelves.forms import BookshelfForm
 from booknet_app.models import Bookshelf
 from booknet_app.models import User
+from config import google_api_key, openai_key
+### Google Books Api ### 
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+
+service = build('books', 'v1', developerKey=google_api_key)
 
 bookshelves = Blueprint('bookshelves', __name__)
+
+### API Google books Call function with multiple ISBNs  ###
+def search_books_by_isbn(isbns):
+    try:
+        # Call the Books API to search for multiple books by ISBN
+        isbns_string = ",".join(isbns)
+        results = service.volumes().list(
+            q=f"isbn:{isbns_string}",
+        ).execute()
+
+        return results["items"]
+    except HttpError as error:
+        print(f'An error occurred: {error}')
+
 
 @bookshelves.route('/add_bookshelf', methods=['GET', 'POST'])
 @login_required
@@ -64,3 +84,9 @@ def delete_bookshelf(bookshelf_id):
     flash("Bookshelf deleted!")
     
     return redirect(url_for('users.user_bookshelves', username=current_user.username))
+
+
+@login_required
+@bookshelves.route('/<bookshelf_id>/add_book', methods=['GET','POST'])
+def add_book_to_shelve(bookshelf_id, book_isbn):
+    pass

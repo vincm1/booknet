@@ -203,18 +203,27 @@ h6 {
 /*--------------------------------------------------------------
 # Books page
 --------------------------------------------------------------*/
-.book-search .search {
-
+.book-search .form-group-1 {
+ padding-left: 0;
 }
 
 .book-section .card {
   box-shadow: 0 0 5px 0 rgba(22, 22, 26, .25);
 }
+.card a {
+  margin: 0 0;
+}
 
 .card-img-top {
   width: 100%;
-  height: 15vw;
+  height: 350px;
   object-fit: cover;
+}
+
+@media (max-width: 576px) {
+  .card-img-top {
+      height: 250px;
+  }
 }
 
 .book-section .card-title {

@@ -7,11 +7,12 @@ from flask_login import LoginManager
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+db_user = os.environ.get('DB_USER')
+db_pw = os.environ.get('DB_PW')
 
-db_user_env = os.environ.get('DB_USER')
-db_pw_env = os.environ.get('DB_PW')
+db_url = f"postgresql+psycopg2://{db_user}:{db_pw}@localhost:5432/booknet_db"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql+psycopg2://{db_user_env}:{db_pw_env}@localhost/booknet_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -37,3 +38,4 @@ app.register_blueprint(books)
 app.register_blueprint(stores)
 app.register_blueprint(bookshelves)
 app.register_blueprint(error_pages)
+
