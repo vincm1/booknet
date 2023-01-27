@@ -107,12 +107,12 @@ h6 {
   cursor: pointer;
 }
 
-.tag-teal {
+.tag-Corner.Shop {
   background-color: #47bcd4;
 }
 
-.tag-purple {
-  background-color: #47bcd4;
+.tag-Library {
+  background-color: #965ada;
 }
 
 .card-body {
@@ -133,7 +133,6 @@ h6 {
 
 .user {
   display: flex;
-  padding: 5px 15px;
 }
 
 .user img {
