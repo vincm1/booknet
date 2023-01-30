@@ -34,7 +34,7 @@ def add_bookshelf():
     form = BookshelfForm()
 
     if form.validate_on_submit() and request.method == 'POST':
-        bookshelf = Bookshelf(name=form.name.data, beschreibung=form.beschreibung.data, isbns=[], user_id=current_user.id)
+        bookshelf = Bookshelf(name=form.name.data, beschreibung=form.beschreibung.data, isbns=form.isbns.data, user_id=current_user.id)
         db.session.add(bookshelf)
         db.session.commit()
         return redirect(url_for('users.user_bookshelves', username=current_user.username))
@@ -46,7 +46,7 @@ def add_bookshelf():
 def bookshelf(bookshelf_id):
     bookshelf = Bookshelf.query.get_or_404(bookshelf_id)
     form = BookshelfForm()
-    return(render_template('bookshelves/bookshelf.html', bookshelf=bookshelf, bookeshelf_id=bookshelf.id, form=form))
+    return(render_template('bookshelves/bookshelf.html', bookshelf=bookshelf, bookeshelf_id=bookshelf.id, form=form, type_isbn=type(bookshelf.isbns)))
 
 @login_required
 @bookshelves.route('/bookshelf/<int:bookshelf_id>/edit', methods=['GET', 'POST'])
@@ -103,8 +103,8 @@ def add_isbn():
     if form_3.validate_on_submit():
         
         bookshelf = db.session.query(Bookshelf).filter_by(name=form_3.bookshelf.data).first()
+        isbn = str(form_3.isbn.data)
         
-        isbn = "978-0-306-40615-7"
         bookshelf.isbns = bookshelf.isbns.append(isbn)
         
         db.session.commit()

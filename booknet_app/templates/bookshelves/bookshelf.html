@@ -35,8 +35,10 @@
   <div class="container">
     <div class="row">
         <div class="column col-lg-3 col-md-4">
-          <a href="">{{ bookshelf.name }}</a></h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="">{{ bookshelf.name }}</a></h5><br>
+          {% for isbn in bookshelf.isbns %}
+            <p class="card-text">{{ isbn }}</p>
+          {% endfor %}
         </div>
     </div>
   </div> 

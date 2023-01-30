@@ -19,6 +19,7 @@
                   {{form.hidden_tag()}}
                   <p>{{form.name.label}}{{form.name()}}</p><br>
                   <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p><br>
+                  <p>{{form.isbns.label}}{{form.isbns}}</p><br>
               </div>
               <div class="modal-footer">
               <button type="submit" class="btn btn-success" action="{{url_for('bookshelves.add_bookshelf')}}">Shelf hinzufügen</button>
@@ -40,7 +41,11 @@
                 <div class="card-body">
                   <h5 class="card-title"><a href="{{url_for('bookshelves.bookshelf', bookshelf_id=bookshelf.id, username=user.username)}}">{{ bookshelf.name }}</a></h5>
                   <p class="card-text">{{bookshelf.beschreibung}}</p>
-                  <p class="card-text">{{bookshelf.isbns}}</p>
+                  {% if bookshelf.isbns %}
+                    {% for isbn in bookshelf.isbns %}
+                      <p class="card-text">{{ isbn }}</p>
+                    {% endfor %}
+                  {% endif %}
                 </div>
             </div>
         </div> 
