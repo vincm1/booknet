@@ -18,6 +18,7 @@
               <div class="modal-body">
                   {{form.hidden_tag()}}
                   <p>{{form.name.label}}{{form.name()}}</p><br>
+                  <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p><br>
               </div>
               <div class="modal-footer">
               <button type="submit" class="btn btn-success" action="{{url_for('bookshelves.add_bookshelf')}}">Shelf hinzufügen</button>
@@ -38,8 +39,8 @@
                 <img class="card-img-top" src="static/images/book_store.jpg" alt="Card image cap">
                 <div class="card-body">
                   <h5 class="card-title"><a href="{{url_for('bookshelves.bookshelf', bookshelf_id=bookshelf.id, username=user.username)}}">{{ bookshelf.name }}</a></h5>
-                  <p class="card-text">{{bookshelf.id}}</p>
-                  <p class="card-text">Lorem Ipsum Dolor Lorem Ipsum Dolor Lorem Ipsum Dolor Lorem Ipsum Dolor Lorem Ipsum Dolor Lorem Ipsum Dolor </p>
+                  <p class="card-text">{{bookshelf.beschreibung}}</p>
+                  <p class="card-text">{{bookshelf.isbns}}</p>
                 </div>
             </div>
         </div> 

@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint, render_template, flash, request, redirect, url_for
 from flask_login import current_user, login_required
 from booknet_app import db
-from booknet_app.bookshelves.forms import BookshelfForm
+from booknet_app.bookshelves.forms import BookshelfForm, ISBNForm
 from booknet_app.models import Bookshelf
 from booknet_app.models import User
 from config import google_api_key, openai_key
@@ -34,7 +34,7 @@ def add_bookshelf():
     form = BookshelfForm()
 
     if form.validate_on_submit() and request.method == 'POST':
-        bookshelf = Bookshelf(name=form.name.data, user_id=current_user.id)
+        bookshelf = Bookshelf(name=form.name.data, beschreibung=form.beschreibung.data, isbns=[], user_id=current_user.id)
         db.session.add(bookshelf)
         db.session.commit()
         return redirect(url_for('users.user_bookshelves', username=current_user.username))
@@ -67,6 +67,7 @@ def edit_bookshelf(bookshelf_id):
 
     elif request.method == "GET":
         form.name.data = bookshelf.name
+        form.beschreibung.data = bookshelf.beschreibung
 
     return render_template('bookshelves/bookshelf.html', form=form)
 
@@ -87,6 +88,26 @@ def delete_bookshelf(bookshelf_id):
 
 
 @login_required
-@bookshelves.route('/<bookshelf_id>/add_book', methods=['GET','POST'])
-def add_book_to_shelve(bookshelf_id, book_isbn):
-    pass
+@bookshelves.route('/add_isbn', methods=['POST'])
+def add_isbn():
+    form_3 = ISBNForm()
+      
+    user_bookshelves = db.session.query(Bookshelf.name).filter_by(user_id=current_user.id).all()
+    choices = []
+        
+    for choice in user_bookshelves:
+        choices.append(choice[0])
+        
+    form_3.bookshelf.choices = choices
+    
+    if form_3.validate_on_submit():
+        
+        bookshelf = db.session.query(Bookshelf).filter_by(name=form_3.bookshelf.data).first()
+        
+        isbn = "978-0-306-40615-7"
+        bookshelf.isbns = bookshelf.isbns.append(isbn)
+        
+        db.session.commit()
+        
+        return redirect(url_for('users.user_bookshelves', username=current_user.username))
+    

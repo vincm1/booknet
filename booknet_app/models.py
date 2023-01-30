@@ -1,4 +1,5 @@
 from booknet_app import db, login_manager
+from sqlalchemy import JSON
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
@@ -17,7 +18,6 @@ class User(db.Model, UserMixin):
     profile_picture = db.Column(db.String, nullable=True, default="default_profile_picture.png")
     registration_date = db.Column(db.DateTime, default=datetime.now)
 
-    books = db.relationship("Book", backref="user", lazy=True)
     stores = db.relationship("Store", backref="user", lazy=True)
     bookshelves = db.relationship("Bookshelf", backref="user", lazy=True)
 
@@ -32,24 +32,6 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         f"User with {self.id} and {self.username} {self.email}."
 
-class Book(db.Model):
-
-    __tablename__ = "books"
-
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    titel = db.Column(db.String(300), unique=True, nullable=False)
-    author = db.Column(db.String(100), nullable=False)
-    isbn = db.Column(db.Integer)
-
-    def __init__(self, titel, author, isbn, user_id):
-        self.titel = titel
-        self.author = author
-        self.isbn = isbn
-        self.user_id = user_id
-
-    def __repr__(self):
-        f"Buch mit ID: {self.id}{self.titel} user:{self.user_id} angelegt."
 class Bookshelf(db.Model):
 
     __tablename__ = "bookshelves"
@@ -57,13 +39,18 @@ class Bookshelf(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     name = db.Column(db.String(300), nullable=False)
+    beschreibung = db.Column(db.Text(), nullable=True)
+    isbns = db.Column(JSON, nullable=True)
 
-    def __init__(self, user_id, name):
+    def __init__(self, user_id, name, beschreibung, isbns):
         self.user_id = user_id
         self.name = name
-
+        self.beschreibung = beschreibung
+        self.isbns = isbns
+        
     def __repr__(self):
         f"Buchregal von {self.user_id} name: {self.name}"
+        
 class Store(db.Model):
 
     __tablename__ = "stores"

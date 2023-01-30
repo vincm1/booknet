@@ -3,8 +3,9 @@ from random import randint
 from flask import Flask, Blueprint, render_template, flash, request, redirect, url_for
 from flask_login import current_user, login_required
 from booknet_app import db
+from booknet_app.models import Bookshelf, User
 from booknet_app.books.forms import SearchBookForm, ChatForm
-from booknet_app.models import Book
+from booknet_app.bookshelves.forms import ISBNForm
 from config import google_api_key, openai_key
 ### Google Books Api ### 
 from googleapiclient.discovery import build
@@ -55,10 +56,11 @@ def book_search():
     
     form = SearchBookForm()
     form_2 = ChatForm()
-    
+
+    # form_3.bookshelves.choices = user_bookshelves
+
     if form.validate_on_submit():
             
-        print(form.submit.data)
         suchwort = form.suchwort.data
         books = search_books(suchwort)
             
@@ -68,8 +70,17 @@ def book_search():
             book_id = book['id']
             book_list[book_id] = book
         
-        return render_template('books/search_book.html', form=form, form_2=form_2, books=books, book_list=book_list, search_findings=len(book_list))
-    
+        form_3 = ISBNForm()    
+        user_bookshelves = db.session.query(Bookshelf.name).filter_by(user_id=current_user.id).all()
+        choices = []
+        
+        for choice in user_bookshelves:
+            choices.append(choice[0])
+        
+        form_3.bookshelf.choices = choices
+            
+        return render_template('books/search_book.html', form=form, form_2=form_2, form_3=form_3, books=books, book_list=book_list, search_findings=len(book_list))
+
     if form_2.validate_on_submit():
         prompt = form_2.prompt.data
         result = openai_chat(prompt)

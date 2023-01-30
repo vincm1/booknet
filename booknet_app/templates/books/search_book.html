@@ -123,10 +123,29 @@
                   <div class="p-2">
                   {% for identifier in book["volumeInfo"]["industryIdentifiers"] %}
                     {% if identifier["type"] == "ISBN_13" %}
-                      <form action="POST">
-                        <input type="hidden" name="book_isbn" value='{{identifier["identifier"]}}'>
-                        <button type="submit" class="btn btn-primary readingbutton px-3"><i class="fa-solid fa-plus"></i></button>
-                      </form>
+                    <button type="button" class="btn btn-primary readingbutton px-3" data-bs-toggle="modal" data-bs-target="#addModal" hover="ISBN hinzufügen"><i class="fa-solid fa-plus"></i></button>
+                        <!-- Modal -->
+                          <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addISBNModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="addISBNModalLabel">Buch hinzufügen</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="{{url_for('bookshelves.add_isbn')}}" method="POST">
+                                  {{form_3.hidden_tag()}}
+                                  <input type="hidden" name="isbn" value='{{identifier["identifier"]}}'>  
+                                <div class="modal-body">
+                                  {{form_3.bookshelf.label()}} <br>
+                                  {{form_3.bookshelf()}}
+                                </div>
+                                <div class="modal-footer">
+                                  {{form_3.submit()}}
+                                </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
                     {% endif %}
                   {% endfor %}
                     
