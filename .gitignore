@@ -16,7 +16,3 @@ build/
 config.py
 
 .vscode/
-
-booknet_app/static/images/
-booknet_app/static/profile_pics/
-booknet_app/static/store_pics/

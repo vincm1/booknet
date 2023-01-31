@@ -19,7 +19,6 @@
                   {{form.hidden_tag()}}
                   <p>{{form.name.label}}{{form.name()}}</p><br>
                   <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p><br>
-                  <p>{{form.isbns.label}}{{form.isbns()}}</p><br>
               </div>
               <div class="modal-footer">
               <button type="submit" class="btn btn-success" action="{{url_for('bookshelves.edit_bookshelf',bookshelf_id=bookshelf.id)}}">Shelf bearbeiten</button>
