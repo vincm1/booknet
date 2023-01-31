@@ -6,10 +6,9 @@
   <div class="container text-center">
     <div class="d-flex flex-row align-items-center ">
       {% for city in cities %}
-      <div class="city-names">
-        <p><a href="{{url_for('stores.store_city', city=city[0])}}"><i class="fa-solid fa-city"></i>{{city[0]}}</a></p>
-      </div>
-      
+        <div class="city-names d-flex align-items-center">
+          <p><a href="{{url_for('stores.store_city', city=city[0])}}"><i class="fa-solid fa-city"></i>{{city[0]}}</a></p>
+        </div>
     {% endfor %}
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary ms-auto" id="add-city-button" data-toggle="modal" data-target="#exampleModal">
@@ -22,7 +21,7 @@
           <div class="modal-body">
             <form method="POST" action="{{url_for('stores.add_store')}}" enctype="multipart/form-data">
               {{form.hidden_tag()}}
-              <h3 class="form-header">Store hinzufuegen</h3>
+              <h3 class="form-header">Store hinzufügen</h3>
               <div class="form-group">
                 {{form.storename.label()}}
                 {{form.storename(class='form-control', placeholder="Musterladen")}}
@@ -61,8 +60,8 @@
               </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
-            {{form.submit(class="btn btn-primary", value="Store hinzufügen!")}}
+            <button type="button" class="btn btn-outline readingbutton" data-dismiss="modal">Abbrechen</button>
+            {{form.submit(class="btn btn-primary", value="Store hinzufügen")}}
           </div>
         </form>
         </div>
@@ -110,7 +109,7 @@
                         {% endif %} 
                       </div>
                     </div>
-                  <a href="{}" target="_blank"><button class="btn btn-primary px-5">Platz buchen</button></a>
+                  <a href="{}" target="_blank"><button class="btn btn-primary btn-block px-5">Platz buchen</button></a>
               </div>
             </div>  
           </div>

@@ -15,9 +15,7 @@ def all_stores():
     form = StoreForm()   
     
     page = request.args.get('page', 1, type=int)
-    stores = Store.query.order_by(Store.creation_date.desc()).paginate(page=page, per_page=20)
-
-    
+    stores = Store.query.order_by(Store.creation_date.desc()).paginate(page=page, per_page=12)
     time_now = datetime.now()
     cities = db.session.query(Store.city).distinct()
     
@@ -111,10 +109,12 @@ def store_city(city):
     '''df'''
     form = StoreForm()
     
-    stores = Store.query.filter_by(city=city).all()
+    page = request.args.get('page', 1, type=int)
+    stores = Store.query.filter_by(city=city).order_by(Store.creation_date.desc()).paginate(page=page, per_page=12)
+    time_now = datetime.now()
     
     if stores:
-        return render_template('stores/city_store.html', stores=stores, form=form)
+        return render_template('stores/city_store.html', stores=stores, form=form, time_now=time_now)
     
     else:
         return redirect(url_for('stores.all_stores'))

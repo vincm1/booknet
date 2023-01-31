@@ -1,8 +1,9 @@
+from datetime import datetime
 from booknet_app import db, login_manager
 from sqlalchemy import JSON
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from datetime import datetime
+from sqlalchemy.ext.mutable import MutableList
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -40,13 +41,13 @@ class Bookshelf(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     name = db.Column(db.String(300), nullable=False)
     beschreibung = db.Column(db.Text(), nullable=True)
-    isbns = db.Column(JSON, nullable=True)
+    isbns = db.Column(MutableList.as_mutable(JSON), nullable=True)
 
     def __init__(self, user_id, name, beschreibung, isbns):
         self.user_id = user_id
         self.name = name
         self.beschreibung = beschreibung
-        self.isbns = isbns
+        self.isbns = isbns 
         
     def __repr__(self):
         f"Buchregal von {self.user_id} name: {self.name}"

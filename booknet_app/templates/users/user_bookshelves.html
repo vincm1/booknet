@@ -3,9 +3,9 @@
 {% block content %}
 
 <section class="button-section">
-  <div class="container-fluid">
+  <div class="container d-flex justify-content-end py-2">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal" hover="Bookshelf hinzufügen">+</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal" hover="Bookshelf hinzufügen">+</button>
     <!-- Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -15,14 +15,21 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <form action="{{url_for('bookshelves.add_bookshelf')}}" method="POST">
-              <div class="modal-body">
+              <div class="modal-body container justify-content-center">
                   {{form.hidden_tag()}}
-                  <p>{{form.name.label}}{{form.name()}}</p><br>
-                  <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p><br>
-                  <p>{{form.isbns.label}}{{form.isbns}}</p><br>
+                  <div class="row">
+                    <div class="form-outline pb-2">
+                      {{form.name(placeholder="Titel")}}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-outline pb-2">
+                      {{form.beschreibung(placeholder="Beschreibung")}}
+                    </div>
+                  </div>
               </div>
               <div class="modal-footer">
-              <button type="submit" class="btn btn-success" action="{{url_for('bookshelves.add_bookshelf')}}">Shelf hinzufügen</button>
+              <button type="submit" class="btn btn-primary" action="{{url_for('bookshelves.add_bookshelf')}}">Shelf hinzufügen</button>
               </div>
           </form>
         </div>

@@ -3,7 +3,7 @@
 {% block content %}
          
 <!-- Section:Signup Block -->
-<section class="signup pt-5 pb-5">
+<section class="signup py-5">
   <!-- Error messages -->
   <div class="flashmessages">
     <div class="container">
@@ -25,7 +25,7 @@
       <div class="container errors">
         {% for field_name, field_errors in form.errors|dictsort if field_errors %}
           {% for error in field_errors %}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
               {{error}}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -38,59 +38,49 @@
   </div>
         
     <!-- Signup up Form -->
-  <div class="signupform pt-2 pb-5">
+  <div class="signupform pt-5 pb-5">
     <div class="container">
       <div class="row align-items-center pb-5">
         <div class="col-lg-6 mb-lg-0">
           <h1 class="my-1 display-3 fw-bold ls-tight">
             booknet <br />
-            <span class="subheading">finde dein nächstes Buchabenteuer!</span>
+            <span class="subheading">finde dein nächstes Buchabenteuer</span>
           </h1>
           <p>
-            Jetzt Mitglied werden und Zugang zu über 200 Buchladen und Buchinspirationen zu 
+            Jetzt Mitglied werden und Zugang zu über 200 Buchläden und Buchinspirationen zu 
             erhalten.
           </p>
         </div>
 
-        <div class="col-lg-6 mb-1 mb-lg-0 pb-5">
+        <div class="col-lg-6 mb-1 mb-lg-0 pt-5 pb-5">
           <div class="card pb-5">
             <div class="card-body py-3 px-md-5">
               <form method="POST">
                 {{ form.hidden_tag() }}
                 <!-- Username input -->
                 <div class="form-outline mb-4">
-                  {{ form.username.label }}
-                  {{ form.username(class="form-control")}}
+                  {{ form.username(class="form-control", placeholder="Username")}}
                 </div>
 
                 <!-- Email input -->
                 <div class="form-outline mb-4">
-                  {{ form.email.label }}
-                  {{ form.email(class="form-control")}}
+                  {{ form.email(class="form-control", placeholder="Email")}}
                 </div>
 
                 <!-- Password input -->
                 <div class="form-outline mb-4">
-                  {{ form.passwort.label }}
-                  {{ form.passwort(class="form-control")}}
+                  {{ form.passwort(class="form-control", placeholder="Passwort")}}
                 </div>
 
                 <!-- Password bestätigen -->
                 <div class="form-outline mb-4">
-                  {{ form.passwort_bestätigen.label }}
-                  {{ form.passwort_bestätigen(class="form-control")}}
-                  
+                  {{ form.passwort_bestätigen(class="form-control", placeholder="Passwort bestätigen")}}
                 </div>
 
                 <!-- Checkbox -->
-                <div class="form-check d-flex mb-4">
-                  <div class="col-lg-6 d-flex justify-content-center">
-                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
-                  </div>
-                  <div class="col-lg-6 d-flex justify-content-center">
-                    <label class="form-check-label" for="form2Example33">Newsletter Anmeldung</label>
-                  </div>
-                  
+                <div class="form-check d-flex justify-content-center mb-4">
+                    <div class="p-2"><input class="form-check-input" type="checkbox" checked /></div>
+                    <div class="p-2"><label class="form-check-label">Newsletter Anmeldung</label></div>
                 </div>
 
                 <!-- Submit button -->
@@ -125,7 +115,5 @@
       </div>
     </div>
 </section>
-<!-- Section: Design Block -->
-
 
 {% endblock %}

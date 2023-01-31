@@ -6,7 +6,6 @@ from booknet_app.models import Bookshelf
 class BookshelfForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     beschreibung = TextAreaField('Was macht das Shelf aus?')
-    isbns = FieldList(StringField('Willst du Bücher hinzufügen?'), min_entries=2)
     submit = SubmitField('Buchrregal hinzufügen')
 
 class ISBNForm(FlaskForm):

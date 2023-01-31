@@ -34,7 +34,7 @@ def add_bookshelf():
     form = BookshelfForm()
 
     if form.validate_on_submit() and request.method == 'POST':
-        bookshelf = Bookshelf(name=form.name.data, beschreibung=form.beschreibung.data, isbns=form.isbns.data, user_id=current_user.id)
+        bookshelf = Bookshelf(name=form.name.data, beschreibung=form.beschreibung.data, isbns=[], user_id=current_user.id)
         db.session.add(bookshelf)
         db.session.commit()
         return redirect(url_for('users.user_bookshelves', username=current_user.username))
@@ -60,6 +60,8 @@ def edit_bookshelf(bookshelf_id):
 
     if form.validate_on_submit() and request.method == "POST":
         bookshelf.name = form.name.data
+        bookshelf.name = form.name.data
+        bookshelf.isbns.append(form.isbns.data)
         db.session.commit()
         flash('Bookshelf erfolgreich geupdatet!')
         return(render_template('bookshelves/bookshelf.html', bookshelf=bookshelf, bookeshelf_id=bookshelf.id, form=form))
@@ -104,9 +106,9 @@ def add_isbn():
         
         bookshelf = db.session.query(Bookshelf).filter_by(name=form_3.bookshelf.data).first()
         isbn = str(form_3.isbn.data)
-        
-        bookshelf.isbns = bookshelf.isbns.append(isbn)
-        
+        print(bookshelf.isbns)
+        bookshelf.isbns.append(isbn)
+        print(bookshelf.isbns)
         db.session.commit()
         
         return redirect(url_for('users.user_bookshelves', username=current_user.username))

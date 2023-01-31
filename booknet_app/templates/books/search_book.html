@@ -2,6 +2,7 @@
 <section class="book-search pt-3">
   <div class="container">
     <div class="row">
+      <!-- Buch Suchform -->
         <div class="form-group col-12 col-lg-9 col-md-9">
           <form action="{{url_for('books.book_search')}}" method="POST">
             {{ form.hidden_tag() }}
@@ -9,26 +10,24 @@
         </div>
         <div class="form-group col-12 col-lg-2 col-md-2">
           {{ form.submit(class="search btn btn-primary btn-lg w-100") }}
-        </form>
+          </form>
         </div>
         <!-- Chat Collapsable -->
         <div class="form-group col-12 col-lg-1 col-md-1">  
             <button class="btn btn-primary btn-lg w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
               <i class="fa-solid fa-robot"></i>
             </button>
-            
         </div>
-          <!-- Chat Collapsable -->
+          <!-- Collapsable -->
           <section class="chat">
             <div class="collapse{% if collapsable_open %}show{% endif %}" id="collapseExample" data-toggle="collapse" >
-                  <div class="row d-flex justify-content-center">
-                    <div class="col-12 col-lg-6"></div>
-                    <div class="col-12 col-lg-6">
-                      <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center p-3">
+                <div class="row d-flex justify-content-end">
+                  <div class="col-12 col-lg-6">
+                    <div class="card">
+                      <div class="card-header d-flex justify-content-between align-items-center p-3">
                           Buchempfehler
-                        </div>
-                        <div class="card-footer">
+                      </div>
+                      <div class="card-footer">
                           <form method="POST" action="">
                             {{ form_2.hidden_tag() }}
                             <div class="row text-muted d-flex justify-content-start align-items-center">
@@ -39,42 +38,43 @@
                                 <button type="submit" class="btn btn-primary btn-lg" id="chatsubmit"><i class="fa-solid fa-circle-arrow-right"></i></button>
                               </div>
                             </div> 
-                        </div>     
                           </form>
-                            <div class="container">
-                              {% if result %}
-                                <div class="prompt">
-                                  <div class="row mb-1">
-                                    <div class="col-12 col-lg-2">
-                                      <img
-                                      src="{{url_for('static', filename='profile_pics/' + current_user.profile_picture)}}"
-                                      class="rounded-circle"
-                                      id="navbar-profilpic"
-                                      height="35"
-                                      alt="Profilbild"
-                                      loading="lazy"
-                                      />
-                                    </div>
+                      </div>     
+                      <!-- Prompt result -->
+                      <div class="container">
+                        {% if result %}
+                          <div class="prompt">
+                              <div class="row mb-1">
+                                <div class="col-12 col-lg-2">
+                                  <img
+                                    src="{{url_for('static', filename='profile_pics/' + current_user.profile_picture)}}"
+                                    class="rounded-circle"
+                                    id="navbar-profilpic"
+                                    height="35"
+                                    alt="Profilbild"
+                                    loading="lazy"
+                                  />
+                                </div>
                                     <div class="col-12 col-lg-10">
                                       <p class="prompt-message">{{ form_2.prompt.data }}</p>
                                     </div>
-                                  </div>
+                              </div>
+                          </div>
+                          <div class="result">
+                              <div class="row">
+                                <div class="col-12 col-lg-10">
+                                  <p class="promptresult">{{ result }}</p>
                                 </div>
-                                <div class="result">
-                                  <div class="row">
-                                    <div class="col-12 col-lg-10">
-                                      <p class="promptresult">{{ result }}</p>
-                                    </div>
-                                    <div class="col-12 col-lg-2">
-                                      <i class="fa-solid fa-robot fa-2x"></i>
-                                    </div>
-                                  </div>
+                                <div class="col-12 col-lg-2">
+                                  <i class="fa-solid fa-robot fa-2x"></i>
                                 </div>
-                              {% endif %}
-                            </div>
-                      </div>
+                              </div>
+                          </div>
+                        {% endif %}
+                        </div>
                     </div>
                   </div>
+                </div>
             </div>  
           </section> 
     </div>
@@ -82,84 +82,101 @@
 </section>
 
 {% if books %}
-  <section class="book-section pt-3">
-    <div class="container">
-      <div class="row pt-2">
-        <div class="col-12">
-          <h5 class="text-uppercase text-end pb-4">({{search_findings}} Bücher)</h5>
-        </div>
+<section class="book-section pt-3">
+  <div class="container">
+    <div class="row pt-2">
+      <div class="col-12">
+        <h5 class="text-uppercase text-end pb-4">({{search_findings}} Bücher)</h5>
       </div>
-      <div class="row pb-5">
-          {% for book in book_list.values() %}
-            {% if "title" in book["volumeInfo"] %}
-              <div class="col-12 col-lg-3 col-md-6 col-sm-12 mb-3 d-flex align-items-stretch">
-                <div class="card h-100 w-100">
-                  {% if 'smallThumbnail'in book['volumeInfo']['imageLinks'] %}
-                    <a href="{{book['accessInfo']['webReaderLink']}}" target="_blank"><img src="{{book['volumeInfo']['imageLinks']['smallThumbnail']}}" class="card-img-top" alt="Book image"></a>
-                  {% else %}
-                    <img src="{{url_for('static', filename='images/booknet_logo.png')}}" class="card-img-top" alt="Book image">
-                  {% endif %}
-                  <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{book["volumeInfo"]["title"]}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">
-                      {% for author in book["volumeInfo"]["authors"] %} {{author}} {% endfor %}
-                    </h6>
-                    {% if "publisher" in book["volumeInfo"] %}
-                      <p class="card-text">{{book["volumeInfo"]["publisher"]}}</p>
-                      <p class="card-text">{{book["volumeInfo"]["publishedDate"]}}</p>
-                    {% else %}
-                      <p class="card-text"></span>unknown</p> 
-                      <p class="card-text"></span>{{book["volumeInfo"]["publishedDate"]}}</p>
-                    {% endif %}
-                    {% for identifier in book["volumeInfo"]["industryIdentifiers"] %}
-                      {% set isbn = identifier['identifier'] %}
-                        {% if identifier["type"] == "ISBN_13" %}
-                          <p class="card-text"></span>{{isbn}}</p>
-                        {% endif %}
-                    {% endfor %}
-                  </div>
-                  <div class="d-flex justify-content-start align-items-center">
-                    <div class="p-2"><a href="{{book['accessInfo']['webReaderLink']}}" target="_blank"><button class="btn btn-outline-success readingbutton px-5">Leseprobe</button></a></div>
-                    <div class="p-2">
-                    {% for identifier in book["volumeInfo"]["industryIdentifiers"] %}
-                      {% set isbn = identifier['identifier'] %}
-                       {% if identifier["type"] == "ISBN_13" %}
-                       <p>
-                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#{{book.id}}" aria-expanded="false" aria-controls="collapseExample">
-                          <i class="fa-solid fa-cross"></i>
-                        </button>
-                      </p>
-                    </div>  
-                         
-                       
+    </div>
+    <div class="row pb-5">
+      {% for book in book_list.values() %}
+        {% if "title" in book["volumeInfo"] %}
+          <div class="col-12 col-lg-3 col-md-6 col-sm-12 mb-3 d-flex align-items-stretch">
+            <!-- Book Card -->
+            <div class="card h-100 w-100">
+              <!-- Card image -->
+              <div class="card-img">
+                {% if 'smallThumbnail'in book['volumeInfo']['imageLinks'] %}
+                  <a href="{{book['accessInfo']['webReaderLink']}}" target="_blank"><img src="{{book['volumeInfo']['imageLinks']['smallThumbnail']}}" class="card-img-top" alt="Book image"></a>
+                {% else %}
+                  <img src="{{url_for('static', filename='images/booknet_logo.png')}}" class="card-img-top" alt="Book image">
+                {% endif %}
+              </div>
+              <!-- Card body -->
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{book["volumeInfo"]["title"]}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                  {% for author in book["volumeInfo"]["authors"] %} {{author}} {% endfor %}
+                </h6>
+                {% if "publisher" in book["volumeInfo"] %}
+                  <p class="card-text">{{book["volumeInfo"]["publisher"]}}</p>
+                  <p class="card-text">{{book["volumeInfo"]["publishedDate"]}}</p>
+                {% else %}
+                  <p class="card-text"></span>unknown</p> 
+                  <p class="card-text"></span>{{book["volumeInfo"]["publishedDate"]}}</p>
+                {% endif %}
+                {% if book["volumeInfo"]["industryIdentifiers"][0]["type"] == "ISBN_13" %}
+                  <p class="card-text"></span>{{book["volumeInfo"]["industryIdentifiers"][0]["identifier"]}}</p>
+                {% elif book["volumeInfo"]["industryIdentifiers"][1]["type"] == "ISBN_10" %}
+                  <p class="card-text"></span>{{book["volumeInfo"]["industryIdentifiers"][1]["identifier"]}}</p>
+                {% endif %}
+              </div>
+              <!-- Card buttons -->
+              <div class="d-flex justify-content-start align-items-center">
+                <div class="p-2">
+                  <a href="{{book['accessInfo']['webReaderLink']}}" target="_blank"><button class="btn btn-outline-success readingbutton px-5">Leseprobe</button></a>
                 </div>
-                <div class="collapse p-2" id="{{book.id}}">
+                <div class="p-2">
+                  {% if book["volumeInfo"]["industryIdentifiers"][0]["type"] == "ISBN_13" %}
+                    <button class="btn btn-primary" data-bs-toggle="collapse" href="#{{book.id}}" role="button" aria-expanded="false" aria-controls="{{book.id}}" title="Bookshelf hinzufügen"><i class="fa-solid fa-plus"></i></button>
+                  {% elif book["volumeInfo"]["industryIdentifiers"][1]["type"] == "ISBN_10" %}
+                    <button class="btn btn-primary" data-bs-toggle="collapse" href="#{{book.id}}" role="button" aria-expanded="false" aria-controls="{{book.id}}" title="Bookshelf hinzufügen"><i class="fa-solid fa-plus"></i></button>
+                  {% endif %}
+                </div>
+              </div> 
+        {% endif %} 
+              <!-- Collapsable Card -->
+              <div class="collapse p-2" id="{{book.id}}">
                   <div class="card card-body">
                     <form method="POST" action="{{url_for('bookshelves.add_isbn')}}">
                       {{form_3.hidden_tag()}}
-                      {{form_3.isbn.label()}}{{form_3.isbn(value=isbn)}}
-                      {{form_3.bookshelf.label()}}{{form_3.bookshelf()}}
-                      {{form_3.submit(class="btn btn-primary", value="Hinzufügen")}}
+                      {% set isbn_13 = book["volumeInfo"]["industryIdentifiers"][0]["identifier"] %}
+                      {% set isbn_10 = book["volumeInfo"]["industryIdentifiers"][1]["identifier"] %}
+                        <div class="form-outline pb-2">
+                        {% if isbn_13 %}
+                          {{form_3.isbn(value=isbn_13)}}
+                        {% else %}
+                          {{form_3.isbn(value=isbn_10)}}
+                        {% endif %}
+                        </div>
+                        <div class="form-outline pb-2">
+                          {{form_3.bookshelf()}}
+                        </div>
+                        <div class="form-outline">
+                          {{form_3.submit(class="btn btn-primary px-5", value="Hinzufügen")}}
+                        </div>
                     </form>
                   </div>
-                  {% endif %} 
-                  {% endfor %} 
-                </div>
-                </div>
-              </div>  
-              {% endif %} 
-            {% endfor %}
+              </div>
+
+            </div>
           </div>
-        </div>
-
-
-{% else %}
-    <div class="container">
-      <div class="row">
-        <p>Keine Suchergebnisse</p>
-      </div>
+      {% endfor %}
+                   
     </div>
-  </section>
+  </div>
+
+<!-- Keine Suchergebnisse -->
+{% else %}
+  <div class="container pb-5">
+    <div class="row pb-5">
+      <p>Keine Suchergebnisse</p>
+    </div>
+  </div>
+
 {% endif %} 
+
+</section>
 
 {% endblock %}

@@ -3,7 +3,7 @@
 --------------------------------------------------------------*/
 body {
   font-family: "Open Sans", sans-serif;
-  color: #212529;
+  color: #444444;
 }
 
 a {
@@ -22,6 +22,7 @@ h3,
 h4,
 h5,
 h6 {
+  color:#747474;
   font-family: 'Crimson Text', serif;
 }
 
@@ -69,7 +70,7 @@ h6 {
 }
 
 .city-names i, a {
-  color: #212529;
+  color: #747474;
   margin: 0 3px;
 }
 
@@ -115,6 +116,10 @@ h6 {
   background-color: #965ada;
 }
 
+.tag-Coffe.Place {
+  background-color: #c2731a;
+}
+
 .card-body {
   display: flex;
   flex-direction: column;
@@ -124,10 +129,18 @@ h6 {
   min-height: auto;
 }
 
+.card-title {
+  color: #0A0708;
+  font-style: bold;
+  font-size: 22px;
+  margin-top: 5px;
+}
+
 .card-text{
+  color: #747474;
   padding-top: 5px;
   padding-bottom: 5px;
-  font-size: 18px;
+  font-size: 16px;
   margin: 0 0 10px;
 }
 
@@ -153,11 +166,17 @@ h6 {
 --------------------------------------------------------------*/
 .store {
   padding: 0.5rem 0 2rem 0;
+  color: #747474;
 }
 
 .store .card {
   padding: 3px 10px 7px 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  color: #747474;
+}
+
+.list-group-item .card-body {
+  padding-left: 0;
 }
 
 .carousel img {
@@ -198,7 +217,11 @@ h6 {
   color: #eb5d1e;
 }
 
-
+@media (max-width: 1000px) {
+  .store div {
+    padding-top: 10px !important;
+  }
+}
 /*--------------------------------------------------------------
 # Books page
 --------------------------------------------------------------*/
@@ -277,6 +300,25 @@ h6 {
 
 .result .fa-robot {
   color:#ef7f4d;
+}
+
+/*--------------------------------------------------------------
+# Pagination
+--------------------------------------------------------------*/
+.page-link {
+  background-color: #eb5d1e;
+  color: #fff;
+}
+
+.page-link:hover {
+  border-color: #ef7f4d;
+  color: #eb5d1e;
+}
+
+.page-item.disabled .page-link{
+  border-color: #ef7f4d;
+  background-color: #fff;
+  color: #eb5d1e;
 }
 
 /*--------------------------------------------------------------

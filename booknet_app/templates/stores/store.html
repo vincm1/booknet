@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 
 <!-- ======= Button Section ======= -->
-<section class="store">
+<section class="store py-5">
   <div class="container">
     <div class="row">
       <div class="col-lg-8">
@@ -103,7 +103,7 @@
             <li class="list-group-item">
               <div class="contact">
                 <i class="fa-solid fa-phone"></i>
-                <p>089/05959</p>
+                <p class="mx-2">089/05959</p>
               </div>
             </li>
           </ul>
@@ -121,7 +121,7 @@
               ></iframe>
             </li>
             <li class="list-group-item">
-              <div class="contact"><i class="fa-solid fa-location-dot"></i>{{store.adresse}}, {{store.city}}</div>
+              <div class="contact"><i class="fa-solid fa-location-dot"></i><p class="mx-2">{{store.adresse}}, {{store.city}}</p></div>
             </li>
           </ul>
         </div>
