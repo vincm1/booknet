@@ -1,0 +1,33 @@
+{% extends "base.html" %} 
+
+{% block content %} 
+<section class="add-section">
+    <div class="container-fluid">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">+</button>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Store hinzufügen</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{url_for('stores.add_store')}}" method="POST">
+                <div class="modal-body">
+                    {{form.hidden_tag()}}
+                    <a href="{{url_for('bookshelves.bookshelf', bookshelf_id=bookshelf_id)}}">{{form.storename.label}}{{form.storename()}}</a><br>
+                    <p>{{form.adresse.label}}{{form.adresse()}}</p><br>
+                    <p>{{form.beschreibung.label}}{{form.beschreibung()}}</p>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success" action="{{url_for('stores.add_store')}}">Store hinzufügen</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

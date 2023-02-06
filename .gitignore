@@ -1,7 +1,7 @@
 booknetenv/
 
+*__pycache__/
 *.pyc
-__pycache__/
 
 instance/
 
@@ -16,3 +16,5 @@ build/
 config.py
 
 .vscode/
+
+booknet_app/static/images/

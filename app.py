@@ -7,4 +7,4 @@ if __name__ == "__main__":
         #     user1 = User(username="Maxmuster", email="max@web.de", passwort="helloworld")
         #     db.session.add(user1)
         #     db.session.commit()
-    app.run(debug=True)
+    app.run(debug=True, threaded=True)

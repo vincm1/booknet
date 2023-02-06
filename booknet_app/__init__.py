@@ -30,6 +30,7 @@ from booknet_app.books.routes import books
 from booknet_app.stores.routes import stores
 from booknet_app.bookshelves.routes import bookshelves
 from booknet_app.error_pages.handlers import error_pages
+from booknet_app.api.store_api import store_api
 
 ##### Register all blueprints #####
 app.register_blueprint(core)
@@ -38,4 +39,4 @@ app.register_blueprint(books)
 app.register_blueprint(stores)
 app.register_blueprint(bookshelves)
 app.register_blueprint(error_pages)
-
+app.register_blueprint(store_api)
