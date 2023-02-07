@@ -23,7 +23,7 @@ def user_login():
             login_user(user, remember=False)
             return redirect(url_for('stores.all_stores'))
         else:
-            flash("Falsche Anmeldedaten!")    
+            flash("Falsche Anmeldedaten!", "danger")    
     
     return render_template('users/login.html', form=form)
 
@@ -38,7 +38,7 @@ def signup_user():
         db.session.add(user)
         db.session.commit()
         
-        flash('Erfolgreich angemeldet')
+        flash('Erfolgreich angemeldet', 'success')
         return redirect(url_for('users.user_login'))
 
     return render_template('users/signup.html', form=form)
@@ -85,5 +85,6 @@ def user_stores(username):
 def user_bookshelves(username):
     form = BookshelfForm()
     user = User.query.filter_by(username=username).first_or_404()
-    bookshelves = Bookshelf.query.filter_by(user=user).order_by(Bookshelf.name.desc())
+    page = request.args.get('page', 1, type=int)
+    bookshelves = Bookshelf.query.filter_by(user=user).order_by(Bookshelf.name.desc()).paginate(page=page, per_page=12)
     return render_template('users/user_bookshelves.html', bookshelves=bookshelves, user=user, form=form)

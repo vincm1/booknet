@@ -15,17 +15,20 @@ bookshelves = Blueprint('bookshelves', __name__)
 
 ### API Google books Call function with multiple ISBNs  ###
 def search_books_by_isbn(isbns):
-    try:
+        books = []
         # Call the Books API to search for multiple books by ISBN
-        isbns_string = ",".join(isbns)
-        results = service.volumes().list(
-            q=f"isbn:{isbns_string}",
-        ).execute()
+        for isbn in isbns:
+            try:
+                print(isbn)
+                result = service.volumes().list(
+                    q=f"isbn:{isbn}",
+                ).execute()
 
-        return results["items"]
-    except HttpError as error:
-        print(f'An error occurred: {error}')
-
+                books.append(result['items'])
+            except HttpError as error:
+                print(f'An error occurred: {error}')
+        
+        return books
 
 @bookshelves.route('/add_bookshelf', methods=['GET', 'POST'])
 @login_required
@@ -46,7 +49,9 @@ def add_bookshelf():
 def bookshelf(bookshelf_id):
     bookshelf = Bookshelf.query.get_or_404(bookshelf_id)
     form = BookshelfForm()
-    return(render_template('bookshelves/bookshelf.html', bookshelf=bookshelf, bookeshelf_id=bookshelf.id, form=form, type_isbn=type(bookshelf.isbns)))
+    isbns = bookshelf.isbns
+    books = search_books_by_isbn(isbns)
+    return(render_template('bookshelves/bookshelf.html', bookshelf=bookshelf, bookeshelf_id=bookshelf.id, form=form, books=books, type_isbn=type(isbns)))
 
 @login_required
 @bookshelves.route('/bookshelf/<int:bookshelf_id>/edit', methods=['GET', 'POST'])

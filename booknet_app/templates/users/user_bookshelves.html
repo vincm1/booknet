@@ -38,27 +38,45 @@
   </div>
 </section>
  
-<section class="content-section">
+<section class="bookshelves pt-3">
   <div class="container">
-    <div class="row">
-        {% for bookshelf in bookshelves %} 
-        <div class="column col-lg-3 col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="static/images/book_store.jpg" alt="Card image cap">
-                <div class="card-body">
-                  <h5 class="card-title"><a href="{{url_for('bookshelves.bookshelf', bookshelf_id=bookshelf.id, username=user.username)}}">{{ bookshelf.name }}</a></h5>
-                  <p class="card-text">{{bookshelf.beschreibung}}</p>
-                  {% if bookshelf.isbns %}
-                    {% for isbn in bookshelf.isbns %}
-                      <p class="card-text">{{ isbn }}</p>
-                    {% endfor %}
-                  {% endif %}
-                </div>
+    <div class="row pb-5">
+      {% for bookshelf in bookshelves %}  
+        <div class="col-12 col-lg-3 col-md-6 col-sm-12 mb-3 d-flex align-items-stretch">
+          <div class="card h-100 w-100">
+            <a href="{{url_for('bookshelves.bookshelf', bookshelf_id=bookshelf.id)}}"><img src="{{ url_for('static', filename='images/book.jpg')}}" class="card-img-top" alt="Book image"></a>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title"><a href="{{url_for('bookshelves.bookshelf', bookshelf_id=bookshelf.id)}}">{{ bookshelf.name }}</a></h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                {{bookshelf.beschreibung}}
+              </h6>
             </div>
-        </div> 
-        {% endfor %}   
+            <div class="user-buttons d-flex align-items-start p-2">
+              <button type="button" class="btn btn-outline-success readingbutton me-2" data-toggle="modal" data-target="#">
+                Bearbeiten
+              </button>
+              <form action="{{url_for('bookshelves.delete_bookshelf', bookshelf_id=bookshelf.id)}}" method="POST"><button class="btn btn-danger" type="submit">Löschen</button></form>
+            </div>
+          </div>  
+        </div>
+      {% endfor %}
     </div>
-  </div>  
+  </div>
 </section>
+
+
+<!-- Pagination Links-->
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% for page_num in bookshelves.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+       {% if bookshelves.page == page_num %}
+       <li class="page-item disabled">
+         <a class="page-link" href="{{ url_for('users.user_bookshelves', page=page_num, username=user.username) }}">{{ page_num }}</a></li>
+       </li>
+       {% else %}
+         <li class="page-item"><a class="page-link" href="{{ url_for('users.user_bookshelves', page=page_num) }}">{{ page_num }}</a></li>
+       {% endif %}
+   {% endfor %}
+ </nav>
   
 {% endblock %}

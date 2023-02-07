@@ -62,7 +62,7 @@
               </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
-            {{form.submit(class="btn btn-primary", placeholder="Store hinzufügen!")}}
+            {{form.submit(class="btn btn-primary", placeholder="Store hinzufügen")}}
           </div>
         </form>
         </div>
@@ -79,7 +79,7 @@
     <div class="row pb-5">
       {% for store in stores %} 
         <div class="col-12 col-lg-3 col-md-6 col-sm-12 mb-3 d-flex align-items-stretch">
-              <div class="card h-100 w-100">
+          <div class="card h-100 w-100">
                 <a href="{{url_for('stores.all_stores')}}"><img src="{{ url_for('static', filename='store_pics/' + store.store_bild )}}" class="card-img-top" alt="Book image"></a>
               <div class="card-body d-flex flex-column">
                   <span class="tag tag-{{store.category}}">{{store.category}}</span>{% if (time_now - store.creation_date).days > 1 %}
@@ -103,10 +103,12 @@
                     <small>gerade</small>
                     {% endif %} 
                 </div>
-                <div class="user-buttons p-2 ">
-                  <button type="button" class="btn btn-outline-success readingbutton data-toggle="modal" data-target="#editStoreModal">
-                    Bearbeiten
-                  </button>
+                <div class="user-buttons d-flex align-items-start p-2">
+                      <button type="button" class="btn btn-outline-success readingbutton me-2" data-toggle="modal" data-target="#editStoreModal">
+                        Bearbeiten
+                      </button>
+                      <form action="{{url_for('stores.delete_store', store_id=store.id)}}" method="POST"><button class="btn btn-danger" type="submit">Löschen</button></form>
+                </div>  
                   <!-- Modal -->
                   <div class="modal fade" id="editStoreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -154,17 +156,14 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-light" data-dismiss="modal">Abbrechen</button>
-                          {{form.submit(class="btn btn-primary", value="Store updaten!")}}
+                          {{form.submit(class="btn btn-primary", value="Store updaten")}}
                         </div>
                       </form>
                       </div>
                     </div>
                   </div>
-                  <a href="{{url_for('stores.delete_store', store_id=store.id)}}"><button class="btn btn-outline-danger">Löschen</button></a>
               </div> 
-              </div>
-            
-        </div>  
+          </div> 
       {% endfor %}
     </div>
   </div>
