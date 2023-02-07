@@ -533,12 +533,21 @@
           <p>
             Verpasse keine Neuigkeiten mehr von Booknet!
           </p>
-          <form action="" method="post">
+          <form action="" method="POST">
             <input type="email" name="email" /><input
               type="submit"
               value="Anmelden"
             />
           </form>
+          {% if status == 400 %}
+            <div class="alert alert-danger pt-2" role="alert">
+              Email bereits hinterlegt!
+            </div>
+          {% else %}
+            <div class="alert alert-success pt-2" role="alert">
+              Erfolgreich angemeldet!
+            </div>
+          {% endif %}
         </div>
       </div>
     </div>

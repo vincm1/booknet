@@ -70,16 +70,16 @@
 
     <!-- ======= Footer ======= -->
     <footer id="footer">
-    <div class="footer-newsletter">
+    <div class="footer-newsletter" id="footernewsletter">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-6">
             <h4>Unser Newsletter</h4>
             <p>
-              Lorem Ipsum Dolor Lorem Ipsum Dolor.
+              Verpasse keine Neuigkeiten mehr von Booknet!
             </p>
-            <form action="" method="post">
-              <input type="email" name="email" /><input
+            <form action="{{url_for('core.newsletter')}}" method="post">
+              <input type="email" name="email" onlclick="refreshDiv('footernewsletter')"/><input
                 type="submit"
                 value="Anmelden"
               />
