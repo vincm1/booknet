@@ -3,6 +3,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_mail import Mail
+from config import gmail, gmail_pw
 
 app = Flask(__name__)
 
@@ -22,6 +24,14 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 login_manager.login_view = "users.user_login"
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # Replace with your SMTP server
+app.config['MAIL_PORT'] = 587  # Replace with your SMTP port
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = gmail 
+app.config['MAIL_PASSWORD'] = gmail_pw
+
+mail = Mail(app)
 
 #### Import all Blueprints ####
 from booknet_app.core.routes import core

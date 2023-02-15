@@ -1,12 +1,14 @@
 from datetime import datetime
 from flask import Flask, Blueprint, render_template, flash, request, redirect, url_for
 from flask_login import current_user, login_required
-from booknet_app import db
+from booknet_app import db, mail
 from booknet_app.models import Store
 from booknet_app.stores.forms import StoreForm, BookStoreForm
 from booknet_app.picture_handler import save_store_picture
-from config import twilio_account, twilio_token
+from config import twilio_account, twilio_token, gmail
 from twilio.rest import Client
+from flask_mail import Message
+
 
 stores = Blueprint('stores', __name__)
 
@@ -34,14 +36,10 @@ def store(store_id):
     form = StoreForm()
     form_2 = BookStoreForm()
     
-    if form_2.validate_on_submit() and current_user.phone:
-        message = twilio_client.messages.create(
-            body=f"Deine Buchung im {store.storename}",
-            from_="+1500555123",
-            to=current_user.phone
-        )
-        
-        print(message.sid)
+    if form_2.validate_on_submit():
+        message = Message(f'Buchungsbestätigung für {store.storename} ', sender=gmail, recipients=[current_user.email])
+        message.body = f"Lieber {current_user.username}, gerne bestätigen wir dir deine Buchung am {form_2.datum.data}, um {form_2.uhrzeit.data} für {form_2.people.data} Personen!"
+        mail.send(message)
         
         return redirect(url_for('stores.all_stores'))
     
