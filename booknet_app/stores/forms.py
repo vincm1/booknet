@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, SelectField, IntegerField
+from wtforms import StringField, SubmitField, TextAreaField, SelectField, IntegerField, DateField, TimeField
 from wtforms import ValidationError
 from flask_wtf.file import FileField, FileAllowed
 from wtforms.validators import DataRequired
@@ -21,3 +21,8 @@ class StoreForm(FlaskForm):
     beschreibung = TextAreaField('Was macht den Store unique?')
     submit = SubmitField()
 
+class BookStoreForm(FlaskForm):
+    people = IntegerField('Personen', validators=[DataRequired()])
+    datum = DateField('Datum', format="%Y-%m-%d", validators=[DataRequired()])
+    uhrzeit = TimeField('Uhrzeit', format="%H:%M")
+    submit = SubmitField('Platz buchen')

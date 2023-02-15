@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, EmailField, SubmitField, ValidationError
 from flask_wtf.file import FileField, FileAllowed
-from wtforms.validators import DataRequired, EqualTo, Length, Email, Regexp
+from wtforms.validators import DataRequired, EqualTo, Length, Email, Regexp, Optional
 from booknet_app.models import User
 
 #### Checks: Nutzername & Email bereits vorhanden. ####
@@ -30,7 +30,8 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class EditUserForm(FlaskForm):
-    username = StringField('Nutzername', validators=[check_username])
-    email = EmailField('Email', validators=[Email(), check_email])
-    profile_pic = FileField('Profilbild', validators=[FileAllowed(['jpg', 'png'])])
+    username = StringField('Nutzername', validators=[Optional(), check_username])
+    email = EmailField('Email', validators=[Email(), Optional(), check_email])
+    phone = StringField('Telefon', validators=[Optional(), Regexp("^\+\d{1,3}\d{3,}$", message='Keine Telefonnummer')])
+    profile_pic = FileField('Profilbild', validators=[Optional(), FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Profil speichern')

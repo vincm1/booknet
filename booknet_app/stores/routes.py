@@ -3,10 +3,14 @@ from flask import Flask, Blueprint, render_template, flash, request, redirect, u
 from flask_login import current_user, login_required
 from booknet_app import db
 from booknet_app.models import Store
-from booknet_app.stores.forms import StoreForm
+from booknet_app.stores.forms import StoreForm, BookStoreForm
 from booknet_app.picture_handler import save_store_picture
+from config import twilio_account, twilio_token
+from twilio.rest import Client
 
 stores = Blueprint('stores', __name__)
+
+twilio_client = Client(twilio_account, twilio_token)
 
 @login_required
 @stores.route('/stores', methods=['GET', 'POST'])
@@ -26,8 +30,23 @@ def all_stores():
 def store(store_id):
     '''df'''
     store = Store.query.get_or_404(store_id)
+    
     form = StoreForm()
-    return(render_template('stores/store.html', store=store, store_id=store_id, form=form))
+    form_2 = BookStoreForm()
+    
+    if form_2.validate_on_submit() and current_user.phone:
+        message = twilio_client.messages.create(
+            body=f"Deine Buchung im {store.storename}",
+            from_="+1500555123",
+            to=current_user.phone
+        )
+        
+        print(message.sid)
+        
+        return redirect(url_for('stores.all_stores'))
+    
+    
+    return(render_template('stores/store.html', store=store, store_id=store_id, form=form, form_2=form_2))
 
 @login_required
 @stores.route('/add_store', methods=['GET', 'POST'])

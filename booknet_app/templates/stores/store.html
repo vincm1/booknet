@@ -65,34 +65,31 @@
 
       <div class="col-lg-4">
         <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Leseplatz buchen</h5>
-            <p class="card-text"></p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              Personen:
-              <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-              </select>
-            </li>
-            <li class="list-group-item">
-              <label for="startDate">Datum:</label>
-              <input id="startDate" class="form-control" type="date" />
-            </li>
-            <li class="list-group-item">
-              <label for="startTime">Uhrzeit:</label>
-              <input id="startTime" class="form-control" type="time" />
-            </li>
-          </ul>
-          <div class="card-body text-center">
-            <button href="#" class="btn btn-primary btn-block">
-              Platz buchen
-            </button>
-          </div>
+          <form action="" method="POST">
+            {{form_2.hidden_tag()}}
+            <div class="card-body">
+              <h5 class="card-title">Leseplatz buchen</h5>
+              <p class="card-text"></p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                Personen:
+                {{form_2.people(class="form-control")}}
+              </li>
+              <li class="list-group-item">
+                <label>Datum:</label>
+                {{form_2.datum(class="form-control", type="date")}}
+              </li>
+              <li class="list-group-item">
+                <label for="startTime">Uhrzeit:</label>
+                {{form_2.uhrzeit(class="form-control", type="time")}}
+              </li>
+            </ul>
+            <div class="card-body text-center">
+              {{form_2.submit(class="btn btn-primary btn-block")}}
+            </div>
+          </form>
+          
         </div>
         <br />
         <div class="card">

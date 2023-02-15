@@ -117,4 +117,15 @@ def add_isbn():
         db.session.commit()
         
         return redirect(url_for('users.user_bookshelves', username=current_user.username))
-    
+
+@login_required
+@bookshelves.route('/delete_isbn', methods=['GET', 'POST'])
+def delete_isbn(bookshelf_id):
+
+    if form_validate_on_submit():
+        
+        
+        print(bookshelf_id)
+        #db.session.commit()
+            
+    return redirect(request.referrer)

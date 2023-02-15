@@ -7,7 +7,7 @@
     <div class="card">
       <div class="container py-2">
         <div class="card-title row pt-2">
-          <a href="">{{ bookshelf.name }}</a></h5><br>
+          <a href="">{{ bookshelf.name }} {{ bookshelf.id}} </a></h5><br>
         </div>
         <div class="card-subtitle row py-2">
           <a href="">{{ bookshelf.beschreibung }}</a></h5><br>
@@ -27,15 +27,15 @@
                   <p>{{book[0]['volumeInfo']['publisher']}}, {{book[0]['volumeInfo']['publishedDate']}}</p>
                   <p>{{book[0]['volumeInfo']['pageCount']}}</p>
                 </div>
-                <div class="user-buttons d-flex align-items-start p-2">
-                  <button type="button" class="btn btn-outline-success readingbutton me-2" data-toggle="modal" data-target="#">
-                    Bearbeiten
-                  </button>
-                  <form action="" method="POST"><button class="btn btn-danger" type="submit">Löschen</button></form>
+                <div class="user-buttons d-flex align-items-start ps-2 pb-2">
+                  <form action="{{url_for('bookshelves.delete_isbn', bookshelf_id=bookshelf.id)}}" method="POST"><button class="btn btn-danger" type="submit">Löschen</button></form>
                 </div>
               </div>  
             </div>
           {% endfor %}
+          <div class="user-buttons d-flex align-items-start ps-2 pb-2">
+            <form action="{{url_for('bookshelves.delete_isbn', bookshelf_id=bookshelf.id)}}" method="POST"><button class="btn btn-danger" type="submit">Löschen</button></form>
+          </div>
         </div>
       </div>
     </div>

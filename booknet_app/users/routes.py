@@ -61,6 +61,7 @@ def edit_user():
         
         current_user.username = form.username.data
         current_user.email = form.email.data
+        current_user.phone = form.phone.data
         
         db.session.commit()
         flash('Profil erfolgreich geändert!')
@@ -68,7 +69,8 @@ def edit_user():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-
+        form.phone.data = current_user.phone
+        
     profile_picture = url_for('static', filename='profile_pics/' + current_user.profile_picture)
     return render_template('users/account.html', form=form, profile_picture=profile_picture)
 
